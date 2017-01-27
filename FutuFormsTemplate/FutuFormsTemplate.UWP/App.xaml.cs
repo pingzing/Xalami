@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FutuFormsTemplate.UWP.Localization;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace FutuFormsTemplate.UWP
         /// </summary>
         public App()
         {
+            //Resource hackery for .resx files. See WindowsRuntimeResourceManager for details.
+            WindowsRuntimeResourceManager.PatchResourceManagerForResource(typeof(AppResources.Strings));
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

@@ -1,5 +1,7 @@
 ﻿{
   "dependencies": {
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "MvvmLightLibs": "5.3.0",
     "Xamarin.Forms": "2.3.3.180"
   },
   "frameworks": {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FutuFormsTemplate.WinPhone.Localization;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,6 +34,9 @@ namespace FutuFormsTemplate.WinPhone
         /// </summary>
         public App()
         {
+            //Resource hackery for .resx files. See WindowsRuntimeResourceManager for details.
+            WindowsRuntimeResourceManager.PatchResourceManagerForResource(typeof(AppResources.Strings));
+
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
         }
