@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 
-namespace FutuFormsTemplate.UWP.Localization
+namespace $safeprojectname$.UWP.Localization
 {
     /* This class exists due to a WinRT resource manager limitation that only manifests on physical devices,
      * in release mode. The issue is that WinRT must use ResourceLoader rather than ResourceManager due to
