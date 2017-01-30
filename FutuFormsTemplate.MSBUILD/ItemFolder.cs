@@ -5,7 +5,7 @@ namespace FutuFormsTemplate.MSBUILD
     /// <summary>
     /// Used to keep track of the Item folders during conversion in vstemplate
     /// </summary>
-    internal class ItemFolder
+    public class ItemFolder
     {
         internal ItemFolder()
         {

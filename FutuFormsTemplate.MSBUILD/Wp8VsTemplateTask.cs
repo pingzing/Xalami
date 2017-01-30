@@ -1,23 +1,16 @@
-﻿using System;
+﻿using FutuFormTemplate.MSBUILD;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
-using FutuFormTemplate.MSBUILD;
+using System.Threading.Tasks;
 
 namespace FutuFormsTemplate.MSBUILD
 {
-    /// <summary>
-    /// A custom MSBuild Task that generates a Project Template ZIP file
-    /// and copies to the specified location. This is used to covert the existing
-    /// Template 10 projects into project templates for deployment via the
-    /// the VSIX.
-    /// </summary>
-    public class UwpVsTemplateTask : FutuFormsTemplateTask
-    {     
-        /// <summary>
-        /// Executes this instance.
-        /// </summary>
-        /// <returns></returns>
+    public class Wp8VsTemplateTask : FutuFormsTemplateTask
+    {
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath)
         {
             CsprojFile = csprojPath;
@@ -25,7 +18,7 @@ namespace FutuFormsTemplate.MSBUILD
             ProjectDescription = projectDescription;
             PreviewImagePath = previewImagePath;
 
-            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "UWP");
+            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "WinPhone");
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);
@@ -37,16 +30,12 @@ namespace FutuFormsTemplate.MSBUILD
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, true);
+            OperateOnCsProj(tempFolder, CsprojFile, false);
             OperateOnManifest(Path.Combine(tempFolder, "Package.appxmanifest"));
-            CopyEmbeddedFilesToOutput(tempFolder);
+            CopyEmbeddedFilesToOutput(tempFolder);            
 
-            string jsonProj = Path.Combine(tempFolder, Constants.PROJECTJSON);
-            AddMvvmLightNuget(jsonProj);
-            AddXamarinFormsNuget(jsonProj);     
-            
             return true;
-        }       
+        }
 
         /// <summary>
         /// Operates the on manifest.
@@ -74,46 +63,7 @@ namespace FutuFormsTemplate.MSBUILD
             manifestText = ReplaceIdentityNode(manifestText);
 
             FileHelper.WriteFile(manifestFile, manifestText);
-        }
-
-        //todo: add xamarin forms and MVVM Light
-        /// <summary>
-        /// Adds the template10 nuget.
-        /// </summary>
-        /// <param name="jsonProj">The json proj.</param>
-        public void AddMvvmLightNuget(string jsonProj)
-        {
-            string txt = FileHelper.ReadFile(jsonProj);
-
-            if (txt.Contains(Constants.MVVMLIGHTPROJECTJSON))
-            {
-                return;
-            }
-
-            int startIndex = txt.IndexOf(@"""dependencies"": {");
-
-            string mvvmLightText = Constants.MVVMLIGHTPROJECTJSON;
-            int insertIndex = txt.IndexOf("},", startIndex) - 4;
-            txt = txt.Insert(insertIndex, "," + Environment.NewLine + mvvmLightText);
-            FileHelper.WriteFile(jsonProj, txt);
-        }
-
-        public void AddXamarinFormsNuget(string jsonProj)
-        {
-            string txt = FileHelper.ReadFile(jsonProj);
-
-            if (txt.Contains(Constants.XAMARINFORMSPROJECTJSON))
-            {
-                return;
-            }
-
-            int startIndex = txt.IndexOf(@"""dependencies"": {");
-
-            string xamFormsText = Constants.XAMARINFORMSPROJECTJSON;
-            int insertIndex = txt.IndexOf("}", startIndex) - 4;
-            txt = txt.Insert(insertIndex, "," + Environment.NewLine + xamFormsText);
-            FileHelper.WriteFile(jsonProj, txt);
-        }                                         
+        }        
 
         /// <summary>
         /// Replaces the identity node.
@@ -150,15 +100,17 @@ namespace FutuFormsTemplate.MSBUILD
             string xml = FileHelper.ReadFile(CsprojFile);
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
-            xml = Constants.UWPVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
+            xml = Constants.WP8TEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
             xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);
             xml = xml.Replace(Constants.TEMPLATEDESCRIPTION, ProjectDescription);
             string previewFileName = Path.GetFileName(PreviewImagePath);
             xml = xml.Replace(Constants.PREVIEWIMAGEFILE, previewFileName);
 
-            string filePath = Path.Combine(tempFolder, Constants.UWPVSTEMPLATENAME);
+            string filePath = Path.Combine(tempFolder, Constants.WP8TEMPLATENAME);
 
             FileHelper.WriteFile(filePath, xml);
         }
+
+
     }
 }

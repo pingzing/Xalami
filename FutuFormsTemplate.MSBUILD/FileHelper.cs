@@ -6,7 +6,7 @@ namespace FutuFormsTemplate.MSBUILD
     {
 
         /// <summary>
-        /// Deletes the key.
+        /// Deletes all .pfx files in the given folder.
         /// </summary>
         /// <param name="tempFolder">The temporary folder.</param>
         internal static void DeleteKey(string tempFolder)

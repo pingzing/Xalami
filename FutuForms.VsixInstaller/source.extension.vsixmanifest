@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="FutuForms.VsixInstaller.Neil McAlister.236a11fc-545b-40f0-96fe-9e6dc5aee3db" Version="1.0" Language="en-US" Publisher="Futurice" />
+    <DisplayName>FutuForms Template</DisplayName>
+    <Description xml:space="preserve">A Visual Studio template to kickstart creation of a Xamarin Forms project.</Description>
+    <Icon>futulogosmall.png</Icon>
+    <Tags>xamarin, xamarin.forms, c#, csharp, mvvm, template, ios, android, uwp, wp8</Tags>
+  </Metadata>
+  <Installation AllUsers="true">
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\FutuFormsTemplate.zip" />
+  </Assets>
+</PackageManifest>

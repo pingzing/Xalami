@@ -26,117 +26,31 @@ namespace FutuFormsTemplate.MSBUILD
     /// Template 10 projects into project templates for deployment via the
     /// the VSIX.
     /// </summary>
-    public class FutuFormsTemplateTask : Microsoft.Build.Utilities.Task
+    public abstract class FutuFormsTemplateTask
     {
         #region ---- Private Variables ----------------
 
-        private string tempFolder;
-        private ItemFolder topFolder;        
+        protected string tempFolder;
+        protected ItemFolder topFolder;
 
         #endregion
 
-        #region ---- public properties  -------
-        /// <summary>
-        /// Gets or sets the csproj file.
-        /// </summary>
-        /// <value>
-        /// The csproj file.
-        /// </value>
-        [Required]
-        public string CsprojFile { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the zip.
-        /// </summary>
-        /// <value>
-        /// The name of the zip.
-        /// </value>
-        [Required]
-        public string ZipName { get; set; }       
-
-        /// <summary>
-        /// Gets or sets the project description.
-        /// </summary>
-        /// <value>
-        /// The project description.
-        /// </value>
-        [Required]
-        public string ProjectDescription { get; set; }
-
-        /// <summary>
-        /// Gets or sets the preview image path.
-        /// </summary>
-        /// <value>
-        /// The preview image path.
-        /// </value>
-        [Required]
-        public string PreviewImagePath { get; set; }
-
-
-        /// <summary>
-        /// Gets or sets the name of the project friendly.
-        /// </summary>
-        /// <value>
-        /// The name of the project friendly.
-        /// </value>
-        [Required]
-        public string ProjectFriendlyName { get; set; }
-
-
-        /// <summary>
-        /// Gets or sets the source dir.
-        /// </summary>
-        /// <value>
-        /// The source dir.
-        /// </value>
-        [Required]
-        public string SourceDir { get; set; }
-
-        public string TargetDir2 { get; set; }
-
-        /// <summary>
-        /// Gets or sets the target dir.
-        /// </summary>
-        /// <value>
-        /// The target dir.
-        /// </value>
-        public string TargetDir { get; set; }
-
-        #endregion
-
+        public string CsprojFile { get; protected set; }   
+        public string ProjectFriendlyName { get; protected set; }
+        public string ProjectDescription { get; protected set; }
+        public string PreviewImagePath { get; protected set; }
 
         /// <summary>
         /// Executes this instance.
         /// </summary>
         /// <returns></returns>
-        public override bool Execute()
-        {            
-            tempFolder = Path.Combine(TargetDir, Constants.TEMPFOLDER);
-            if (Directory.Exists(tempFolder))
-            {
-                Directory.Delete(tempFolder, true);
-            }
-
-            string projectFolder = Path.GetDirectoryName(CsprojFile);
-            CopyProjectFilesToTempFolder(projectFolder, tempFolder);
-            ReplaceNamespace(tempFolder);
-            FileHelper.DeleteKey(tempFolder);
-            ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile);
-            OperateOnManifest(Path.Combine(tempFolder, "Package.appxmanifest"));
-            CopyEmbeddedFilesToOutput(tempFolder);
-            string jsonProj = Path.Combine(tempFolder, Constants.PROJECTJSON);
-            AddMvvmLightNuget(jsonProj);
-            AddXamarinFormsNuget(jsonProj);     
-            ZipFiles(tempFolder, ZipName, TargetDir);
-            return true;
-        }
+        public abstract bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath);
 
         /// <summary>
         /// Replaces the namespace.
         /// </summary>
         /// <param name="tempFolder">The temporary folder.</param>
-        private void ReplaceNamespace(string tempFolder)
+        protected void ReplaceNamespace(string tempFolder)
         {
             string csprojXml = FileHelper.ReadFile(CsprojFile);
             string rootNamespace = GetExistingRootNamespace(csprojXml);
@@ -150,80 +64,14 @@ namespace FutuFormsTemplate.MSBUILD
                 FileHelper.WriteFile(file, text);
             }
         }
-
-        /// <summary>
-        /// Operates the on manifest.
-        /// </summary>
-        /// <param name="manifestFile">The manifest file.</param>
-        private void OperateOnManifest(string manifestFile)
-        {
-            string manifestText = FileHelper.ReadFile(manifestFile);
-
-            var replacements = new List<FindReplaceItem>();
-
-            replacements.Add(new FindReplaceItem() { Pattern = "<mp:PhoneIdentity(.*?)/>", Replacement = @"<mp:PhoneIdentity PhoneProductId=""$$guid9$$"" PhonePublisherId=""00000000-0000-0000-0000-000000000000""/>" });
-            replacements.Add(new FindReplaceItem() { Pattern = "<DisplayName>(.*?)</DisplayName>", Replacement = @"<DisplayName>$$projectname$$</DisplayName>" });
-            replacements.Add(new FindReplaceItem() { Pattern = "<PublisherDisplayName>(.*?)</PublisherDisplayName>", Replacement = @"<PublisherDisplayName>$$XmlEscapedPublisher$$</PublisherDisplayName>" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"Executable=""(.*?)""", Replacement = @"Executable=""$$targetnametoken$$.exe""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$safeprojectname$$.App""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"DisplayName=""(.*?)""", Replacement = @"DisplayName=""$$projectname$$.App""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$projectname$$.App""" });
-
-            foreach (var item in replacements)
-            {
-                manifestText = Regex.Replace(manifestText, item.Pattern, item.Replacement);
-            }
-
-            manifestText = ReplaceIdentityNode(manifestText);
-
-            FileHelper.WriteFile(manifestFile, manifestText);
-        }
-
-        //todo: add xamarin forms and MVVM Light
-        /// <summary>
-        /// Adds the template10 nuget.
-        /// </summary>
-        /// <param name="jsonProj">The json proj.</param>
-        public void AddMvvmLightNuget(string jsonProj)
-        {
-            string txt = FileHelper.ReadFile(jsonProj);
-
-            if (txt.Contains(Constants.MVVMLIGHTPROJECTJSON))
-            {
-                return;
-            }
-
-            int startIndex = txt.IndexOf(@"""dependencies"": {");
-
-            string mvvmLightText = Constants.MVVMLIGHTPROJECTJSON;
-            int insertIndex = txt.IndexOf("},", startIndex) - 4;
-            txt = txt.Insert(insertIndex, "," + Environment.NewLine + mvvmLightText);
-            FileHelper.WriteFile(jsonProj, txt);
-        }
-
-        public void AddXamarinFormsNuget(string jsonProj)
-        {
-            string txt = FileHelper.ReadFile(jsonProj);
-
-            if (txt.Contains(Constants.XAMARINFORMSPROJECTJSON))
-            {
-                return;
-            }
-
-            int startIndex = txt.IndexOf(@"""dependencies"": {");
-
-            string xamFormsText = Constants.XAMARINFORMSPROJECTJSON;
-            int insertIndex = txt.IndexOf("}", startIndex) - 4;
-            txt = txt.Insert(insertIndex, "," + Environment.NewLine + xamFormsText);
-            FileHelper.WriteFile(jsonProj, txt);
-        }
+        
 
         /// <summary>
         /// Copies the project files to temporary folder.
         /// </summary>
         /// <param name="projectFolder">The project folder.</param>
         /// <param name="tempFolder">The temporary folder.</param>
-        private void CopyProjectFilesToTempFolder(string projectFolder, string tempFolder)
+        protected void CopyProjectFilesToTempFolder(string projectFolder, string tempFolder)
         {
             FileHelper.DirectoryCopy(projectFolder, tempFolder, true);
         }
@@ -232,54 +80,13 @@ namespace FutuFormsTemplate.MSBUILD
         /// Processes the vs template.
         /// </summary>
         /// <param name="tempFolder">The temporary folder.</param>
-        private void ProcessVSTemplate(string tempFolder)
-        {
-            string xml = FileHelper.ReadFile(CsprojFile);
-            string projectName = Path.GetFileName(CsprojFile);
-            string projXml = GetProjectNode(xml, projectName);
-            xml = Constants.UWPVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
-            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);
-            xml = xml.Replace(Constants.TEMPLATEDESCRIPTION, ProjectDescription);
-            string previewFileName = Path.GetFileName(PreviewImagePath);
-            xml = xml.Replace(Constants.PREVIEWIMAGEFILE, previewFileName);
-
-            string filePath = Path.Combine(tempFolder, Constants.UWPVSTEMPLATENAME);
-
-            FileHelper.WriteFile(filePath, xml);
-        }
-
-        /// <summary>
-        /// Zips the files.
-        /// </summary>
-        /// <param name="tempFolder">The temporary folder.</param>
-        /// <param name="zipName">Name of the zip.</param>
-        /// <param name="targetDir">The target dir.</param>
-        private void ZipFiles(string tempFolder, string zipName, string targetDir)
-        {
-            string zipFileName = Path.Combine(targetDir, ZipName);
-
-            if (File.Exists(zipFileName))
-            {
-                File.Delete(zipFileName);
-            }
-            ZipFile.CreateFromDirectory(tempFolder, zipFileName);
-
-            //-- now second one...
-            if (!string.IsNullOrWhiteSpace(TargetDir2))
-            {
-                string zipFileName2 = Path.Combine(TargetDir2, ZipName);
-                File.Copy(zipFileName, zipFileName2, true);
-            }
-
-            //-- clean up the temporary folder
-            Directory.Delete(tempFolder, true);
-        }
+        protected abstract void ProcessVSTemplate(string tempFolder);      
 
         /// <summary>
         /// Copies the embedded files to output.
         /// </summary>
         /// <param name="targetDir">The target dir.</param>
-        private void CopyEmbeddedFilesToOutput(string targetDir)
+        protected void CopyEmbeddedFilesToOutput(string targetDir)
         {
             string[] names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
@@ -304,7 +111,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// </summary>
         /// <param name="tempFolder">The temporary folder.</param>
         /// <param name="csprojFile">The csproj file.</param>
-        private void OperateOnCsProj(string tempFolder, string csprojFile)
+        protected void OperateOnCsProj(string tempFolder, string csprojFile, bool isWindows = false)
         {
             string fileName = Path.GetFileName(CsprojFile);
             string targetPath = Path.Combine(tempFolder, fileName);
@@ -314,10 +121,16 @@ namespace FutuFormsTemplate.MSBUILD
 
             var replacements = new List<FindReplaceItem>();
 
-            replacements.Add(new FindReplaceItem() { Pattern = @"<PackageCertificateKeyFile>(.*?)</PackageCertificateKeyFile>", Replacement = @"<PackageCertificateKeyFile>$$projectname$$_TemporaryKey.pfx</PackageCertificateKeyFile>" });
+            if (isWindows)
+            {
+                replacements.Add(new FindReplaceItem() { Pattern = @"<PackageCertificateKeyFile>(.*?)</PackageCertificateKeyFile>", Replacement = @"<PackageCertificateKeyFile>$$projectname$$_TemporaryKey.pfx</PackageCertificateKeyFile>" });
+            }
             replacements.Add(new FindReplaceItem() { Pattern = "<RootNamespace>(.*?)</RootNamespace>", Replacement = "<RootNamespace>$$safeprojectname$$</RootNamespace>" });
             replacements.Add(new FindReplaceItem() { Pattern = "<AssemblyName>(.*?)</AssemblyName>", Replacement = "<AssemblyName>$$safeprojectname$$</AssemblyName>" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"<None Include=""(.*?)_TemporaryKey.pfx"" />", Replacement = @"<None Include=""$$projectname$$_TemporaryKey.pfx"" />" });
+            if (isWindows)
+            {
+                replacements.Add(new FindReplaceItem() { Pattern = @"<None Include=""(.*?)_TemporaryKey.pfx"" />", Replacement = @"<None Include=""$$projectname$$_TemporaryKey.pfx"" />" });
+            }
             replacements.Add(new FindReplaceItem() { Pattern = @"<ProjectGuid>(.*?)</ProjectGuid>", Replacement = @"<ProjectGuid>$guid1$</ProjectGuid>" });
 
 
@@ -336,7 +149,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// </summary>
         /// <param name="csprojxml">The csprojxml.</param>
         /// <returns></returns>
-        private string GetExistingRootNamespace(string csprojxml)
+        protected string GetExistingRootNamespace(string csprojxml)
         {
             XDocument xdoc;
             using (StringReader sr = new StringReader(csprojxml))
@@ -355,7 +168,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// <param name="findText">The find text.</param>
         /// <param name="csprojText">The csproj text.</param>
         /// <returns></returns>
-        private string RemoveItemNodeAround(string findText, string csprojText)
+        protected string RemoveItemNodeAround(string findText, string csprojText)
         {
             if (!csprojText.Contains(findText))
             {
@@ -372,37 +185,7 @@ namespace FutuFormsTemplate.MSBUILD
             firstHalf = csprojText.Substring(0, start);
             lastHalf = csprojText.Substring(end + 12);
             return firstHalf + lastHalf;
-        }
-
-        /// <summary>
-        /// Replaces the identity node.
-        /// </summary>
-        /// <param name="manifestText">The manifest text.</param>
-        /// <returns></returns>
-        private string ReplaceIdentityNode(string manifestText)
-        {
-            string findText = @"<Identity";
-            if (!manifestText.Contains(findText))
-            {
-                return manifestText;
-            }
-
-            string identityReplacementText = @"<Identity
-    Name=""$guid9$""
-    Publisher = ""$XmlEscapedPublisherDistinguishedName$""
-    Version = ""1.0.0.0"" /> ";
-
-            int findTextIndex, start, end;
-            string firstHalf, lastHalf;
-
-            findTextIndex = manifestText.IndexOf(findText);
-
-            start = findTextIndex;
-            end = manifestText.IndexOf("/>", findTextIndex);
-            firstHalf = manifestText.Substring(0, start);
-            lastHalf = manifestText.Substring(end + 2);
-            return firstHalf + identityReplacementText + lastHalf;
-        }
+        }        
 
 
         /// <summary>
@@ -411,7 +194,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// <param name="csprojxml">The csproj XML.</param>
         /// <param name="projectFileName">Name of the project file.</param>
         /// <returns></returns>
-        public string GetProjectNode(string csprojxml, string projectFileName)
+        protected string GetProjectNode(string csprojxml, string projectFileName)
         {
             string projectNodeStart = @"<Project TargetFileName=""$projectName"" File=""$projectName"" ReplaceParameters=""true"">";
             projectNodeStart = projectNodeStart.Replace("$projectName", projectFileName);            
@@ -438,7 +221,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// </summary>
         /// <param name="topFolder">The top folder.</param>
         /// <returns></returns>
-        private string SerializeFolder(ItemFolder topFolder)
+        protected string SerializeFolder(ItemFolder topFolder)
         {
             string folderString = string.Empty;
             string projItemNodeTemplate = @"<ProjectItem ReplaceParameters = ""true"" TargetFileName=""$filename"">$filename</ProjectItem>";
@@ -475,23 +258,13 @@ namespace FutuFormsTemplate.MSBUILD
 
             return folderString;
 
-        }
-
-        /// <summary>
-        /// Determines whether [is help item] [the specified item].
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        private bool IsHelpItem(string item)
-        {
-            return item.ToLower().Contains("help.htm");
-        }
+        }       
 
         /// <summary>
         /// Gets the item folder.
         /// </summary>
         /// <param name="projectItems">The project items.</param>
-        private void GetItemFolder(List<string> projectItems)
+        protected void GetItemFolder(List<string> projectItems)
         {
             topFolder = new ItemFolder();
             string[] stringSeparator = new string[] { @"\" };
@@ -508,7 +281,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// Adds the parts to top folder.
         /// </summary>
         /// <param name="parts">The parts.</param>
-        private void AddPartsToTopFolder(string[] parts)
+        protected void AddPartsToTopFolder(string[] parts)
         {
             AddPartsToFolder(topFolder, parts, 0);
         }
@@ -519,7 +292,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// <param name="currentFolder">The current folder.</param>
         /// <param name="parts">The parts.</param>
         /// <param name="partIndex">Index of the part.</param>
-        private void AddPartsToFolder(ItemFolder currentFolder, string[] parts, int partIndex)
+        protected void AddPartsToFolder(ItemFolder currentFolder, string[] parts, int partIndex)
         {
             //-- empty folder
             if (partIndex >= parts.Length)
@@ -548,7 +321,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// </summary>
         /// <param name="part">The part.</param>
         /// <returns></returns>
-        private bool IsFolder(string part)
+        protected bool IsFolder(string part)
         {
             return !part.Contains(".");
         }
@@ -558,7 +331,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// </summary>
         /// <param name="projectItems">The project items.</param>
         /// <returns></returns>
-        private List<string> SortProjectItems(List<string> projectItems)
+        protected List<string> SortProjectItems(List<string> projectItems)
         {
             projectItems.Sort();
 
@@ -575,25 +348,14 @@ namespace FutuFormsTemplate.MSBUILD
             projectItems = l2;
             return projectItems;
         }
-
-
-        /// <summary>
-        /// Gets the name of the folder.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns></returns>
-        private string GetFolderName(string item)
-        {
-            int startIndex = item.IndexOf(@"\");
-            return item.Substring(0, startIndex);
-        }
+       
 
         /// <summary>
         /// Determines whether [is key project item node] [the specified item].
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns></returns>
-        private bool IsKeyProjectItemNode(string item)
+        protected bool IsKeyProjectItemNode(string item)
         {
             return item.Contains(".pfx");
         }
@@ -603,7 +365,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// </summary>
         /// <param name="csprojxml">The csprojxml.</param>
         /// <returns></returns>
-        private List<string> GetProjectItems(string csprojxml)
+        protected List<string> GetProjectItems(string csprojxml)
         {
             List<string> files = new List<string>(); ;
             XDocument xdoc;
@@ -630,9 +392,5 @@ namespace FutuFormsTemplate.MSBUILD
             return files;
 
         }
-
-
-
-
     }
 }
