@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace $safeprojectname$.UWP
+namespace FutuFormsTemplate.UWP
 {
     public sealed partial class MainPage
     {

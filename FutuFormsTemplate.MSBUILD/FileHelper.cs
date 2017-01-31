@@ -19,6 +19,26 @@ namespace FutuFormsTemplate.MSBUILD
             }
         }
 
+        internal static void DeletePackagesConfig(string containingFolder)
+        {
+            var dir = new DirectoryInfo(containingFolder);
+
+            foreach (var file in dir.EnumerateFiles("packages.config"))
+            {
+                file.Delete();
+            }
+        }
+
+        internal static void DeleteProjectDotJson(string containingFolder)
+        {
+            var dir = new DirectoryInfo(containingFolder);
+
+            foreach (var file in dir.EnumerateFiles("project.json"))
+            {
+                file.Delete();
+            }
+        }
+
 
         /// <summary>
         /// Reads the file.

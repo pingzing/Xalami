@@ -36,14 +36,12 @@ namespace FutuFormsTemplate.MSBUILD
 
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
+            FileHelper.DeletePackagesConfig(tempFolder);
+            FileHelper.DeleteProjectDotJson(tempFolder);
             ProcessVSTemplate(tempFolder);
             OperateOnCsProj(tempFolder, CsprojFile, true);
             OperateOnManifest(Path.Combine(tempFolder, "Package.appxmanifest"));
             CopyEmbeddedFilesToOutput(tempFolder);
-
-            string jsonProj = Path.Combine(tempFolder, Constants.PROJECTJSON);
-            AddMvvmLightNuget(jsonProj);
-            AddXamarinFormsNuget(jsonProj);     
             
             return true;
         }       
@@ -74,46 +72,7 @@ namespace FutuFormsTemplate.MSBUILD
             manifestText = ReplaceIdentityNode(manifestText);
 
             FileHelper.WriteFile(manifestFile, manifestText);
-        }
-
-        //todo: add xamarin forms and MVVM Light
-        /// <summary>
-        /// Adds the template10 nuget.
-        /// </summary>
-        /// <param name="jsonProj">The json proj.</param>
-        public void AddMvvmLightNuget(string jsonProj)
-        {
-            string txt = FileHelper.ReadFile(jsonProj);
-
-            if (txt.Contains(Constants.MVVMLIGHTPROJECTJSON))
-            {
-                return;
-            }
-
-            int startIndex = txt.IndexOf(@"""dependencies"": {");
-
-            string mvvmLightText = Constants.MVVMLIGHTPROJECTJSON;
-            int insertIndex = txt.IndexOf("},", startIndex) - 4;
-            txt = txt.Insert(insertIndex, "," + Environment.NewLine + mvvmLightText);
-            FileHelper.WriteFile(jsonProj, txt);
-        }
-
-        public void AddXamarinFormsNuget(string jsonProj)
-        {
-            string txt = FileHelper.ReadFile(jsonProj);
-
-            if (txt.Contains(Constants.XAMARINFORMSPROJECTJSON))
-            {
-                return;
-            }
-
-            int startIndex = txt.IndexOf(@"""dependencies"": {");
-
-            string xamFormsText = Constants.XAMARINFORMSPROJECTJSON;
-            int insertIndex = txt.IndexOf("}", startIndex) - 4;
-            txt = txt.Insert(insertIndex, "," + Environment.NewLine + xamFormsText);
-            FileHelper.WriteFile(jsonProj, txt);
-        }                                         
+        }       
 
         /// <summary>
         /// Replaces the identity node.

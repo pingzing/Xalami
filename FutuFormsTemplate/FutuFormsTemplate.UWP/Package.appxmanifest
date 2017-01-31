@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="909b44b1-1683-4162-95f0-4ca61597e7c9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>$safeprojectname$.UWP</DisplayName>
+    <DisplayName>FutuFormsTemplate.UWP</DisplayName>
     <PublisherDisplayName>nmca</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="$safeprojectname$.UWP.App">
+      EntryPoint="FutuFormsTemplate.UWP.App">
       <uap:VisualElements
-        DisplayName="$safeprojectname$.UWP"
+        DisplayName="FutuFormsTemplate.UWP"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="$safeprojectname$.UWP"
+        Description="FutuFormsTemplate.UWP"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

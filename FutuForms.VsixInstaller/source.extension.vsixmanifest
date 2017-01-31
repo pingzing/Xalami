@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="FutuForms.VsixInstaller.Neil McAlister.236a11fc-545b-40f0-96fe-9e6dc5aee3db" Version="1.0" Language="en-US" Publisher="Futurice" />
+    <Identity Id="FutuForms.VsixInstaller.236a11fc-545b-40f0-96fe-9e6dc5aee3db" Version="1.0" Language="en-US" Publisher="Futurice" />
     <DisplayName>FutuForms Template</DisplayName>
     <Description xml:space="preserve">A Visual Studio template to kickstart creation of a Xamarin Forms project.</Description>
     <Icon>futulogosmall.png</Icon>
@@ -15,5 +15,7 @@
   </Dependencies>
   <Assets>
     <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\FutuFormsTemplate.zip" />
+    <Asset Type="xamarin.forms.2.3.3.180.nupkg" d:Source="File" Path="Packages\xamarin.forms.2.3.3.180.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="mvvmlight.5.3.0.nupkg" d:Source="File" Path="Packages\mvvmlight.5.3.0.nupkg" d:VsixSubPath="Packages" />
   </Assets>
 </PackageManifest>

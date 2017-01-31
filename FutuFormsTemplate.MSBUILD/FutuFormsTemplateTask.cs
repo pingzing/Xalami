@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.IO.Compression;
 using FutuFormTemplate.MSBUILD;
+using System.Web;
 
 namespace FutuFormsTemplate.MSBUILD
 {
@@ -235,7 +236,11 @@ namespace FutuFormsTemplate.MSBUILD
             foreach (var item in topFolder.Items)
             {
                 if (IsKeyProjectItemNode(item))
-                    folderString = folderString + @"<ProjectItem ReplaceParameters=""false"" TargetFileName=""$projectname$_TemporaryKey.pfx"" BlendDoNotCreate=""true"">Application_TemporaryKey.pfx</ProjectItem>";
+                {
+                    //folderString = folderString 
+                    //    + @"<ProjectItem ReplaceParameters=""false"" TargetFileName=""$projectname$_TemporaryKey.pfx"" BlendDoNotCreate=""true"">Application_TemporaryKey.pfx</ProjectItem>" 
+                    //    + Environment.NewLine;
+                }
                 else
                 {
                     //-- now writing item.
@@ -253,7 +258,7 @@ namespace FutuFormsTemplate.MSBUILD
 
             if (topFolder.FolderName != null)
             {
-                folderString = folderString + "</Folder>";
+                folderString = folderString + "</Folder>\n";
             }
 
             return folderString;
@@ -382,9 +387,12 @@ namespace FutuFormsTemplate.MSBUILD
                 foreach (var item in itemG.Elements())
                 {
                     itemString = item.Attribute("Include").Value;
-                    if (!string.IsNullOrEmpty(itemString) && !itemString.Contains("=") && !itemString.Contains(","))
-                    {
-                        files.Add(itemString);
+                    if (!string.IsNullOrEmpty(itemString) 
+                        && !itemString.Contains("=") 
+                        && !itemString.Contains(",")
+                        && item.Name.LocalName != "Reference")
+                    {                        
+                        files.Add(HttpUtility.UrlDecode(itemString)); //need the decode here, because @ symbols are stored URL-encoded in csproj files. And those get used in iOS filenames!
                     }
                 }
             }
