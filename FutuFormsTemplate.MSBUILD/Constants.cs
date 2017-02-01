@@ -122,7 +122,7 @@ $projectNode
   <WizardData>   
     <packages repository=""extension"" repositoryId=""FutuForms.VsixInstaller.236a11fc-545b-40f0-96fe-9e6dc5aee3db"">
       <package id=""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @" />                
-      <package id=""MvvmLight"" version=" + MVVMLIGHTVERSION + @"/> 
+      <package id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/> 
     </packages>
   </WizardData>  
 </VSTemplate>";
@@ -162,7 +162,7 @@ $projectNode
   <WizardData>   
     <packages repository=""extension"" repositoryId=""FutuForms.VsixInstaller.236a11fc-545b-40f0-96fe-9e6dc5aee3db"">
       <package id=""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @" />
-      <package id=""MvvmLight"" version=" + MVVMLIGHTVERSION + @"/> 
+      <package id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/> 
     </packages>
   </WizardData>    
 </VSTemplate>";
@@ -206,7 +206,7 @@ $projectNode
   <WizardData>   
     <packages repository=""extension"" repositoryId=""FutuForms.VsixInstaller.236a11fc-545b-40f0-96fe-9e6dc5aee3db"">
       <package id=""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @" />
-      <package id=""MvvmLight"" version=" + MVVMLIGHTVERSION + @"/> 
+      <package id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/> 
     </packages>
     <EnsureRegistryWizard>
       <Key>_Config\Projects\{76F1466A-8B6D-4E39-A767-685A06062A39}</Key>
@@ -246,7 +246,7 @@ $projectNode
   <WizardData>   
     <packages repository=""extension"" repositoryId=""FutuForms.VsixInstaller.236a11fc-545b-40f0-96fe-9e6dc5aee3db"">
       <package id=""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @" />
-      <package id=""MvvmLight"" version=" + MVVMLIGHTVERSION + @"/> 
+      <package id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/> 
     </packages>
   </WizardData>  
 </VSTemplate>";
