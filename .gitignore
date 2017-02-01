@@ -4,6 +4,7 @@
 # Project-specific stuff
 VsixInstaller/FutuFormsTemplate.zip
 CustomTaskOutputDir/FutuFormsTemplate.MSBUILD.dll
+*thumbs.db
 
 # User-specific files
 *.suo
