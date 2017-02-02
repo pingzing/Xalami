@@ -65,6 +65,8 @@ namespace FutuFormsTemplate.MSBUILD
                 FileHelper.WriteFile(file, text);
             }
         }
+
+        //todo: Make a method that does name replacement for the PCL project name in each of the platform projects
         
 
         /// <summary>
@@ -120,19 +122,15 @@ namespace FutuFormsTemplate.MSBUILD
             File.Copy(CsprojFile, targetPath, true);
             string csprojText = FileHelper.ReadFile(targetPath);
 
-            var replacements = new List<FindReplaceItem>();
-
-            if (isWindows)
-            {
-                replacements.Add(new FindReplaceItem() { Pattern = @"<PackageCertificateKeyFile>(.*?)</PackageCertificateKeyFile>", Replacement = @"<PackageCertificateKeyFile>$$projectname$$_TemporaryKey.pfx</PackageCertificateKeyFile>" });
-            }
+            var replacements = new List<FindReplaceItem>();            
             replacements.Add(new FindReplaceItem() { Pattern = "<RootNamespace>(.*?)</RootNamespace>", Replacement = "<RootNamespace>$$safeprojectname$$</RootNamespace>" });
-            replacements.Add(new FindReplaceItem() { Pattern = "<AssemblyName>(.*?)</AssemblyName>", Replacement = "<AssemblyName>$$safeprojectname$$</AssemblyName>" });
+            replacements.Add(new FindReplaceItem() { Pattern = "<AssemblyName>(.*?)</AssemblyName>", Replacement = "<AssemblyName>$$safeprojectname$$</AssemblyName>" });            
+            replacements.Add(new FindReplaceItem() { Pattern = @"<ProjectGuid>(.*?)</ProjectGuid>", Replacement = @"<ProjectGuid>$guid1$</ProjectGuid>" });
             if (isWindows)
             {
                 replacements.Add(new FindReplaceItem() { Pattern = @"<None Include=""(.*?)_TemporaryKey.pfx"" />", Replacement = @"<None Include=""$$projectname$$_TemporaryKey.pfx"" />" });
+                replacements.Add(new FindReplaceItem() { Pattern = @"<PackageCertificateKeyFile>(.*?)</PackageCertificateKeyFile>", Replacement = @"<PackageCertificateKeyFile>$$projectname$$_TemporaryKey.pfx</PackageCertificateKeyFile>" });
             }
-            replacements.Add(new FindReplaceItem() { Pattern = @"<ProjectGuid>(.*?)</ProjectGuid>", Replacement = @"<ProjectGuid>$guid1$</ProjectGuid>" });
 
 
             foreach (var item in replacements)
@@ -237,16 +235,17 @@ namespace FutuFormsTemplate.MSBUILD
             {
                 if (IsKeyProjectItemNode(item))
                 {
-                    //folderString = folderString 
-                    //    + @"<ProjectItem ReplaceParameters=""false"" TargetFileName=""$projectname$_TemporaryKey.pfx"" BlendDoNotCreate=""true"">Application_TemporaryKey.pfx</ProjectItem>" 
-                    //    + Environment.NewLine;
+                    folderString = folderString
+                        + @"<ProjectItem ReplaceParameters=""false"" TargetFileName=""$projectname$_TemporaryKey.pfx"" BlendDoNotCreate=""true"">Application_TemporaryKey.pfx</ProjectItem>"
+                        + Environment.NewLine;
                 }
                 else
                 {
                     //-- now writing item.
                     if (!string.IsNullOrEmpty(item) && !item.Contains("csproj") && !item.Contains(".."))
                     {
-                        folderString = folderString + projItemNodeTemplate.Replace("$filename", item);
+                        folderString = folderString + projItemNodeTemplate.Replace("$filename", item)
+                            + Environment.NewLine;
                     }
                 }
             }

@@ -20,6 +20,8 @@ namespace FutuFormsTemplate.MSBUILD
         /// <returns></returns>
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath)
         {
+            System.Diagnostics.Debugger.Launch();
+
             CsprojFile = csprojPath;
             ProjectFriendlyName = projectFriendlyName;
             ProjectDescription = projectDescription;
@@ -37,7 +39,7 @@ namespace FutuFormsTemplate.MSBUILD
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
             FileHelper.DeletePackagesConfig(tempFolder);
-            FileHelper.DeleteProjectDotJson(tempFolder);
+            //FileHelper.DeleteProjectDotJson(tempFolder);
             ProcessVSTemplate(tempFolder);
             OperateOnCsProj(tempFolder, CsprojFile, true);
             OperateOnManifest(Path.Combine(tempFolder, "Package.appxmanifest"));
