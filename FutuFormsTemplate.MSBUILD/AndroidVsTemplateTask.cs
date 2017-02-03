@@ -8,11 +8,10 @@ namespace FutuFormsTemplate.MSBUILD
 {
     public class AndroidVsTemplateTask : FutuFormsTemplateTask
     {
-        public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath)
+        public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
             CsprojFile = csprojPath;
-            ProjectFriendlyName = projectFriendlyName;
-            ProjectDescription = projectDescription;
+            ProjectFriendlyName = projectFriendlyName;            
             PreviewImagePath = previewImagePath;
 
             tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, Constants.ANDROIDPLATFORMSUFFIX);
@@ -27,8 +26,7 @@ namespace FutuFormsTemplate.MSBUILD
             ReplaceNamespace(tempFolder);
             ProcessVSTemplate(tempFolder);
             OperateOnCsProj(tempFolder, CsprojFile, Constants.ANDROIDPLATFORMSUFFIX);
-            OperateOnManifest(Path.Combine(tempFolder, "Properties/AndroidManifest.xml"));
-            CopyEmbeddedFilesToOutput(tempFolder);
+            OperateOnManifest(Path.Combine(tempFolder, "Properties/AndroidManifest.xml"));            
             
             return true;
         }
@@ -39,10 +37,7 @@ namespace FutuFormsTemplate.MSBUILD
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
             xml = Constants.ANDROIDVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
-            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);
-            xml = xml.Replace(Constants.TEMPLATEDESCRIPTION, ProjectDescription);
-            string previewFileName = Path.GetFileName(PreviewImagePath);
-            xml = xml.Replace(Constants.PREVIEWIMAGEFILE, previewFileName);
+            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);                        
 
             string filePath = Path.Combine(tempFolder, Constants.ANDROIDVSTEMPLATENAME);
 

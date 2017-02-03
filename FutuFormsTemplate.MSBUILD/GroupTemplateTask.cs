@@ -2,6 +2,7 @@
 using Microsoft.Build.Framework;
 using System.IO;
 using System.IO.Compression;
+using System.Reflection;
 
 namespace FutuFormsTemplate.MSBUILD
 {
@@ -61,16 +62,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// The name of the zip.
         /// </value>
         [Required]
-        public string ZipName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the project description.
-        /// </summary>
-        /// <value>
-        /// The project description.
-        /// </value>
-        [Required]
-        public string ProjectDescription { get; set; }
+        public string ZipName { get; set; }        
 
         /// <summary>
         /// Gets or sets the preview image path.
@@ -80,6 +72,15 @@ namespace FutuFormsTemplate.MSBUILD
         /// </value>
         [Required]
         public string PreviewImagePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path to the icon images.
+        /// </summary>
+        /// <value>
+        /// The path string that leads to the .ico or .png 32x32 image to be used for the icon.
+        /// </value>
+        [Required]
+        public string IconPath { get; set; }
 
 
         /// <summary>
@@ -111,31 +112,59 @@ namespace FutuFormsTemplate.MSBUILD
                 Directory.Delete(tempFolder, true);
             }            
 
-            bool uwpSuccess = new UwpVsTemplateTask().Run(UwpCsprojFile, TargetDir, ProjectFriendlyName, ProjectDescription, PreviewImagePath);
+            bool uwpSuccess = new UwpVsTemplateTask().Run(UwpCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             this.Log.LogMessage("UWP VSTemplate processed. Success: " + uwpSuccess);
             
-            bool wp8Success = new Wp8VsTemplateTask().Run(Wp8CsprojFile, TargetDir, ProjectFriendlyName, ProjectDescription, PreviewImagePath);
+            bool wp8Success = new Wp8VsTemplateTask().Run(Wp8CsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             this.Log.LogMessage("WP8 VSTemplate processed. Success: " + wp8Success);
 
-            bool androidSuccess = new AndroidVsTemplateTask().Run(AndroidCsprojFile, TargetDir, ProjectFriendlyName, ProjectDescription, PreviewImagePath);
+            bool androidSuccess = new AndroidVsTemplateTask().Run(AndroidCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             this.Log.LogMessage("Android VSTemplate processed. Success: " + androidSuccess);
 
-            bool iosSuccess = new IosVsTemplateTask().Run(iOSCsprojFile, TargetDir, ProjectFriendlyName, ProjectDescription, PreviewImagePath);
+            bool iosSuccess = new IosVsTemplateTask().Run(iOSCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             this.Log.LogMessage("Android VSTemplate processed. Success: " + iosSuccess);
 
-            bool pclSuccess = new PclVsTemplateTask().Run(PclCsprojFile, TargetDir, ProjectFriendlyName, ProjectDescription, PreviewImagePath);
+            bool pclSuccess = new PclVsTemplateTask().Run(PclCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             this.Log.LogMessage("PCL VSTemplate process. Success: " + pclSuccess);
 
             ProcessVSTemplate(tempFolder);
+            CopyEmbeddedFilesToOutput(tempFolder);
             ZipFiles(tempFolder, ZipName, TargetDir);
 
             return uwpSuccess && wp8Success && iosSuccess && androidSuccess && pclSuccess;
         }
 
         private void ProcessVSTemplate(string tempFolder)
-        {                       
-            string filePath = Path.Combine(tempFolder, Constants.GROUPTEMPLATENAME);
-            FileHelper.WriteFile(filePath, Constants.GROUPTEMPLATETEXT);
+        {
+            string xml = Constants.GROUPTEMPLATETEXT;
+            xml = xml.Replace(Constants.PREVIEWIMAGEKEY, Path.GetFileName(PreviewImagePath));
+            xml = xml.Replace(Constants.ICONKEY, Path.GetFileName(IconPath));
+            string filePath = Path.Combine(tempFolder, Constants.GROUPTEMPLATENAME);            
+            FileHelper.WriteFile(filePath, xml);            
+        }
+
+        /// <summary>
+        /// Copies the embedded files to output.
+        /// </summary>
+        /// <param name="targetDir">The target dir.</param>
+        protected void CopyEmbeddedFilesToOutput(string targetDir)
+        {
+            string[] names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+
+            foreach (var item in names)
+            {
+                using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream(item))
+                {
+                    var targetFile = Path.Combine(targetDir, Path.GetFileName(item.Substring(item.LastIndexOf("EmbeddedFiles.") + 14)));
+
+                    using (var fileStream = File.Create(targetFile))
+                    {
+                        s.Seek(0, SeekOrigin.Begin);
+                        s.CopyTo(fileStream);
+                    }
+                }
+            }
+
         }
 
         /// <summary>

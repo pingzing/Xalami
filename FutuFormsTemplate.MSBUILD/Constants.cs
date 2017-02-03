@@ -13,20 +13,19 @@ namespace FutuFormTemplate.MSBUILD
 
         internal const string TEMPFOLDER = "Temp";
 
+        internal const string PREVIEWIMAGEKEY = "$previewImage";
+        internal const string ICONKEY = "$icon";
+
         internal const string PROJECTNODE = "$projectNode";
 
-        internal const string TEMPLATENAME = "$templateName";
-
-        internal const string TEMPLATEDESCRIPTION = "$templateDescription";
-
-        internal const string PREVIEWIMAGEFILE = "$previewImageFile";
+        internal const string TEMPLATENAME = "$templateName";           
 
         internal const string UWPPLATFORMSUFFIX = "UWP";
         internal const string UWPVSTEMPLATENAME = "UWP.vstemplate";        
         internal const string UWPVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.UWP</Name>
-    <Description>$templateDescription</Description>
+    <Name>$templateName.UWP</Name>    
+    <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>FutuFormsTemplate</ProjectSubType>
     <SortOrder>0</SortOrder>        
@@ -34,9 +33,7 @@ namespace FutuFormTemplate.MSBUILD
     <DefaultName>FormsApp.UWP</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>    
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>__TemplateIcon.png</Icon>
-    <PreviewImage>$previewImageFile</PreviewImage>    
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>        
   </TemplateData>
   <TemplateContent PreferedSolutionConfiguration=""Debug|x86"">
 $projectNode
@@ -76,8 +73,8 @@ $projectNode
         internal const string ANDROIDVSTEMPLATENAME = "Android.vstemplate";
         internal const string ANDROIDVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.Droid</Name>
-    <Description>$templateDescription</Description>
+    <Name>$templateName.Droid</Name>    
+    <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>FutuFormsTemplate</ProjectSubType>
     <SortOrder>0</SortOrder>        
@@ -85,9 +82,7 @@ $projectNode
     <DefaultName>FormsApp.Droid</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>    
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>__TemplateIcon.png</Icon>
-    <PreviewImage>$previewImageFile</PreviewImage>    
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>    
   </TemplateData>
   <TemplateContent PreferedSolutionConfiguration=""Debug|AnyCPU"">
 $projectNode
@@ -106,8 +101,8 @@ $projectNode
         internal const string IOSVSTEMPLATENAME = "iOS.vstemplate";
         internal const string IOSVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.iOS</Name>
-    <Description>$templateDescription</Description>
+    <Name>$templateName.iOS</Name>    
+    <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>FutuFormsTemplate</ProjectSubType>
     <SortOrder>0</SortOrder>        
@@ -115,9 +110,7 @@ $projectNode
     <DefaultName>FormsApp.iOS</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>    
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>__TemplateIcon.png</Icon>
-    <PreviewImage>$previewImageFile</PreviewImage>    
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>    
   </TemplateData>
   <TemplateContent PreferedSolutionConfiguration=""Debug|iPhone"">
 $projectNode
@@ -136,8 +129,8 @@ $projectNode
         internal const string WP8TEMPLATENAME = "WinPhone.vstemplate";
         internal const string WP8TEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.WinPhone</Name>
-    <Description>$templateDescription</Description>
+    <Name>$templateName.WinPhone</Name>    
+    <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>FutuFormsTemplate</ProjectSubType>
     <SortOrder>0</SortOrder>        
@@ -145,9 +138,7 @@ $projectNode
     <DefaultName>FormsApp.WinPhone</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>    
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>__TemplateIcon.png</Icon>
-    <PreviewImage>$previewImageFile</PreviewImage>    
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>    
   </TemplateData>
   <TemplateContent PreferedSolutionConfiguration=""Debug|iPhone"">
 $projectNode
@@ -177,17 +168,13 @@ $projectNode
         internal const string PCLVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
     <Name>$templateName</Name>
-    <Description>$templateDescription</Description>
-    <ProjectType>CSharp</ProjectType>
-    <ProjectSubType>FutuFormsTemplate</ProjectSubType>
-    <SortOrder>0</SortOrder>        
+    <Icon>__TemplateIcon.ico</Icon>
+    <ProjectType>CSharp</ProjectType>        
     <CreateNewFolder>true</CreateNewFolder>
     <DefaultName>FormsApp</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>    
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
-    <Icon>__TemplateIcon.png</Icon>
-    <PreviewImage>$previewImageFile</PreviewImage>    
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>    
   </TemplateData>
   <TemplateContent PreferedSolutionConfiguration=""Debug|AnyCPU"">
 $projectNode
@@ -206,10 +193,15 @@ $projectNode
         // access to variables in the parent template.
         internal const string GROUPTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" Type=""ProjectGroup"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"">  
     <TemplateData>  
-        <Name>FutuFormsTemplate</Name>  
-        <Description>A template to kickstart your Xamarin Forms project. Produced with love by Futurice.</Description>  
-        <Icon>Icon.ico</Icon>
+        <Name>FutuForms Template</Name>  
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <DefaultName>FutuFormsTemplate</DefaultName>        
+        <CreateNewFolder>true</CreateNewFolder>
         <ProjectType>CSharp</ProjectType>
+        <SortOrder>0</SortOrder>        
+        <Description>A template to kickstart your Xamarin Forms project. Produced with &lt;3 by Futurice.</Description>  
+        <Icon>" + ICONKEY + @"</Icon>
+        <PreviewImage>" + PREVIEWIMAGEKEY + @"</PreviewImage>        
     </TemplateData>  
     <TemplateContent>  
         <ProjectCollection>  

@@ -18,11 +18,10 @@ namespace FutuFormsTemplate.MSBUILD
         /// Executes this instance.
         /// </summary>
         /// <returns></returns>
-        public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath)
+        public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
             CsprojFile = csprojPath;
-            ProjectFriendlyName = projectFriendlyName;
-            ProjectDescription = projectDescription;
+            ProjectFriendlyName = projectFriendlyName;            
             PreviewImagePath = previewImagePath;
 
             tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, Constants.UWPPLATFORMSUFFIX);
@@ -110,10 +109,7 @@ namespace FutuFormsTemplate.MSBUILD
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
             xml = Constants.UWPVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
-            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);
-            xml = xml.Replace(Constants.TEMPLATEDESCRIPTION, ProjectDescription);
-            string previewFileName = Path.GetFileName(PreviewImagePath);
-            xml = xml.Replace(Constants.PREVIEWIMAGEFILE, previewFileName);
+            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);            
 
             string filePath = Path.Combine(tempFolder, Constants.UWPVSTEMPLATENAME);
 

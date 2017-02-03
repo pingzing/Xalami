@@ -5,11 +5,21 @@
              x:Class="FutuFormsTemplate.Views.MainPage"
              xmlns:ext="clr-namespace:FutuFormsTemplate.XamlExtensions">
 
-  <StackLayout Orientation="Horizontal"
-               VerticalOptions="Center"
-           HorizontalOptions="Center">
-    <Label Text="Welcome to Xamarin Forms! Here's a localized string: " />
-    <Label Text="{ext:LocalizeExtension AppTitle}"/>
-  </StackLayout>
+  <Grid>
+    <StackLayout Orientation="Vertical"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center">
+      <Label Text="Welcome to the FutuForms Template! Here's a localized string: "             
+             HorizontalOptions="CenterAndExpand"
+             HorizontalTextAlignment="Center"
+             LineBreakMode="WordWrap"
+             Style="{DynamicResource SubtitleStyle}"/>
+      <Label Text="{ext:LocalizeExtension AppTitle}"
+             HorizontalOptions="CenterAndExpand"
+             HorizontalTextAlignment="Center"
+             LineBreakMode="WordWrap"
+             Style="{DynamicResource SubtitleStyle}"/>
+    </StackLayout>
+  </Grid>
 
 </ContentPage>

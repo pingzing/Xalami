@@ -10,11 +10,10 @@ namespace FutuFormsTemplate.MSBUILD
 {
     public class PclVsTemplateTask : FutuFormsTemplateTask
     {
-        public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath)
+        public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
             CsprojFile = csprojPath;
-            ProjectFriendlyName = projectFriendlyName;
-            ProjectDescription = projectDescription;
+            ProjectFriendlyName = projectFriendlyName;            
             PreviewImagePath = previewImagePath;
 
             tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "PCL");
@@ -29,8 +28,7 @@ namespace FutuFormsTemplate.MSBUILD
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, Constants.PCLPLATFORMSUFFIX);
-            CopyEmbeddedFilesToOutput(tempFolder);
+            OperateOnCsProj(tempFolder, CsprojFile, Constants.PCLPLATFORMSUFFIX);            
 
             return true;
         }
@@ -41,10 +39,7 @@ namespace FutuFormsTemplate.MSBUILD
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
             xml = Constants.PCLVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
-            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);
-            xml = xml.Replace(Constants.TEMPLATEDESCRIPTION, ProjectDescription);
-            string previewFileName = Path.GetFileName(PreviewImagePath);
-            xml = xml.Replace(Constants.PREVIEWIMAGEFILE, previewFileName);
+            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);            
 
             string filePath = Path.Combine(tempFolder, Constants.PCLVSTEMPLATENAME);
 

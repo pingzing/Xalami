@@ -68,6 +68,12 @@
     <None Include="App.config" />
     <EmbeddedResource Include="EmbeddedFiles\Application_TemporaryKey.pfx" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedFiles\futulogosmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmbeddedFiles\preview_image_android_ios_uwp_wp8.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -60,7 +60,7 @@ namespace FutuFormsTemplate.UWP
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
-                rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.NavigationFailed += OnNavigationFailed;                              
 
                 Xamarin.Forms.Forms.Init(e);
 

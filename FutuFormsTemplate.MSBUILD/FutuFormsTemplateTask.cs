@@ -45,7 +45,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// Executes this instance.
         /// </summary>
         /// <returns></returns>
-        public abstract bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath);
+        public abstract bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath);
 
         /// <summary>
         /// Replaces the namespace.
@@ -80,7 +80,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// Processes the vs template.
         /// </summary>
         /// <param name="tempFolder">The temporary folder.</param>
-        protected abstract void ProcessVSTemplate(string tempFolder);      
+        protected abstract void ProcessVSTemplate(string tempFolder);              
 
         /// <summary>
         /// Copies the embedded files to output.
