@@ -15,7 +15,7 @@ namespace FutuFormsTemplate.MSBUILD
             ProjectDescription = projectDescription;
             PreviewImagePath = previewImagePath;
 
-            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "Android");
+            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, Constants.ANDROIDPLATFORMSUFFIX);
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);
@@ -26,7 +26,7 @@ namespace FutuFormsTemplate.MSBUILD
 
             ReplaceNamespace(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile);
+            OperateOnCsProj(tempFolder, CsprojFile, Constants.ANDROIDPLATFORMSUFFIX);
             OperateOnManifest(Path.Combine(tempFolder, "Properties/AndroidManifest.xml"));
             CopyEmbeddedFilesToOutput(tempFolder);
             
@@ -55,7 +55,7 @@ namespace FutuFormsTemplate.MSBUILD
 
             var replacements = new List<FindReplaceItem>();
 
-            replacements.Add(new FindReplaceItem() { Pattern = @"<application android:label=""(.*?).Droid""></application>", Replacement = @"<application android:label=""$$safeprojectname$$.Droid""></application>" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"<application android:label=""(.*?).Droid""></application>", Replacement = @"<application android:label=""$$ext_safeprojectname$$.Droid""></application>" });
 
             foreach (var item in replacements)
             {

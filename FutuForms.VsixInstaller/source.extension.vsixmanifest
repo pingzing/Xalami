@@ -14,8 +14,6 @@
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
   </Dependencies>
   <Assets>
-    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\FutuFormsTemplate.zip" />
-    <Asset Type="xamarin.forms.2.3.3.180.nupkg" d:Source="File" Path="Packages\xamarin.forms.2.3.3.180.nupkg" d:VsixSubPath="Packages" />
-    <Asset Type="mvvmlightlibs.5.3.0.nupkg" d:Source="File" Path="Packages\mvvmlightlibs.5.3.0.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\CSharp\Cross-Platform\1033\FutuFormsTemplate.zip" />
   </Assets>
 </PackageManifest>

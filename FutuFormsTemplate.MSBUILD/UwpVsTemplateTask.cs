@@ -9,7 +9,7 @@ namespace FutuFormsTemplate.MSBUILD
     /// <summary>
     /// A custom MSBuild Task that generates a Project Template ZIP file
     /// and copies to the specified location. This is used to covert the existing
-    /// Template 10 projects into project templates for deployment via the
+    /// template projects into project templates for deployment via the
     /// the VSIX.
     /// </summary>
     public class UwpVsTemplateTask : FutuFormsTemplateTask
@@ -20,14 +20,12 @@ namespace FutuFormsTemplate.MSBUILD
         /// <returns></returns>
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string projectDescription, string previewImagePath)
         {
-            System.Diagnostics.Debugger.Launch();
-
             CsprojFile = csprojPath;
             ProjectFriendlyName = projectFriendlyName;
             ProjectDescription = projectDescription;
             PreviewImagePath = previewImagePath;
 
-            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "UWP");
+            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, Constants.UWPPLATFORMSUFFIX);
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);
@@ -41,7 +39,7 @@ namespace FutuFormsTemplate.MSBUILD
             FileHelper.DeletePackagesConfig(tempFolder);
             //FileHelper.DeleteProjectDotJson(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, true);
+            OperateOnCsProj(tempFolder, CsprojFile, Constants.UWPPLATFORMSUFFIX, true);
             OperateOnManifest(Path.Combine(tempFolder, "Package.appxmanifest"));
             CopyEmbeddedFilesToOutput(tempFolder);
             
@@ -62,9 +60,9 @@ namespace FutuFormsTemplate.MSBUILD
             replacements.Add(new FindReplaceItem() { Pattern = "<DisplayName>(.*?)</DisplayName>", Replacement = @"<DisplayName>$$projectname$$</DisplayName>" });
             replacements.Add(new FindReplaceItem() { Pattern = "<PublisherDisplayName>(.*?)</PublisherDisplayName>", Replacement = @"<PublisherDisplayName>$$XmlEscapedPublisher$$</PublisherDisplayName>" });
             replacements.Add(new FindReplaceItem() { Pattern = @"Executable=""(.*?)""", Replacement = @"Executable=""$$targetnametoken$$.exe""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$safeprojectname$$.App""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"DisplayName=""(.*?)""", Replacement = @"DisplayName=""$$projectname$$.App""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$projectname$$.App""" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$ext_safeprojectname$$.App""" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"DisplayName=""(.*?)""", Replacement = @"DisplayName=""$$ext_safeprojectname$$.App""" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$ext_safeprojectname$$.App""" });
 
             foreach (var item in replacements)
             {

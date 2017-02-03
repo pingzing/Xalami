@@ -18,7 +18,7 @@ namespace FutuFormsTemplate.MSBUILD
             ProjectDescription = projectDescription;
             PreviewImagePath = previewImagePath;
 
-            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "WinPhone");
+            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, Constants.WP8PLATFORMSUFFIX);
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);
@@ -30,7 +30,7 @@ namespace FutuFormsTemplate.MSBUILD
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, false);
+            OperateOnCsProj(tempFolder, CsprojFile, Constants.WP8PLATFORMSUFFIX);
             OperateOnManifest(Path.Combine(tempFolder, "Package.appxmanifest"));
             CopyEmbeddedFilesToOutput(tempFolder);            
 
@@ -51,9 +51,9 @@ namespace FutuFormsTemplate.MSBUILD
             replacements.Add(new FindReplaceItem() { Pattern = "<DisplayName>(.*?)</DisplayName>", Replacement = @"<DisplayName>$$projectname$$</DisplayName>" });
             replacements.Add(new FindReplaceItem() { Pattern = "<PublisherDisplayName>(.*?)</PublisherDisplayName>", Replacement = @"<PublisherDisplayName>$$XmlEscapedPublisher$$</PublisherDisplayName>" });
             replacements.Add(new FindReplaceItem() { Pattern = @"Executable=""(.*?)""", Replacement = @"Executable=""$$targetnametoken$$.exe""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$safeprojectname$$.App""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"DisplayName=""(.*?)""", Replacement = @"DisplayName=""$$projectname$$.App""" });
-            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$projectname$$.App""" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$ext_safeprojectname$$.App""" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"DisplayName=""(.*?)""", Replacement = @"DisplayName=""$$ext_projectname$$.App""" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"EntryPoint=""(.*?)""", Replacement = @"EntryPoint=""$$ext_projectname$$.App""" });
 
             foreach (var item in replacements)
             {

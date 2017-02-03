@@ -61,13 +61,10 @@ namespace FutuFormsTemplate.MSBUILD
             {
                 string text = FileHelper.ReadFile(file);
                 //TODO: think about a safer way to do this... what if there is another use of RootNamespace string elsewhere... this will break the generated project.
-                text = text.Replace(rootNamespace, "$safeprojectname$");
+                text = text.Replace(rootNamespace, "$ext_safeprojectname$");
                 FileHelper.WriteFile(file, text);
             }
-        }
-
-        //todo: Make a method that does name replacement for the PCL project name in each of the platform projects
-        
+        }                
 
         /// <summary>
         /// Copies the project files to temporary folder.
@@ -114,7 +111,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// </summary>
         /// <param name="tempFolder">The temporary folder.</param>
         /// <param name="csprojFile">The csproj file.</param>
-        protected void OperateOnCsProj(string tempFolder, string csprojFile, bool isWindows = false)
+        protected void OperateOnCsProj(string tempFolder, string csprojFile, string platformSuffix, bool isWindows = false)
         {
             string fileName = Path.GetFileName(CsprojFile);
             string targetPath = Path.Combine(tempFolder, fileName);
@@ -123,9 +120,9 @@ namespace FutuFormsTemplate.MSBUILD
             string csprojText = FileHelper.ReadFile(targetPath);
 
             var replacements = new List<FindReplaceItem>();            
-            replacements.Add(new FindReplaceItem() { Pattern = "<RootNamespace>(.*?)</RootNamespace>", Replacement = "<RootNamespace>$$safeprojectname$$</RootNamespace>" });
-            replacements.Add(new FindReplaceItem() { Pattern = "<AssemblyName>(.*?)</AssemblyName>", Replacement = "<AssemblyName>$$safeprojectname$$</AssemblyName>" });            
-            replacements.Add(new FindReplaceItem() { Pattern = @"<ProjectGuid>(.*?)</ProjectGuid>", Replacement = @"<ProjectGuid>$guid1$</ProjectGuid>" });
+            replacements.Add(new FindReplaceItem() { Pattern = "<RootNamespace>(.*?)</RootNamespace>", Replacement = "<RootNamespace>$$ext_safeprojectname$$." + platformSuffix + "</RootNamespace>" });
+            replacements.Add(new FindReplaceItem() { Pattern = "<AssemblyName>(.*?)</AssemblyName>", Replacement = "<AssemblyName>$$ext_safeprojectname$$." + platformSuffix + "</AssemblyName>" });            
+            replacements.Add(new FindReplaceItem() { Pattern = "<ProjectGuid>(.*?)</ProjectGuid>", Replacement = "<ProjectGuid>$guid1$</ProjectGuid>" });            
             if (isWindows)
             {
                 replacements.Add(new FindReplaceItem() { Pattern = @"<None Include=""(.*?)_TemporaryKey.pfx"" />", Replacement = @"<None Include=""$$projectname$$_TemporaryKey.pfx"" />" });
@@ -138,7 +135,7 @@ namespace FutuFormsTemplate.MSBUILD
                 csprojText = Regex.Replace(csprojText, item.Pattern, item.Replacement);
             }
 
-            csprojText = RemoveItemNodeAround(@"csproj", csprojText);            
+            csprojText = AdjustPclReference(csprojText);            
 
             FileHelper.WriteFile(targetPath, csprojText);
         }        
@@ -157,33 +154,36 @@ namespace FutuFormsTemplate.MSBUILD
             }
 
             XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
-            return xdoc.Descendants(ns + "RootNamespace").FirstOrDefault().Value;
+            return xdoc.Descendants(ns + "RootNamespace").FirstOrDefault().Value.Split('.').FirstOrDefault();
 
         }
 
         /// <summary>
-        /// Removes the item node around the specified text. This is used to remove the csproj reference in the csproj file which will be replaced by a project.json NuGet reference instead.
-        /// </summary>
-        /// <param name="findText">The find text.</param>
-        /// <param name="csprojText">The csproj text.</param>
+        /// Adjusts the PCL ProjectReference node to use template replace parameters, and remove the Project node that contains the GUID.
+        /// </summary>        
+        /// <param name="csprojText">The text of the csproj to modify.</param>
         /// <returns></returns>
-        protected string RemoveItemNodeAround(string findText, string csprojText)
-        {
-            if (!csprojText.Contains(findText))
+        protected string AdjustPclReference(string csprojText)
+        {            
+            if (!csprojText.Contains("csproj"))
             {
                 return csprojText;
+            }                        
+
+            XDocument xdoc;
+            using (StringReader sr = new StringReader(csprojText))
+            {
+                xdoc = XDocument.Load(sr, LoadOptions.None);
             }
 
-            int findTextIndex, start, end;
-            string firstHalf, lastHalf;
+            XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";
+            var projectRefNode = xdoc.Descendants(ns + "ProjectReference").FirstOrDefault();
+            projectRefNode.Attribute("Include").Value = @"..\$ext_safeprojectname$\$ext_safeprojectname$.csproj";
+            var items = xdoc.Descendants(ns + "ProjectReference");
+            items.Descendants(ns + "Project").FirstOrDefault().Remove();
+            items.Descendants(ns + "Name").FirstOrDefault().Value = "$ext_safeprojectname$";
 
-            findTextIndex = csprojText.IndexOf(findText);
-
-            start = csprojText.Substring(0, findTextIndex).LastIndexOf("<ItemGroup>");
-            end = csprojText.IndexOf("</ItemGroup>", findTextIndex);
-            firstHalf = csprojText.Substring(0, start);
-            lastHalf = csprojText.Substring(end + 12);
-            return firstHalf + lastHalf;
+            return xdoc.ToString();
         }        
 
 
@@ -371,7 +371,7 @@ namespace FutuFormsTemplate.MSBUILD
         /// <returns></returns>
         protected List<string> GetProjectItems(string csprojxml)
         {
-            List<string> files = new List<string>(); ;
+            List<string> files = new List<string>();
             XDocument xdoc;
             using (StringReader sr = new StringReader(csprojxml))
             {

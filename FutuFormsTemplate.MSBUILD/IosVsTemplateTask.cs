@@ -18,7 +18,7 @@ namespace FutuFormsTemplate.MSBUILD
             ProjectDescription = projectDescription;
             PreviewImagePath = previewImagePath;
 
-            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "iOS");
+            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, Constants.IOSPLATFORMSUFFIX);
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);
@@ -29,7 +29,7 @@ namespace FutuFormsTemplate.MSBUILD
 
             ReplaceNamespace(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile);
+            OperateOnCsProj(tempFolder, CsprojFile, Constants.IOSPLATFORMSUFFIX);
             OperateOnPlist(Path.Combine(tempFolder, "Info.plist"));
             CopyEmbeddedFilesToOutput(tempFolder);
             
@@ -61,12 +61,12 @@ namespace FutuFormsTemplate.MSBUILD
             replacements.Add(new FindReplaceItem() { Pattern = @"<key>CFBundleDisplayName</key>
     <string>(.*?)</string>",
                 Replacement = @"<key>CFBundleDisplayName</key>
-    <string>$$safeprojectname$$</string>" });
+    <string>$$ext_safeprojectname$$</string>" });
 
             replacements.Add(new FindReplaceItem() {Pattern = @"<key>CFBundleIdentifier</key>
     <string>com.yourcompany.(.*?)</string>",
             Replacement = @"<key>CFBundleIdentifier</key>
-    <string>com.yourcompany.$$safeprojectname$$</string>"
+    <string>com.yourcompany.$$ext_safeprojectname$$</string>"
             });
 
             foreach (var item in replacements)

@@ -29,7 +29,7 @@ namespace FutuFormsTemplate.MSBUILD
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile);
+            OperateOnCsProj(tempFolder, CsprojFile, Constants.PCLPLATFORMSUFFIX);
             CopyEmbeddedFilesToOutput(tempFolder);
 
             return true;
