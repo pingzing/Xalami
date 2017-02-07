@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xalami.Services.DependencyInterfaces;
 
 namespace Xalami.Mvvm
 {
@@ -19,9 +20,9 @@ namespace Xalami.Mvvm
             //Set MVVM Light's SimpleIoc as the global ServiceLocator.
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-
             //Register (and initialize, if necessary) your services here
             SimpleIoc.Default.Register<INavigationService>(InitializeNavigationService);
+            SimpleIoc.Default.Register<ILocalizeService>(() => DependencyService.Get<ILocalizeService>());
 
             //Register your ViewModels here
             SimpleIoc.Default.Register<MainViewModel>();
