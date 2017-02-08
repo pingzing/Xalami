@@ -14,3 +14,11 @@ Included in the project are such tasty goodies as:
 - Several useful XAML markup extensions
 - An ItemsStack control
 - And more!
+
+## Getting Started with Xalami
+Check out the [Getting Started](https://github.com/futurice/Xalami/wiki/Getting-Started) page on the wiki!
+
+Or just dive in and [download it from the Visual Studio Marketplace](https://marketplace.visualstudio.com/vsgallery/026321a8-871e-49de-b129-196c6dad34c9).
+
+## Contributing
+[TBD]

@@ -6,6 +6,12 @@ using System.Reflection;
 
 namespace Xalami.MSBUILD
 {
+    /// <summary>
+    /// A custom MSBuild Task that generates a Project Template ZIP file
+    /// and copies to the specified location. This is used to covert the existing
+    /// Xalami projects into project templates for deployment via the
+    /// the VSIX.
+    /// </summary>
     public class GroupTemplateTask : Microsoft.Build.Utilities.Task
     {
 

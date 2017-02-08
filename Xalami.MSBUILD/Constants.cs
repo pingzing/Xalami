@@ -193,7 +193,7 @@ $projectNode
         // access to variables in the parent template.
         internal const string GROUPTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" Type=""ProjectGroup"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"">  
     <TemplateData>  
-        <Name>FutuForms Template</Name>  
+        <Name>Xalami</Name>  
         <ProvideDefaultName>true</ProvideDefaultName>
         <DefaultName>Xalami</DefaultName>        
         <CreateNewFolder>true</CreateNewFolder>

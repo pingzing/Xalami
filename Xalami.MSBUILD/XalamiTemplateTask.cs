@@ -18,12 +18,6 @@ using System.Web;
 
 namespace Xalami.MSBUILD
 {   
-    /// <summary>
-    /// A custom MSBuild Task that generates a Project Template ZIP file
-    /// and copies to the specified location. This is used to covert the existing
-    /// Template 10 projects into project templates for deployment via the
-    /// the VSIX.
-    /// </summary>
     public abstract class XalamiTask
     {
         #region ---- Private Variables ----------------
