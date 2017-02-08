@@ -28,4 +28,5 @@ Xalami is *lightweight* but *opinionated*. This means that we expect you to use 
 
 ## Credits
 Much love to [Futurice](http://futurice.com/) for making this possible.
+
 Just as much love to the [Pepperoni App Kit](https://github.com/futurice/pepperoni-app-kit) which served as this project's inspiration.
