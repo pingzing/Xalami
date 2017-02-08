@@ -22,3 +22,7 @@ Or just dive in and [download it from the Visual Studio Marketplace](https://mar
 
 ## Contributing
 [TBD]
+
+## Credits
+Much love to [Futurice](http://futurice.com/) for making this possible.
+Just as much love to the [Pepperoni App Kit](https://github.com/futurice/pepperoni-app-kit) which served as this project's inspiration.
