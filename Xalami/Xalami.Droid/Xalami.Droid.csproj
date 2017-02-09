@@ -143,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xalami\Xalami.csproj">
-      <Project>{14542739-34ef-4323-9adc-58c6ca2dfbe5}</Project>
+      <Project>{62E6E1EE-FC58-4B8D-979C-77001E8B5994}</Project>
       <Name>Xalami</Name>
     </ProjectReference>
   </ItemGroup>

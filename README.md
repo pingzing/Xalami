@@ -30,3 +30,8 @@ Xalami is *lightweight* but *opinionated*. This means that we expect you to use 
 Much love to [Futurice](http://futurice.com/) for making this possible.
 
 Just as much love to the [Pepperoni App Kit](https://github.com/futurice/pepperoni-app-kit) which served as this project's inspiration.
+
+#### Quick Note for Posterity
+Building the Xamarin Studio Addin on Windows:
+ - You'll want to download Xamarin Studio [from MonoDevelop's website](http://www.monodevelop.com/download/). Make sure you update it to latest after downloading. Latest Windows version should be 6.1.4.1.
+ - Then, you have to get the Addin Maker addin (if you want to add a new Addin project, anyway). Doing this is hard. You need to build [Addin Maker](https://github.com/mhutch/MonoDevelop.AddinMaker) from source, and then compile it against MonoDevelop 6.1.4.1...which requires that you build [MonoDevelop 6.1.4.1](https://github.com/mono/monodevelop/commit/e606823f2dd01b4552216c013b597a73bec2068f) from source. These two steps will probably require an OSX machine--when I tried on Windows, both Windows builds were broken.

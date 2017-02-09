@@ -14,17 +14,17 @@ namespace FutuFormTemplate.MSBUILD
         internal const string TEMPFOLDER = "Temp";
 
         internal const string PREVIEWIMAGEKEY = "$previewImage";
-        internal const string ICONKEY = "$icon";
+        internal const string ICONKEY = "$icon";        
 
-        internal const string PROJECTNODE = "$projectNode";
+        #region VSTemplate constants        
 
-        internal const string TEMPLATENAME = "$templateName";           
+        internal const string PROJECTNODE = "$projectNode";                
 
         internal const string UWPPLATFORMSUFFIX = "UWP";
         internal const string UWPVSTEMPLATENAME = "UWP.vstemplate";        
         internal const string UWPVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.UWP</Name>    
+    <Name>Xalami.UWP</Name>    
     <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Xalami</ProjectSubType>
@@ -73,13 +73,13 @@ $projectNode
         internal const string ANDROIDVSTEMPLATENAME = "Android.vstemplate";
         internal const string ANDROIDVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.Droid</Name>    
+    <Name>Xalami.Android</Name>    
     <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Xalami</ProjectSubType>
     <SortOrder>0</SortOrder>        
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>FormsApp.Droid</DefaultName>
+    <DefaultName>FormsApp.Android</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
     <LocationField>Enabled</LocationField>    
     <EnableLocationBrowseButton>true</EnableLocationBrowseButton>    
@@ -101,7 +101,7 @@ $projectNode
         internal const string IOSVSTEMPLATENAME = "iOS.vstemplate";
         internal const string IOSVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.iOS</Name>    
+    <Name>Xalami.iOS</Name>    
     <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Xalami</ProjectSubType>
@@ -129,7 +129,7 @@ $projectNode
         internal const string WP8TEMPLATENAME = "WinPhone.vstemplate";
         internal const string WP8TEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName.WinPhone</Name>    
+    <Name>Xalami.WinPhone</Name>    
     <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Xalami</ProjectSubType>
@@ -167,7 +167,7 @@ $projectNode
         internal const string PCLVSTEMPLATENAME = "PCL.vstemplate";
         internal const string PCLVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
-    <Name>$templateName</Name>
+    <Name>Xalami</Name>
     <Icon>__TemplateIcon.ico</Icon>
     <ProjectType>CSharp</ProjectType>        
     <CreateNewFolder>true</CreateNewFolder>
@@ -223,5 +223,88 @@ $projectNode
         </ProjectCollection>  
     </TemplateContent>  
 </VSTemplate>";
+        #endregion
+
+        #region Xamarin Studio Template
+        internal const string FILENODE = "$fileNode";
+        internal const string PCLFILEKEY = "$pclFilesNode";
+        internal const string ANDROIDFILESKEY = "$androidFilesNode";
+        internal const string IOSFILESKEY = "$iosFilesKey";
+
+        internal const string APTXMLTEXT = @"<Template>
+    <TemplateConfiguration>
+        <_Name>Xalami</_Name>
+        <Category>other/net/xalami</Category>
+        <LanguageName>C#</LanguageName>
+        <Icon></Icon>
+        <Icon32></Icon32>
+        <_Description>A template to kickstart your Xamarin Forms project. Produced with &lt;3 by Futurice.</_Description>
+        <DefaultFilename>Xalami</DefaultFilename>
+        <FileExtension>.csproj</FileExtension>
+    </TemplateConfiguration>
+    
+    <Actions>
+    </Actions>
+    
+    <Combine name=""${ProjectName}"" directory=""."">		
+        <Project name = ""${ProjectName}"" directory=""./${ProjectName}"" type=""C#PortableLibrary"">
+            <Options Target = ""Library"" TargetFrameworkVersion="".NETPortable,Version=v4.5,Profile=Profile259""/>
+            <References>
+                <Reference type = ""Package"" refto=""System""/>
+            </References>
+            <Files>
+                $pclFilesNode
+            </Files>
+            <Packages>
+                <Package Id = ""Xamarin.Forms"" version="+ XAMARINFORMSVERSION +@"/>
+                <Package Id = ""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
+            </Packages>
+        </Project>
+
+        <Project name = ""${ProjectName}.Android"" directory=""./${ProjectName}.Android"" type=""MonoDroid"">
+            <Options AndroidApplication = ""true"" AndroidResgenFile=""Resources/Resource.Designer.cs"" GenerateSerializationAssemblies=""Off""
+                     ProductVersion=""8.0.30703"" SchemaVersion=""2.0"" AppDesignerFolder=""Properties"" FileAlignment=""512""
+                     JavaMaximumHeapSize=""1G""/>
+            <References>
+                <Reference type = ""Package"" refto=""mscorlib"" />
+                <Reference type = ""Package"" refto=""System"" />
+                <Reference type = ""Package"" refto=""System.Core"" />
+                <Reference type = ""Package"" refto=""System.Xml"" />
+                <Reference type = ""Package"" refto=""System.Xml.Linq"" />
+                <Reference type = ""Package"" refto=""Mono.Android"" />
+                <Reference type = ""Package"" refto=""Mono.Android.Export"" />
+                <Reference type = ""Project"" refto=""${ProjectName}"" />
+            </References>
+            <Files>
+                $androidFilesNode
+            </Files>
+            <Packages>
+                <Package Id = ""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @"/>
+                <Package Id = ""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
+            </Packages>
+        </Project>
+        
+        <Project name = ""${ProjectName}.iOS"" directory=""./${ProjectName}.iOS"" type=""XamarinIOS"">
+            <Options/>
+            <References>
+                <Reference type = ""Package"" refto=""System.Core"" />
+                <Reference type = ""Package"" refto=""System.Xml"" />
+                <Reference type = ""Package"" refto=""Xamarin.iOS"" />
+                <Reference type = ""Project"" refto=""${ProjectName}"" />
+            </References>
+            <Files>
+                $iosFilesNode
+            </Files>
+            <Packages>
+                <Package Id = ""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @"/>
+                <Package Id = ""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
+            </Packages>
+        </Project>
+        
+    </Combine>
+</Template>";
+
+
+        #endregion        
     }
 }

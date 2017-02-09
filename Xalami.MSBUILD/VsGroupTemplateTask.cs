@@ -12,7 +12,7 @@ namespace Xalami.MSBUILD
     /// Xalami projects into project templates for deployment via the
     /// the VSIX.
     /// </summary>
-    public class GroupTemplateTask : Microsoft.Build.Utilities.Task
+    public class VsGroupTemplateTask : Microsoft.Build.Utilities.Task
     {
 
         #region ---- public properties  -------
