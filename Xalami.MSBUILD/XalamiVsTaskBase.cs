@@ -13,12 +13,11 @@ using System.Xml;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.IO.Compression;
-using FutuFormTemplate.MSBUILD;
 using System.Web;
 
 namespace Xalami.MSBUILD
 {   
-    public abstract class XalamiTask
+    public abstract class XalamiTaskBase
     {
         #region ---- Private Variables ----------------
 

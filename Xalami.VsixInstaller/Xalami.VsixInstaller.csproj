@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.props')" />
-  <UsingTask AssemblyFile="$(SolutionDir)CustomTaskOutputDir\Xalami.MSBUILD.dll" TaskName="GroupTemplateTask">
-  </UsingTask>
+  <UsingTask AssemblyFile="$(SolutionDir)CustomTaskOutputDir\Xalami.MSBUILD.dll" TaskName="GroupTemplateTask"/>    
   <PropertyGroup>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -79,6 +78,15 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Target Name="BeforeBuild">
-    <GroupTemplateTask UwpCsprojFile="$(SolutionDir)\Xalami\Xalami.UWP\Xalami.UWP.csproj" PclCsprojFile="$(SolutionDir)Xalami\Xalami\Xalami.csproj" AndroidCsprojFile="$(SolutionDir)Xalami\Xalami.Droid\Xalami.Droid.csproj" iOSCsprojFile="$(SolutionDir)Xalami\Xalami.iOS\Xalami.iOS.csproj" Wp8CsprojFile="$(SolutionDir)Xalami\Xalami.WinPhone\Xalami.WinPhone.csproj" ZipName="Xalami.zip" PreviewImagePath="$(SolutionDir)\Xalami.VsixInstaller\assets\preview_image_android_ios_uwp_wp8.png" IconPath="$(SolutionDir)\Xalami.VsixInstaller\assets\futulogosmall.png" ProjectFriendlyName="Xalami" TargetDir="$(SolutionDir)\Xalami.VsixInstaller\ProjectTemplates\CSharp\Cross-Platform\1033" />
+    <GroupTemplateTask UwpCsprojFile="$(SolutionDir)\Xalami\Xalami.UWP\Xalami.UWP.csproj" 
+					   PclCsprojFile="$(SolutionDir)Xalami\Xalami\Xalami.csproj" 
+					   AndroidCsprojFile="$(SolutionDir)Xalami\Xalami.Android\Xalami.Android.csproj" 
+					   iOSCsprojFile="$(SolutionDir)Xalami\Xalami.iOS\Xalami.iOS.csproj" 
+					   Wp8CsprojFile="$(SolutionDir)Xalami\Xalami.WinPhone\Xalami.WinPhone.csproj" 
+					   ZipName="Xalami.zip" 
+					   PreviewImagePath="$(SolutionDir)\Xalami.VsixInstaller\assets\preview_image_android_ios_uwp_wp8.png" 
+					   IconPath="$(SolutionDir)\Xalami.VsixInstaller\assets\futulogosmall.png" 
+					   ProjectFriendlyName="Xalami" 
+					   TargetDir="$(SolutionDir)\Xalami.VsixInstaller\ProjectTemplates\CSharp\Cross-Platform\1033" />	
   </Target>
 </Project>

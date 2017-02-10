@@ -1,12 +1,12 @@
 using Xalami.Services.DependencyInterfaces;
 using System.Globalization;
 using Java.Util;
-using Xalami.Droid.ServiceImplementations;
+using Xalami.Android.ServiceImplementations;
 using System.Threading;
 using Xalami.AppResources;
 
 [assembly: Xamarin.Forms.Dependency(typeof(LocalizeService))]
-namespace Xalami.Droid.ServiceImplementations
+namespace Xalami.Android.ServiceImplementations
 {
     public class LocalizeService : ILocalizeService
     {

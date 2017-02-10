@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami", "Xalami\Xalami\Xalami.csproj", "{62E6E1EE-FC58-4B8D-979C-77001E8B5994}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.Droid", "Xalami\Xalami.Droid\Xalami.Droid.csproj", "{FEEF7EDD-5179-4FD0-85AB-DF5DC112C5C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.Android", "Xalami\Xalami.Android\Xalami.Android.csproj", "{FEEF7EDD-5179-4FD0-85AB-DF5DC112C5C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.iOS", "Xalami\Xalami.iOS\Xalami.iOS.csproj", "{91141199-A2C0-4CA8-B4C4-45648C294420}"
 EndProject

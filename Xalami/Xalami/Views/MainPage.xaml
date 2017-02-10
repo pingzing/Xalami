@@ -10,7 +10,7 @@
         <StackLayout Orientation="Vertical"
                      VerticalOptions="Center"
                      HorizontalOptions="Center">
-            <Label Text="Welcome to the FutuForms Template! Here's a localized string: "             
+            <Label Text="Welcome to the Xalami! Here's a localized string: "             
                    HorizontalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center"
                    LineBreakMode="WordWrap"
@@ -20,7 +20,7 @@
                    HorizontalTextAlignment="Center"
                    LineBreakMode="WordWrap"
                    Style="{DynamicResource SubtitleStyle}"/>
-        </StackLayout>
+        </StackLayout>              
     </Grid>
 
 </ContentPage>

@@ -39,6 +39,15 @@ namespace Xalami.MSBUILD
             }
         }
 
+        internal static void DeleteCsproj(string containingFolder)
+        {
+            var dir = new DirectoryInfo(containingFolder);
+
+            foreach (var file in dir.EnumerateFiles("*.csproj"))
+            {
+                file.Delete();
+            }
+        }
 
         /// <summary>
         /// Reads the file.
@@ -83,7 +92,7 @@ namespace Xalami.MSBUILD
         /// <param name="sourceDirName"></param>
         /// <param name="destDirName"></param>
         /// <param name="copySubDirs"></param>
-        internal static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        internal static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, bool overwriteDuplicates = false)
         {
             if (sourceDirName.EndsWith("\\bin") || sourceDirName.EndsWith("\\obj"))
             {
@@ -112,7 +121,7 @@ namespace Xalami.MSBUILD
             foreach (FileInfo file in files)
             {
                 string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, false);
+                file.CopyTo(temppath, overwriteDuplicates);
             }
 
             // If copying subdirectories, copy them and their contents to new location.
@@ -121,7 +130,7 @@ namespace Xalami.MSBUILD
                 foreach (DirectoryInfo subdir in dirs)
                 {
                     string temppath = Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs, overwriteDuplicates);
                 }
             }
         }

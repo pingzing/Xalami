@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FutuFormTemplate.MSBUILD
+namespace Xalami.MSBUILD
 {
     internal class Constants
     {
@@ -231,7 +231,8 @@ $projectNode
         internal const string ANDROIDFILESKEY = "$androidFilesNode";
         internal const string IOSFILESKEY = "$iosFilesKey";
 
-        internal const string APTXMLTEXT = @"<Template>
+        internal const string APTXMLTEXT = @"<?xml version=""1.0""?>
+<Template>
     <TemplateConfiguration>
         <_Name>Xalami</_Name>
         <Category>other/net/xalami</Category>
@@ -247,17 +248,15 @@ $projectNode
     </Actions>
     
     <Combine name=""${ProjectName}"" directory=""."">		
-        <Project name = ""${ProjectName}"" directory=""./${ProjectName}"" type=""C#PortableLibrary"">
-            <Options Target = ""Library"" TargetFrameworkVersion="".NETPortable,Version=v4.5,Profile=Profile259""/>
+        <Project name=""${ProjectName}"" directory=""./${ProjectName}"" type=""C#PortableLibrary"">
+            <Options Target=""Library"" TargetFrameworkVersion="".NETPortable,Version=v4.5,Profile=Profile259""/>
             <References>
                 <Reference type = ""Package"" refto=""System""/>
-            </References>
-            <Files>
-                $pclFilesNode
-            </Files>
+            </References>            
+            $pclFilesNode            
             <Packages>
-                <Package Id = ""Xamarin.Forms"" version="+ XAMARINFORMSVERSION +@"/>
-                <Package Id = ""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
+                <Package Id=""Xamarin.Forms"" version="+ XAMARINFORMSVERSION +@"/>
+                <Package Id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
             </Packages>
         </Project>
 
@@ -266,38 +265,35 @@ $projectNode
                      ProductVersion=""8.0.30703"" SchemaVersion=""2.0"" AppDesignerFolder=""Properties"" FileAlignment=""512""
                      JavaMaximumHeapSize=""1G""/>
             <References>
-                <Reference type = ""Package"" refto=""mscorlib"" />
-                <Reference type = ""Package"" refto=""System"" />
-                <Reference type = ""Package"" refto=""System.Core"" />
-                <Reference type = ""Package"" refto=""System.Xml"" />
-                <Reference type = ""Package"" refto=""System.Xml.Linq"" />
-                <Reference type = ""Package"" refto=""Mono.Android"" />
-                <Reference type = ""Package"" refto=""Mono.Android.Export"" />
-                <Reference type = ""Project"" refto=""${ProjectName}"" />
-            </References>
-            <Files>
-                $androidFilesNode
-            </Files>
+                <Reference type=""Package"" refto=""mscorlib"" />
+                <Reference type=""Package"" refto=""System"" />
+                <Reference type=""Package"" refto=""System.Core"" />
+                <Reference type=""Package"" refto=""System.Xml"" />
+                <Reference type=""Package"" refto=""System.Xml.Linq"" />
+                <Reference type=""Package"" refto=""Mono.Android"" />
+                <Reference type=""Package"" refto=""Mono.Android.Export"" />
+                <Reference type=""Project"" refto=""${ProjectName}"" />
+            </References>            
+            $androidFilesNode            
             <Packages>
-                <Package Id = ""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @"/>
-                <Package Id = ""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
+                <Package Id=""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @"/>
+                <Package Id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
             </Packages>
         </Project>
         
-        <Project name = ""${ProjectName}.iOS"" directory=""./${ProjectName}.iOS"" type=""XamarinIOS"">
-            <Options/>
+        <Project name=""${ProjectName}.iOS"" directory=""./${ProjectName}.iOS"" type=""XamarinIOS"">
+            <Options TargetFrameworkVersion=""Xamarin.iOS,Version=v1.0"" />
             <References>
-                <Reference type = ""Package"" refto=""System.Core"" />
-                <Reference type = ""Package"" refto=""System.Xml"" />
-                <Reference type = ""Package"" refto=""Xamarin.iOS"" />
-                <Reference type = ""Project"" refto=""${ProjectName}"" />
-            </References>
-            <Files>
-                $iosFilesNode
-            </Files>
+                <Reference type=""Package"" refto=""System"" />
+                <Reference type=""Package"" refto=""System.Core"" />
+                <Reference type=""Package"" refto=""System.Xml"" />
+                <Reference type=""Package"" refto=""Xamarin.iOS"" />
+                <Reference type=""Project"" refto=""${ProjectName}"" />
+            </References>            
+            $iosFilesNode            
             <Packages>
-                <Package Id = ""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @"/>
-                <Package Id = ""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
+                <Package Id=""Xamarin.Forms"" version=" + XAMARINFORMSVERSION + @"/>
+                <Package Id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
             </Packages>
         </Project>
         

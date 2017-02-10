@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using FutuFormTemplate.MSBUILD;
 
 namespace Xalami.MSBUILD
 {
@@ -12,7 +11,7 @@ namespace Xalami.MSBUILD
     /// template projects into project templates for deployment via the
     /// the VSIX.
     /// </summary>
-    public class UwpVsTemplateTask : XalamiTask
+    public class UwpVsTemplateTask : XalamiTaskBase
     {     
         /// <summary>
         /// Executes this instance.
@@ -108,8 +107,7 @@ namespace Xalami.MSBUILD
             string xml = FileHelper.ReadFile(CsprojFile);
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
-            xml = Constants.UWPVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
-            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);            
+            xml = Constants.UWPVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);            
 
             string filePath = Path.Combine(tempFolder, Constants.UWPVSTEMPLATENAME);
 

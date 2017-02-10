@@ -1,5 +1,4 @@
-﻿using FutuFormTemplate.MSBUILD;
-using Microsoft.Build.Framework;
+﻿using Microsoft.Build.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,13 +74,39 @@ namespace Xalami.MSBUILD
         public string TargetDir { get; set; }
 
         public override bool Execute()
-        {
+        {            
             string tempFolder = Path.Combine(TargetDir, Constants.TEMPFOLDER);
 
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);
             }
+
+            string pclFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, "Xalami"), PclCsprojFile, "Xalami");
+            string androidFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, Constants.ANDROIDPLATFORMSUFFIX), AndroidCsprojFile, Constants.ANDROIDPLATFORMSUFFIX);
+            string iosFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, Constants.IOSPLATFORMSUFFIX), iOSCsprojFile, Constants.IOSPLATFORMSUFFIX);
+
+            string solutionAptText = Constants.APTXMLTEXT.Replace("$pclFilesNode", pclFilesNode);
+            solutionAptText = solutionAptText.Replace("$androidFilesNode", androidFilesNode);
+            solutionAptText = solutionAptText.Replace("$iosFilesNode", iosFilesNode);
+
+            string xptXmlFileName = "Xalami.Solution.xpt.xml";
+            string xptXmlPath = Path.Combine(tempFolder, xptXmlFileName);
+            FileHelper.WriteFile(xptXmlPath, solutionAptText);
+
+            FileHelper.DeleteCsproj(tempFolder);
+
+            FileHelper.DirectoryCopy(tempFolder, TargetDir, true, true);
+            try
+            {
+                Directory.Delete(tempFolder, true);
+            }
+            catch(Exception ex)
+            {
+                this.Log.LogMessage("Unable to delete temp folder. Error: " + ex.Message);
+            }
+
+            return true;
         }
     }
 }

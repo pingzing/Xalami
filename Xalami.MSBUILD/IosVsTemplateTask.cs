@@ -1,5 +1,4 @@
-﻿using FutuFormTemplate.MSBUILD;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Xalami.MSBUILD
 {
-    public class IosVsTemplateTask : XalamiTask
+    public class IosVsTemplateTask : XalamiTaskBase
     {
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
@@ -39,8 +38,7 @@ namespace Xalami.MSBUILD
             string xml = FileHelper.ReadFile(CsprojFile);
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
-            xml = Constants.IOSVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
-            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);                        
+            xml = Constants.IOSVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);            
 
             string filePath = Path.Combine(tempFolder, Constants.IOSVSTEMPLATENAME);
 

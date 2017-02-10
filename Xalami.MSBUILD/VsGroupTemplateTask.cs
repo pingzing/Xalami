@@ -1,5 +1,4 @@
-﻿using FutuFormTemplate.MSBUILD;
-using Microsoft.Build.Framework;
+﻿using Microsoft.Build.Framework;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;

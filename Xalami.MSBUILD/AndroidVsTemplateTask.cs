@@ -1,12 +1,11 @@
-﻿using FutuFormTemplate.MSBUILD;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System;
 
 namespace Xalami.MSBUILD
 {
-    public class AndroidVsTemplateTask : XalamiTask
+    public class AndroidVsTemplateTask : XalamiTaskBase
     {
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
@@ -36,8 +35,7 @@ namespace Xalami.MSBUILD
             string xml = FileHelper.ReadFile(CsprojFile);
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
-            xml = Constants.ANDROIDVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);
-            xml = xml.Replace(Constants.TEMPLATENAME, ProjectFriendlyName);                        
+            xml = Constants.ANDROIDVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);            
 
             string filePath = Path.Combine(tempFolder, Constants.ANDROIDVSTEMPLATENAME);
 
@@ -50,7 +48,7 @@ namespace Xalami.MSBUILD
 
             var replacements = new List<FindReplaceItem>();
 
-            replacements.Add(new FindReplaceItem() { Pattern = @"<application android:label=""(.*?).Droid""></application>", Replacement = @"<application android:label=""$$ext_safeprojectname$$.Droid""></application>" });
+            replacements.Add(new FindReplaceItem() { Pattern = @"<application android:label=""(.*?).Android""></application>", Replacement = @"<application android:label=""$$ext_safeprojectname$$.Android""></application>" });
 
             foreach (var item in replacements)
             {
