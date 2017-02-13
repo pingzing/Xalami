@@ -3,7 +3,6 @@
 
 # Project-specific stuff
 Xalami.VsixInstaller/ProjectTemplates/CSharp/Cross-Platform/1033/Xalami.zip
-CustomTaskOutputDir/Xalami.MSBUILD.dll
 *thumbs.db
 
 # User-specific files

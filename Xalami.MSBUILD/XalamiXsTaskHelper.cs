@@ -26,9 +26,19 @@ namespace Xalami.MSBUILD
             {
                 Directory.Delete(tempProjectFolder, true);
             }
-            string projectFolder = Path.GetDirectoryName(projectCsprojPath);
+            string projectFolder = Path.GetDirectoryName(projectCsprojPath);            
             CopyProjectFilesToTempFolder(projectFolder, tempProjectFolder);
-            ReplaceNamespace(tempProjectFolder, projectCsprojPath);
+
+            var packagesConfigPath = Directory.GetFiles(tempProjectFolder, "packages.config", SearchOption.TopDirectoryOnly)
+                .FirstOrDefault();
+            if (packagesConfigPath != null)
+            {
+                string configXml = FileHelper.ReadFile(packagesConfigPath);
+                configXml = EmptyPackagesConfigFile(configXml);
+                FileHelper.WriteFile(packagesConfigPath, configXml);
+            }
+
+            ReplaceNamespace(tempProjectFolder, projectCsprojPath);            
             return GenerateFilesNode(FileHelper.ReadFile(projectCsprojPath), projectName);
         }
 
@@ -107,8 +117,7 @@ namespace Xalami.MSBUILD
             XNamespace ns = "http://schemas.microsoft.com/developer/msbuild/2003";            
             string itemString = String.Empty;
             foreach (var node in xdoc.Descendants(ns + "ItemGroup"))
-            {
-                //todo: might need more than just the name here. might need DependentUpon info, etc too
+            {                
                 foreach(var item in node.Elements())
                 {
                     itemString = item.Attribute("Include").Value;
@@ -171,10 +180,18 @@ namespace Xalami.MSBUILD
             }
             //end serializing csproj items
                         
-            filesString.Insert(0, "<Files>");            
+            filesString.Insert(0, "<Files>" + Environment.NewLine);
             filesString.AppendLine("            </Files>");
 
             return filesString.ToString();            
+        }
+
+        private static string EmptyPackagesConfigFile(string packagesConfigXml)
+        {
+            int startIndex = packagesConfigXml.IndexOf("<packages>") + 10; //+10 because we don't want to chop the <packages> start tag off!
+            int endIndex = packagesConfigXml.IndexOf("</packages>");
+            string packagesNodes = packagesConfigXml.Substring(startIndex, endIndex - startIndex);
+            return packagesConfigXml.Replace(packagesNodes, "");
         }
     }
 }
