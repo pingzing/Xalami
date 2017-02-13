@@ -166,7 +166,11 @@ namespace Xalami.MSBUILD
                     {
                         filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" src=\"{projectTemplateFolderName}/{item.Path}\" />");
                     }
-                    else if (item.Path.EndsWith(".xaml.cs"))
+                    else if (item.Path.EndsWith(".resx"))
+                    {
+                        filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" src=\"{projectTemplateFolderName}/{item.Path}\" />");
+                    }
+                    else if (! String.IsNullOrEmpty(item.DependsOn))
                     {
                         filesString.AppendLine($"{indent}<File name=\"{item.Path}\" AddStandardHeaders=\"True\" src=\"{projectTemplateFolderName}/{item.Path}\" DependsOn=\"{item.DependsOn}\" />");
                     }
