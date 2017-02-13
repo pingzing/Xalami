@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="${ProjectName}.App" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <Application.Resources>
+    <ResourceDictionary>
+
+      <!--These styles are filled out in code-behind, and override the global Device Styles to 
+              accomodate the fact that they simply don't work on WP8.1 RT,
+              per Xamarin Forms bug 48783, tracked here: https://bugzilla.xamarin.com/show_bug.cgi?id=43783
+              This will be fixed by PR 703, here: https://github.com/xamarin/Xamarin.Forms/pull/703
+              which has been merged, but not yet released as of this writing.
+              Note that UWP and Windows 8 are affected as well, but to a lesser extent.-->
+      <Style x:Key="FixedBodyStyle" TargetType="Label" />
+      <Style x:Key="FixedCaptionStyle" TargetType="Label" />
+      <Style x:Key="FixedListItemTextStyle" TargetType="Label" />
+      <Style x:Key="FixedListItemDetailTextStyle" TargetType="Label" />
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>
