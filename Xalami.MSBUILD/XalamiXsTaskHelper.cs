@@ -103,7 +103,7 @@ namespace Xalami.MSBUILD
         }        
         
         private static string GenerateFilesNode(string csprojXml, string projectTemplateFolderName)
-        {            
+        {                             
             //Get project items
             List<CsprojItem> files = new List<CsprojItem>();
             XDocument xdoc;
@@ -118,16 +118,23 @@ namespace Xalami.MSBUILD
             {                
                 foreach(var item in node.Elements())
                 {
+                    //There's no way to sensibly bundle these. Besides, the tooling can just regenerate them.
+                    if (item.Name == ns + "iTunesArtwork")
+                    {
+                        continue;
+                    }
+
                     itemString = item.Attribute("Include").Value;
                     if (!string.IsNullOrEmpty(itemString)
                         && !itemString.Contains("=")
                         && !itemString.Contains(",")
-                        && !itemString.Contains(".csproj")
+                        && !itemString.Contains(".csproj")                        
                         && item.Name.LocalName != "Reference")
                     {
                         string dependentString = item.Descendants(ns + "DependentUpon").FirstOrDefault()?.Value;
 
-                        //need the decode here, because @ symbols are stored URL-encoded in csproj files. And those get used in iOS filenames!
+                        // Need the UrlDecode here, because @ symbols are stored URL-encoded in csproj files, but 
+                        // they need to be unencoded for the templates we generate.
                         files.Add(new CsprojItem(HttpUtility.UrlDecode(itemString), dependentString));
                     }
                 }
@@ -162,14 +169,10 @@ namespace Xalami.MSBUILD
                 }
                 else
                 {
-                    if (item.Path.EndsWith(".xaml"))
+                    if (item.Path.EndsWith(".xaml") || item.Path.EndsWith(".resx"))
                     {
                         filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" src=\"{projectTemplateFolderName}/{item.Path}\" />");
-                    }
-                    else if (item.Path.EndsWith(".resx"))
-                    {
-                        filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" src=\"{projectTemplateFolderName}/{item.Path}\" />");
-                    }
+                    }                    
                     else if (! String.IsNullOrEmpty(item.DependsOn))
                     {
                         filesString.AppendLine($"{indent}<File name=\"{item.Path}\" AddStandardHeaders=\"True\" src=\"{projectTemplateFolderName}/{item.Path}\" DependsOn=\"{item.DependsOn}\" />");
