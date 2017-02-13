@@ -70,7 +70,7 @@
     <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xalami.MSBUILD\Xalami.TemplateGenerator.csproj">
+    <ProjectReference Include="..\Xalami.TemplateGenerator\Xalami.TemplateGenerator.csproj">
       <Project>{4a45a516-ba8d-4986-b0d3-e058f01611b3}</Project>
       <Name>Xalami.TemplateGenerator</Name>
     </ProjectReference>

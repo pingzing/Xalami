@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.UWP", "Xalami\Xalami
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xalami.Installer", "Xalami.Installer", "{9E24E3AB-FE67-4B6E-8F78-650C1FB839FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.TemplateGenerator", "Xalami.MSBUILD\Xalami.TemplateGenerator.csproj", "{4A45A516-BA8D-4986-B0D3-E058F01611B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.TemplateGenerator", "Xalami.TemplateGenerator\Xalami.TemplateGenerator.csproj", "{4A45A516-BA8D-4986-B0D3-E058F01611B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.VsixInstaller", "Xalami.VsixInstaller\Xalami.VsixInstaller.csproj", "{CA949DEF-5D26-4E36-9427-4992250A468F}"
 EndProject
