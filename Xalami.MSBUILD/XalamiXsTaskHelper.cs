@@ -104,6 +104,8 @@ namespace Xalami.MSBUILD
         
         private static string GenerateFilesNode(string csprojXml, string projectTemplateFolderName)
         {
+            System.Diagnostics.Debugger.Launch();
+
             //Get project items
             List<CsprojItem> files = new List<CsprojItem>();
             XDocument xdoc;
