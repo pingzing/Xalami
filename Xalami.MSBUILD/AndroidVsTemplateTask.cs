@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
     public class AndroidVsTemplateTask : XalamiTaskBase
     {

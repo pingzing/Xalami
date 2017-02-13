@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
     public static class XalamiXsTaskHelper
     {

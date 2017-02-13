@@ -4,6 +4,7 @@
 # Project-specific stuff
 CustomTaskOutputDir/
 Xalami.VsixInstaller/ProjectTemplates/CSharp/Cross-Platform/1033/Xalami.zip
+TemplateGeneratorTool/Xalami.TemplateGenerator.exe
 *thumbs.db
 
 # User-specific files

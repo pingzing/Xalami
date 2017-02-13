@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 using System.IO.Compression;
 using System.Web;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {   
     public abstract class XalamiTaskBase
     {

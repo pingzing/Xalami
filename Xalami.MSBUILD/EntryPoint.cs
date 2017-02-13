@@ -5,79 +5,84 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
     public static class EntryPoint
     {
         private const string VisualStudioTarget = "vs";
         private const string XamarinStudioTarget = "xamarin";
+        private enum TargetPlatform { VisualStudio, XamarinStudio };
 
         public static void Main(string[] args)
-        {
+        {            
             CommandLineArgs opts = new CommandLineArgs();
             if (CommandLine.Parser.Default.ParseArguments(args, opts))
             {
                 if (opts.Target == VisualStudioTarget)
                 {
-                    
+                    ValidateArgs(opts, TargetPlatform.VisualStudio);
+                    var visualStudioTemplateTask = new VsGroupTemplateTask(opts.UwpCsproj, opts.PclCsprojPath, opts.AndroidCsproj,
+                        opts.IosCsproj, opts.Wp8Csproj, opts.ZipName, opts.PreviewImagePath, opts.IconImagePath, opts.ProjectFriendlyName,
+                        opts.TargetDir);
+
+                    visualStudioTemplateTask.Execute();
                 }
                 else if (opts.Target == XamarinStudioTarget)
                 {
-                    if (!File.Exists(Path.GetFullPath(opts.PclCsprojPath)))
-                    {
-                        PrintFileFailureAndSetExitCode(opts.PclCsprojPath);                        
-                        return;
-                    }
-                    if (!File.Exists(Path.GetFullPath(opts.AndroidCsproj)))
-                    {
-                        PrintFileFailureAndSetExitCode(opts.AndroidCsproj);                        
-                        return;
-                    }
-                    if (!File.Exists(Path.GetFullPath(opts.IosCsproj)))
-                    {
-                        PrintFileFailureAndSetExitCode(opts.IosCsproj);
-                        return;
-                    }
-                    if (!File.Exists(Path.GetFullPath(opts.PreviewImagePath)))
-                    {
-                        PrintFileFailureAndSetExitCode(opts.PreviewImagePath);
-                        return;
-                    }
-                    if (!File.Exists(Path.GetFullPath(opts.IconImagePath)))
-                    {
-                        PrintFileFailureAndSetExitCode(opts.IconImagePath);
-                        return;
-                    }
-                    if (!Directory.Exists(Path.GetFullPath(opts.TargetDir)))
-                    {
-                        PrintFileFailureAndSetExitCode(opts.TargetDir);
-                        return;
-                    }
-
+                    ValidateArgs(opts, TargetPlatform.XamarinStudio);
                     var xamarinTemplateTask = new XsSolutionTemplateTask(opts.PclCsprojPath, opts.AndroidCsproj, opts.IosCsproj,
                         opts.PreviewImagePath, opts.IconImagePath, opts.ProjectFriendlyName, opts.TargetDir);
-                    xamarinTemplateTask.Execute(); //!!!!
-                }
-                else
-                {
-                    PrintFailure(opts);
-                }
-            }
-            else
+
+                    xamarinTemplateTask.Execute(); 
+                }                
+            }            
+        }
+
+        private static void ValidateArgs(CommandLineArgs opts, TargetPlatform target)
+        {
+            if (!ValidateInputFilePaths(
+                    opts.PclCsprojPath,
+                    opts.AndroidCsproj,
+                    opts.IosCsproj, 
+                    opts.PreviewImagePath,
+                    opts.IconImagePath
+                ))
             {
-                PrintFailure(opts);
+                return;
+            }
+          
+            if (!Directory.Exists(Path.GetFullPath(opts.TargetDir)))
+            {
+                PrintFileFailureAndSetExitCode(opts.TargetDir);
+                return;
+            }
+
+            if (target == TargetPlatform.VisualStudio 
+                && !ValidateInputFilePaths(opts.UwpCsproj, opts.Wp8Csproj))
+            {
+                return;
             }
         }
 
-        public static void PrintFailure(CommandLineArgs opts)
+        private static bool ValidateInputFilePaths(params string[] paths)
         {
-            Console.WriteLine("Parsing arguments failed.\nUsage: " + opts.GetUsage());
-        }    
+            bool success = false;
+            foreach (string path in paths)
+            {
+                if (!File.Exists(Path.GetFullPath(path)))
+                {
+                    PrintFileFailureAndSetExitCode(path);
+                    return false;
+                }
+            }
+            success = true;
+            return success;
+        }        
         
-        public static void PrintFileFailureAndSetExitCode(string failedFile)
+        private static void PrintFileFailureAndSetExitCode(string failedFile)
         {
             Console.WriteLine("Parsing arguments failed. Unable to find the file or folder: " + failedFile);
             Environment.ExitCode = 1;
-        }
+        }        
     }
 }

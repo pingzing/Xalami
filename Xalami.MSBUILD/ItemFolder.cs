@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
     /// <summary>
     /// Used to keep track of the Item folders during conversion in vstemplate

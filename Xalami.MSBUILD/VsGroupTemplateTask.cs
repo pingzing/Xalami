@@ -1,17 +1,12 @@
 ﻿using Microsoft.Build.Framework;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
-    /// <summary>
-    /// A custom MSBuild Task that generates a Project Template ZIP file
-    /// and copies to the specified location. This is used to covert the existing
-    /// Xalami projects into project templates for deployment via the
-    /// the VSIX.
-    /// </summary>
-    public class VsGroupTemplateTask : Microsoft.Build.Utilities.Task
+    public class VsGroupTemplateTask
     {
 
         #region ---- public properties  -------
@@ -21,7 +16,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The csproj file.
         /// </value>
-        [Required]
         public string UwpCsprojFile { get; set; }
 
         /// <summary>
@@ -30,7 +24,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The csproj file.
         /// </value>
-        [Required]
         public string PclCsprojFile { get; set; }
 
         /// <summary>
@@ -39,7 +32,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The csproj file.
         /// </value>
-        [Required]
         public string AndroidCsprojFile { get; set; }
 
         /// <summary>
@@ -48,7 +40,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The csproj file.
         /// </value>        
-        [Required]
         public string iOSCsprojFile { get; set; }
 
         /// <summary>
@@ -57,7 +48,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The csproj file.
         /// </value>
-        [Required]
         public string Wp8CsprojFile { get; set; }
 
         /// <summary>
@@ -66,7 +56,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The name of the zip.
         /// </value>
-        [Required]
         public string ZipName { get; set; }        
 
         /// <summary>
@@ -75,7 +64,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The preview image path.
         /// </value>
-        [Required]
         public string PreviewImagePath { get; set; }
 
         /// <summary>
@@ -84,7 +72,6 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The path string that leads to the .ico or .png 32x32 image to be used for the icon.
         /// </value>
-        [Required]
         public string IconPath { get; set; }
 
 
@@ -94,10 +81,7 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The name of the project friendly.
         /// </value>
-        [Required]
         public string ProjectFriendlyName { get; set; }
-
-        public string TargetDir2 { get; set; }
 
         /// <summary>
         /// Gets or sets the target dir.
@@ -109,7 +93,23 @@ namespace Xalami.MSBUILD
 
         #endregion
 
-        public override bool Execute()
+        public VsGroupTemplateTask(string uwpCsprojFile, string pclCsprojFile, string androidCsprojFile, string iosCsprojFile,
+            string wp8CsprojFile, string zipName, string previewImagePath, string iconPath, string projectFriendlyName,
+            string targetDir)
+        {
+            UwpCsprojFile = uwpCsprojFile;
+            PclCsprojFile = pclCsprojFile;
+            AndroidCsprojFile = androidCsprojFile;
+            iOSCsprojFile = iosCsprojFile;
+            Wp8CsprojFile = wp8CsprojFile;
+            ZipName = zipName;
+            PreviewImagePath = previewImagePath;
+            IconPath = iconPath;
+            ProjectFriendlyName = projectFriendlyName;
+            TargetDir = targetDir;
+        }
+
+        public bool Execute()
         {
             string tempFolder = Path.Combine(TargetDir, Constants.TEMPFOLDER);
             if (Directory.Exists(tempFolder))
@@ -118,19 +118,19 @@ namespace Xalami.MSBUILD
             }            
 
             bool uwpSuccess = new UwpVsTemplateTask().Run(UwpCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            this.Log.LogMessage("UWP VSTemplate processed. Success: " + uwpSuccess);
+            Console.WriteLine("UWP VSTemplate processed. Success: " + uwpSuccess);
             
             bool wp8Success = new Wp8VsTemplateTask().Run(Wp8CsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            this.Log.LogMessage("WP8 VSTemplate processed. Success: " + wp8Success);
+            Console.WriteLine("WP8 VSTemplate processed. Success: " + wp8Success);
 
             bool androidSuccess = new AndroidVsTemplateTask().Run(AndroidCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            this.Log.LogMessage("Android VSTemplate processed. Success: " + androidSuccess);
+            Console.WriteLine("Android VSTemplate processed. Success: " + androidSuccess);
 
             bool iosSuccess = new IosVsTemplateTask().Run(iOSCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            this.Log.LogMessage("Android VSTemplate processed. Success: " + iosSuccess);
+            Console.WriteLine("Android VSTemplate processed. Success: " + iosSuccess);
 
             bool pclSuccess = new PclVsTemplateTask().Run(PclCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            this.Log.LogMessage("PCL VSTemplate process. Success: " + pclSuccess);
+            Console.WriteLine("PCL VSTemplate process. Success: " + pclSuccess);
 
             ProcessVSTemplate(tempFolder);
             CopyEmbeddedFilesToOutput(tempFolder);
@@ -186,14 +186,7 @@ namespace Xalami.MSBUILD
             {
                 File.Delete(zipFileName);
             }
-            ZipFile.CreateFromDirectory(tempFolder, zipFileName);
-
-            //-- now second one...
-            if (!string.IsNullOrWhiteSpace(TargetDir2))
-            {
-                string zipFileName2 = Path.Combine(TargetDir2, ZipName);
-                File.Copy(zipFileName, zipFileName2, true);
-            }
+            ZipFile.CreateFromDirectory(tempFolder, zipFileName);            
 
             //-- clean up the temporary folder
             Directory.Delete(tempFolder, true);

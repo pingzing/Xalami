@@ -1,4 +1,4 @@
-﻿namespace Xalami.MSBUILD
+﻿namespace Xalami.TemplateGenerator
 {
     /// <summary>
     /// Used in matching and replacing.

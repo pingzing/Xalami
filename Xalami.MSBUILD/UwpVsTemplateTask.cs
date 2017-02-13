@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
-    /// <summary>
-    /// A custom MSBuild Task that generates a Project Template ZIP file
-    /// and copies to the specified location. This is used to covert the existing
-    /// template projects into project templates for deployment via the
-    /// the VSIX.
-    /// </summary>
+
     public class UwpVsTemplateTask : XalamiTaskBase
     {     
         /// <summary>

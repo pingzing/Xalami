@@ -49,12 +49,10 @@
   <Import Project="..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.targets" Condition="Exists('..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.targets')" />
   
   <PropertyGroup>
-	<_TargetDir Condition=" '$(Configuration)' == 'Debug'">$(SolutionDir)/Xalami.XamarinStudioAddin/bin/Debug</_TargetDir>
-	<_TargetDir Condition=" '$(Configuration)' == 'Release'">$(SolutionDir)/Xalami.XamarinStudioAddin/bin/Release</_TargetDir>
-  </PropertyGroup>   
-  
+    <CreateVsixArgs>-t vs -p "$(SolutionDir)Xalami\Xalami\Xalami.csproj" -a "$(SolutionDir)Xalami\Xalami.Android\Xalami.Android.csproj" -i "$(SolutionDir)Xalami\Xalami.iOS\Xalami.iOS.csproj" -r "$(SolutionDir)Xalami.VsixInstaller\assets\preview_image_android_ios_uwp_wp8.png" -c "$(SolutionDir)Xalami.VsixInstaller\assets\futulogosmall.png" -f Xalami -d "$(TargetDir)"</CreateVsixArgs>
+  </PropertyGroup>
   <Target Name="BeforeBuild">
-	  <XsSolutionTemplateTask PclCsprojFile="$(SolutionDir)/Xalami/Xalami/Xalami.csproj" 
-							  AndroidCsprojFile="$(SolutionDir)/Xalami/Xalami.Android/Xalami.Android.csproj" iOSCsprojFile="$(SolutionDir)/Xalami/Xalami.iOS/Xalami.iOS.csproj" PreviewImagePath="$(SolutionDir)/Xalami.VsixInstaller/assets/preview_image_android_ios_uwp_wp8.png" IconPath="$(SolutionDir)/Xalami.VsixInstaller/assets/futulogosmall.png" ProjectFriendlyName="Xalami" TargetDir="$(_TargetDir)/Templates" />									  
+    <Exec Condition="'$(OS)' == 'Unix'" Command="mono $(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe $(CreateVsixArgs)" />
+    <Exec Condition="'$(OS)' != 'Unix'" Command="$(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe $(CreateVsixArgs)" />
   </Target>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
     internal class FileHelper
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xalami.MSBUILD
+namespace Xalami.TemplateGenerator
 {
     public class XsSolutionTemplateTask
     { 
