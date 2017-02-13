@@ -43,22 +43,20 @@ namespace Xalami.MSBUILD
         }
 
         private static void ReplaceNamespace(string tempFolder, string csprojPath)
-        {
+        {            
             string csprojXml = FileHelper.ReadFile(csprojPath);
             string rootNamespace = GetExistingRootNamespace(csprojXml);
-            string androidRootnamespace = $"{rootNamespace}.Android";
-            string iosRootnamespace = $"{rootNamespace}.iOS";
             var ext = new List<string> { ".cs", "xaml" };
             var files = Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories).Where(s => ext.Any(e => s.EndsWith(e)));
             foreach(var file in files)
-            {
+            {                
                 string text = FileHelper.ReadFile(file);
 
-                // ProjectName is scope-specific, so if we're in a project, we need to replace SolutionName.PlatformName, so we try 
-                // that first before just trying to replace the whole namespace in one go
-                text = text.Replace(androidRootnamespace, "${ProjectName}"); 
-                text = text.Replace(iosRootnamespace, "${ProjectName}");
-                text = text.Replace(rootNamespace, "${ProjectName}");
+                // We're using ${SolutionName} instead of ProjectName because ProjectName is scope-specific, and we never actually
+                // need to use the name of the current project--all the "holes" that we fill in with the namespace are just fine
+                // being the name of the solution.                
+                text = text.Replace(rootNamespace, "${SolutionName}");
+                                               
                 FileHelper.WriteFile(file, text);
             }
         }
