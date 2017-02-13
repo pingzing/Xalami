@@ -1,5 +1,4 @@
-﻿using Microsoft.Build.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,25 +7,23 @@ using System.Threading.Tasks;
 
 namespace Xalami.MSBUILD
 {
-    public class XsSolutionTemplateTask : Microsoft.Build.Utilities.Task
-    {
+    public class XsSolutionTemplateTask
+    { 
         /// <summary>
         /// Gets or sets the PCL csproj file.
         /// </summary>
         /// <value>
         /// The csproj file.
-        /// </value>
-        [Required]
-        public string PclCsprojFile { get; set; }
+        /// </value>        
+        public string PclCsprojFile { get; }
 
         /// <summary>
         /// Gets or sets the Android csproj file.
         /// </summary>
         /// <value>
         /// The csproj file.
-        /// </value>
-        [Required]
-        public string AndroidCsprojFile { get; set; }
+        /// </value>        
+        public string AndroidCsprojFile { get; }
 
         /// <summary>
         /// Gets or sets the iOS csproj file.
@@ -34,17 +31,16 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The csproj file.
         /// </value>        
-        [Required]
-        public string iOSCsprojFile { get; set; }
+  
+        public string iOSCsprojFile { get; }
 
         /// <summary>
         /// Gets or sets the preview image path.
         /// </summary>
         /// <value>
         /// The preview image path.
-        /// </value>
-        [Required]
-        public string PreviewImagePath { get; set; }
+        /// </value>      
+        public string PreviewImagePath { get; }
 
         /// <summary>
         /// Gets or sets the path to the icon images.
@@ -52,8 +48,7 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The path string that leads to the .ico or .png 32x32 image to be used for the icon.
         /// </value>
-        [Required]
-        public string IconPath { get; set; }
+        public string IconPath { get; }
 
 
         /// <summary>
@@ -62,8 +57,7 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The name of the project friendly.
         /// </value>
-        [Required]
-        public string ProjectFriendlyName { get; set; }        
+        public string ProjectFriendlyName { get; }        
 
         /// <summary>
         /// Gets or sets the target dir.
@@ -71,9 +65,21 @@ namespace Xalami.MSBUILD
         /// <value>
         /// The target dir.
         /// </value>
-        public string TargetDir { get; set; }
+        public string TargetDir { get; }
 
-        public override bool Execute()
+        public XsSolutionTemplateTask(string pclCsprojFile, string androidCsProjFile, string iosCsprojFile, string previewImagePath,
+            string iconPath, string projectFriendlyName, string targetDir)
+        {
+            PclCsprojFile = pclCsprojFile;
+            AndroidCsprojFile = androidCsProjFile;
+            iOSCsprojFile = iosCsprojFile;
+            PreviewImagePath = previewImagePath;
+            IconPath = iconPath;
+            ProjectFriendlyName = projectFriendlyName;
+            TargetDir = targetDir;
+        }
+
+        public bool Execute()
         {            
             string tempFolder = Path.Combine(TargetDir, Constants.TEMPFOLDER);
 
@@ -103,7 +109,7 @@ namespace Xalami.MSBUILD
             }
             catch(Exception ex)
             {
-                this.Log.LogMessage("Unable to delete temp folder. Error: " + ex.Message);
+                Console.WriteLine($"Unable to delete temp folder at {tempFolder}. Error: " + ex.Message);
             }
 
             return true;

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4A45A516-BA8D-4986-B0D3-E058F01611B3}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xalami.MSBUILD</RootNamespace>
     <AssemblyName>Xalami.MSBUILD</AssemblyName>
@@ -34,9 +34,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>Xalami.MSBUILD.EntryPoint</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Utilities.v12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -52,10 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidVsTemplateTask.cs" />
+    <Compile Include="CommandLineArgs.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CsprojItem.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="FindReplaceItem.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="XalamiVsTaskBase.cs" />
     <Compile Include="VsGroupTemplateTask.cs" />
     <Compile Include="IosVsTemplateTask.cs" />
@@ -70,6 +76,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="EmbeddedFiles\Application_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedFiles\futulogosmall.png" />
