@@ -49,10 +49,10 @@
   <Import Project="..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.targets" Condition="Exists('..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.targets')" />
   
   <PropertyGroup>
-    <CreateVsixArgs>-t vs -p "$(SolutionDir)Xalami\Xalami\Xalami.csproj" -a "$(SolutionDir)Xalami\Xalami.Android\Xalami.Android.csproj" -i "$(SolutionDir)Xalami\Xalami.iOS\Xalami.iOS.csproj" -r "$(SolutionDir)Xalami.VsixInstaller\assets\preview_image_android_ios_uwp_wp8.png" -c "$(SolutionDir)Xalami.VsixInstaller\assets\futulogosmall.png" -f Xalami -d "$(TargetDir)"</CreateVsixArgs>
+    <CreateVsixArgs>-t xamarin -p "$(SolutionDir)Xalami\Xalami\Xalami.csproj" -a "$(SolutionDir)Xalami\Xalami.Android\Xalami.Android.csproj" -i "$(SolutionDir)Xalami\Xalami.iOS\Xalami.iOS.csproj" -r "$(SolutionDir)Xalami.VsixInstaller\assets\preview_image_android_ios_uwp_wp8.png" -c "$(SolutionDir)Xalami.VsixInstaller\assets\futulogosmall.png" -f Xalami -d "$(TargetDir)Templates"</CreateVsixArgs>
   </PropertyGroup>
   <Target Name="BeforeBuild">
-    <Exec Condition="'$(OS)' == 'Unix'" Command="mono $(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe $(CreateVsixArgs)" />
-    <Exec Condition="'$(OS)' != 'Unix'" Command="$(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe $(CreateVsixArgs)" />
+    <Exec Condition="'$(OS)' == 'Unix'" Command="mono &quot;$(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe&quot; $(CreateVsixArgs)" />
+    <Exec Condition="'$(OS)' != 'Unix'" Command="&quot;$(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe&quot; $(CreateVsixArgs)" />
   </Target>
 </Project>

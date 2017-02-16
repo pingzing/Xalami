@@ -8,7 +8,7 @@ using Mono.Addins.Description;
 	Version = "1.0"
 )]
 
-[assembly: AddinName("Xalami.XamarinStudioAddin")]
+[assembly: AddinName("Xalami")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("Xalami.XamarinStudioAddin")]
-[assembly: AddinAuthor("nmca")]
+[assembly: AddinDescription("A template to kickstart your Xamarin Forms project. Produced with &lt;3 by Futurice.")]
+[assembly: AddinAuthor("Futurice")]

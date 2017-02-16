@@ -14,7 +14,13 @@ namespace Xalami.TemplateGenerator
         private enum TargetPlatform { VisualStudio, XamarinStudio };
 
         public static void Main(string[] args)
-        {            
+        {
+            if (args.Last().EndsWith("\"")) //An extra quotation mark
+            {
+                string str = args.Last();
+                str = str.Substring(0, str.Length - 1);
+                args[args.Length - 1] = str;
+            }            
             CommandLineArgs opts = new CommandLineArgs();
             if (CommandLine.Parser.Default.ParseArguments(args, opts))
             {

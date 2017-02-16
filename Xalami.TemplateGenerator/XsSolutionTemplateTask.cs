@@ -92,13 +92,15 @@ namespace Xalami.TemplateGenerator
             string androidFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, Constants.ANDROIDPLATFORMSUFFIX), AndroidCsprojFile, Constants.ANDROIDPLATFORMSUFFIX);
             string iosFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, Constants.IOSPLATFORMSUFFIX), iOSCsprojFile, Constants.IOSPLATFORMSUFFIX);
 
-            string solutionAptText = Constants.APTXMLTEXT.Replace("$pclFilesNode", pclFilesNode);
-            solutionAptText = solutionAptText.Replace("$androidFilesNode", androidFilesNode);
-            solutionAptText = solutionAptText.Replace("$iosFilesNode", iosFilesNode);
+            string solutionXptXml = Constants.XPTXMLTEXT.Replace("$pclFilesNode", pclFilesNode);
+            solutionXptXml = solutionXptXml.Replace("$androidFilesNode", androidFilesNode);
+            solutionXptXml = solutionXptXml.Replace("$iosFilesNode", iosFilesNode);
+            solutionXptXml = solutionXptXml.Replace(Constants.PREVIEWIMAGEKEY, Path.GetFileName(PreviewImagePath));
+            solutionXptXml = solutionXptXml.Replace(Constants.ICONKEY, Path.GetFileName(IconPath));
 
             string xptXmlFileName = "Xalami.Solution.xpt.xml";
             string xptXmlPath = Path.Combine(tempFolder, xptXmlFileName);
-            FileHelper.WriteFile(xptXmlPath, solutionAptText);
+            FileHelper.WriteFile(xptXmlPath, solutionXptXml);
 
             FileHelper.DeleteCsproj(tempFolder);
 

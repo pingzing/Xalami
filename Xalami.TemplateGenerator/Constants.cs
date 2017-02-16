@@ -231,14 +231,14 @@ $projectNode
         internal const string ANDROIDFILESKEY = "$androidFilesNode";
         internal const string IOSFILESKEY = "$iosFilesKey";
 
-        internal const string APTXMLTEXT = @"<?xml version=""1.0""?>
+        internal const string XPTXMLTEXT = @"<?xml version=""1.0""?>
 <Template>
     <TemplateConfiguration>
         <_Name>Xalami</_Name>
         <Category>other/net/xalami</Category>
         <LanguageName>C#</LanguageName>
-        <Icon></Icon>
-        <Icon32></Icon32>
+        <Icon>" + ICONKEY + @"</Icon>
+        <Icon32>" + PREVIEWIMAGEKEY + @"</Icon32>
         <_Description>A template to kickstart your Xamarin Forms project. Produced with &lt;3 by Futurice.</_Description>
         <DefaultFilename>Xalami</DefaultFilename>
         <FileExtension>.csproj</FileExtension>

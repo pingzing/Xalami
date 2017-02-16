@@ -75,8 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EmbeddedResource Include="EmbeddedFiles\Application_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="EmbeddedFiles\Application_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedFiles\futulogosmall.png" />

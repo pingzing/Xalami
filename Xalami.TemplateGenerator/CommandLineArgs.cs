@@ -33,13 +33,13 @@ namespace Xalami.TemplateGenerator
         [Option('d', "targetDir", HelpText = "Where the generated template files should go. For the Xamarin Studio addin, this should be the Templates folder under the ../Xalami.XamarinStudioAddin/ folder. For the Visual Studio Extension, this should be in folder underneath ../Xalami.VsixInstaller/ProjectTemplates.")]
         public string TargetDir { get; set; }
 
-        [Option('u', "uwpCsproj", HelpText = "The path to the Xalami UWP project's .csproj file.", MutuallyExclusiveSet = VsSetName, Required = true)]
+        [Option('u', "uwpCsproj", HelpText = "The path to the Xalami UWP project's .csproj file.", MutuallyExclusiveSet = VsSetName, Required = false)]
         public string UwpCsproj { get; set; }
 
-        [Option('w', "wp8Csproj", HelpText = "The path to the Xalami WP8 project's .csproj file.", MutuallyExclusiveSet = VsSetName, Required = true)]
+        [Option('w', "wp8Csproj", HelpText = "The path to the Xalami WP8 project's .csproj file.", MutuallyExclusiveSet = VsSetName, Required = false)]
         public string Wp8Csproj { get; set; }
 
-        [Option('z' ,"zipName", HelpText = "The name of the output .zip file that will contain all of the project template files.", MutuallyExclusiveSet = VsSetName, Required = true)]
+        [Option('z' ,"zipName", HelpText = "The name of the output .zip file that will contain all of the project template files.", MutuallyExclusiveSet = VsSetName, Required = false)]
         public string ZipName { get; set; }
 
         [HelpOption]
