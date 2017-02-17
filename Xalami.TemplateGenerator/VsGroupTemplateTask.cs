@@ -1,5 +1,4 @@
-﻿using Microsoft.Build.Framework;
-using System;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;

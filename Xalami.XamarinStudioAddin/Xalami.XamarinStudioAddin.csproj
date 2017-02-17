@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.props" Condition="Exists('..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.props')" />
+  <Import Project="..\packages\MonoDevelop.Addins.0.3.9\build\net40\MonoDevelop.Addins.props" Condition="Exists('..\packages\MonoDevelop.Addins.0.3.9\build\net40\MonoDevelop.Addins.props')" />
   <UsingTask AssemblyFile="$(SolutionDir)CustomTaskOutputDir\Xalami.MSBUILD.dll" TaskName="XsSolutionTemplateTask" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -37,9 +37,6 @@
     <EmbeddedResource Include="Icons\preview_image_android_ios_uwp_wp8.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Templates\" />
     <Folder Include="Icons\" />
   </ItemGroup>
@@ -48,9 +45,10 @@
 		<InProject>false</InProject>
 	</_CopyItems>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.targets" Condition="Exists('..\packages\MonoDevelop.Addins.0.3.8\build\net40\MonoDevelop.Addins.targets')" />
-  
   <PropertyGroup>
     <CreateVsixArgs>-t xamarin -p "$(SolutionDir)Xalami\Xalami\Xalami.csproj" -a "$(SolutionDir)Xalami\Xalami.Android\Xalami.Android.csproj" -i "$(SolutionDir)Xalami\Xalami.iOS\Xalami.iOS.csproj" -r "$(SolutionDir)Xalami.VsixInstaller\assets\preview_image_android_ios_uwp_wp8.png" -c "$(SolutionDir)Xalami.VsixInstaller\assets\futulogosmall.png" -f Xalami -d "$(TargetDir)Templates"</CreateVsixArgs>
   </PropertyGroup>
@@ -58,4 +56,5 @@
     <Exec Condition="'$(OS)' == 'Unix'" Command="mono &quot;$(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe&quot; $(CreateVsixArgs)" />
     <Exec Condition="'$(OS)' != 'Unix'" Command="&quot;$(SolutionDir)TemplateGeneratorTool\Xalami.TemplateGenerator.exe&quot; $(CreateVsixArgs)" />
   </Target>
+  <Import Project="..\packages\MonoDevelop.Addins.0.3.9\build\net40\MonoDevelop.Addins.targets" Condition="Exists('..\packages\MonoDevelop.Addins.0.3.9\build\net40\MonoDevelop.Addins.targets')" />
 </Project>
