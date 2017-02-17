@@ -1,3 +1,4 @@
+![Xalami Logo](/RepoImages/xalami-logo.png)
 # Xalami
 Nobody loves boilerplate, especially if feels like you rewrite it every time you start a new project. Xalami is a starting point for Xamarin Forms projects that includes a lot of elements you'll use in every project. It's also delicious!
 
