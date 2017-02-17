@@ -155,9 +155,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FutuFormsTemplate\FutuFormsTemplate.csproj">
-      <Project>{14542739-34ef-4323-9adc-58c6ca2dfbe5}</Project>
-      <Name>FutuFormsTemplate</Name>
+    <ProjectReference Include="..\Xalami\Xalami.csproj">
+      <Project>{62e6e1ee-fc58-4b8d-979c-77001e8b5994}</Project>
+      <Name>Xalami</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

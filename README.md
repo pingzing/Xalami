@@ -1,3 +1,4 @@
+![Xalami Logo](/RepoImages/xalami-logo.png)
 # Xalami
 Nobody loves boilerplate, especially if feels like you rewrite it every time you start a new project. Xalami is a starting point for Xamarin Forms projects that includes a lot of elements you'll use in every project. It's also delicious!
 
@@ -24,7 +25,21 @@ Xalami is *lightweight* but *opinionated*. This means that we expect you to use 
 -  You use XAML to define your UI
 
 ## Contributing
+### Guidelines
 [TBD]
+
+### Building
+#### The Installer
+The installer is made up of three projects:
+- The `Xalami.TemplateGenerator` project which generates a small .exe which is responsible for converting the runnable project into something packageable into a .vsix or .mdpack IDE extension.
+- The `Xalami.VsixInstaller` project, which generates a .vsix installer for Visual Studio.
+- The `Xalami.XamarinStudioAddin` project which generates (or will, anyway) an .mdpack installer for Xamarin Studio.
+
+In order to create a .vsix or .mdpack, first the `Xalami.TemplateGenerator` project must be built:
+- `git clone ` the repository.
+- Right-click the `Xalami.TemplateGenerator` project and select `Build`. This will create a Xalami.TemplateGenerator.exe, which will be copied into the `TemplateGeneratorTool` under the repository's root directory.
+- Then, simply right-click the project which builds the extension you're interested in and select `Build`!
+
 
 ## Credits
 Much love to [Futurice](http://futurice.com/) for making this possible.
