@@ -98,8 +98,12 @@ namespace Xalami.TemplateGenerator
                     }
                 }
             }
-        }        
-        
+        }
+
+        // A note: for generating the attributes for the files, a useful reference is MonoDevelop's
+        // SingleFileDescriptionTemplate.cs, which represents a <File> node for a MonoDevelop (aka
+        // Xamarin Studio aka Visual Studio for Mac) project template. It can be found here:
+        // https://github.com/mono/monodevelop/blob/master/main/src/core/MonoDevelop.Ide/MonoDevelop.Ide.Templates/SingleFileDescriptionTemplate.cs
         private static string GenerateFilesNode(string csprojXml, string projectTemplateFolderName)
         {                             
             //Get project items
@@ -116,7 +120,7 @@ namespace Xalami.TemplateGenerator
             {                
                 foreach(var item in node.Elements())
                 {
-                    //There's no way to sensibly bundle these. Besides, the tooling can just regenerate them.
+                    //We could bundle these as .png <RawFile>s, but there's no compelling reason to do so.
                     if (item.Name.ToString().ToLowerInvariant() == (ns + "iTunesArtwork").ToString().ToLowerInvariant())
                     {
                         continue;
@@ -130,10 +134,11 @@ namespace Xalami.TemplateGenerator
                         && item.Name.LocalName != "Reference")
                     {
                         string dependentString = item.Descendants(ns + "DependentUpon").FirstOrDefault()?.Value;
+                        string customToolString = item.Descendants(ns + "Generator").FirstOrDefault()?.Value;
 
                         // Need the UrlDecode here, because @ symbols are stored URL-encoded in csproj files, but 
                         // they need to be unencoded for the templates we generate.
-                        files.Add(new CsprojItem(HttpUtility.UrlDecode(itemString), dependentString));
+                        files.Add(new CsprojItem(HttpUtility.UrlDecode(itemString), dependentString, customToolString));
                     }
                 }
             }
@@ -167,10 +172,22 @@ namespace Xalami.TemplateGenerator
                 }
                 else
                 {
-                    if (item.Path.EndsWith(".xaml") || item.Path.EndsWith(".resx"))
+                    // If this gets much more complicated, we're going to need some kind of _real_ tokenizer.
+                    if (item.Path.EndsWith(".xaml"))
+                    {                                                
+                        filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" src=\"{projectTemplateFolderName}/{item.Path}\" />");                        
+                    }
+                    else if(item.Path.EndsWith(".resx"))
                     {
-                        filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" src=\"{projectTemplateFolderName}/{item.Path}\" />");
-                    }                    
+                        if (item.CustomTool != null)
+                        {
+                            filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" CustomTool=\"{item.CustomTool}\" src=\"{projectTemplateFolderName}/{item.Path}\" />");
+                        }
+                        else
+                        {
+                            filesString.AppendLine($"{indent}<File name=\"{item.Path}\" BuildAction=\"EmbeddedResource\" src=\"{projectTemplateFolderName}/{item.Path}\" />");
+                        }
+                    }              
                     else if (! String.IsNullOrEmpty(item.DependsOn))
                     {
                         filesString.AppendLine($"{indent}<File name=\"{item.Path}\" AddStandardHeaders=\"True\" src=\"{projectTemplateFolderName}/{item.Path}\" DependsOn=\"{item.DependsOn}\" />");
