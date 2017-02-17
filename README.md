@@ -25,14 +25,23 @@ Xalami is *lightweight* but *opinionated*. This means that we expect you to use 
 -  You use XAML to define your UI
 
 ## Contributing
+### Guidelines
 [TBD]
+
+### Building
+#### The Installer
+The installer is made up of three projects:
+- The `Xalami.TemplateGenerator` project which generates a small .exe which is responsible for converting the runnable project into something packageable into a .vsix or .mdpack IDE extension.
+- The `Xalami.VsixInstaller` project, which generates a .vsix installer for Visual Studio.
+- The `Xalami.XamarinStudioAddin` project which generates (or will, anyway) an .mdpack installer for Xamarin Studio.
+
+In order to create a .vsix or .mdpack, first the `Xalami.TemplateGenerator` project must be built:
+- `git clone ` the repository.
+- Right-click the `Xalami.TemplateGenerator` project and select `Build`. This will create a Xalami.TemplateGenerator.exe, which will be copied into the `TemplateGeneratorTool` under the repository's root directory.
+- Then, simply right-click the project which builds the extension you're interested in and select `Build`!
+
 
 ## Credits
 Much love to [Futurice](http://futurice.com/) for making this possible.
 
 Just as much love to the [Pepperoni App Kit](https://github.com/futurice/pepperoni-app-kit) which served as this project's inspiration.
-
-#### Quick Note for Posterity
-Building the Xamarin Studio Addin on Windows:
- - You'll want to download Xamarin Studio [from MonoDevelop's website](http://www.monodevelop.com/download/). Make sure you update it to latest after downloading. Latest Windows version should be 6.1.4.1.
- - Then, you have to get the Addin Maker addin (if you want to add a new Addin project, anyway). Doing this is hard. You need to build [Addin Maker](https://github.com/mhutch/MonoDevelop.AddinMaker) from source, and then compile it against MonoDevelop 6.1.4.1...which requires that you build [MonoDevelop 6.1.4.1](https://github.com/mono/monodevelop/commit/e606823f2dd01b4552216c013b597a73bec2068f) from source. These two steps will probably require an OSX machine--when I tried on Windows, both Windows builds were broken.
