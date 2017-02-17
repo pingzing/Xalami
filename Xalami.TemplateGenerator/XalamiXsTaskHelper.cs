@@ -117,7 +117,7 @@ namespace Xalami.TemplateGenerator
                 foreach(var item in node.Elements())
                 {
                     //There's no way to sensibly bundle these. Besides, the tooling can just regenerate them.
-                    if (item.Name == ns + "iTunesArtwork")
+                    if (item.Name.ToString().ToLowerInvariant() == (ns + "iTunesArtwork").ToString().ToLowerInvariant())
                     {
                         continue;
                     }

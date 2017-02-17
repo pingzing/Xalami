@@ -3,9 +3,9 @@
 	<Runtime>
 	</Runtime>
 
-	<Extension path="/MonoDevelop/Ide/ProjectTemplateCategories/other/net">
+	<!--<Extension path="/MonoDevelop/Ide/ProjectTemplateCategories/multiplatform/app">
 		<Category id="xalami" name="Xalami"/>
-	</Extension>
+	</Extension>-->
 
 	<Extension path="/MonoDevelop/Ide/ProjectTemplates">
 		<ProjectTemplate id="xalamiformssolution" file="Templates/Xalami.Solution.xpt.xml"/>>

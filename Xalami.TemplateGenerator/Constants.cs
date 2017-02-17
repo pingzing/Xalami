@@ -229,7 +229,7 @@ $projectNode
 <Template>
     <TemplateConfiguration>
         <_Name>Xalami</_Name>
-        <Category>other/net/xalami</Category>
+        <Category>crossplat/app/forms</Category>
         <LanguageName>C#</LanguageName>
         <Icon>res:Xalami.XamarinStudioAddin.Icons." + ICONKEY + @"</Icon>
         <Icon32>Icons/" + ICONKEY + @"</Icon32>
