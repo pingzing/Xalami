@@ -11,8 +11,7 @@ namespace Xalami.TemplateGenerator
         private enum TargetPlatform { VisualStudio, XamarinStudio };
 
         public static void Main(string[] args)
-        {
-            System.Diagnostics.Debugger.Launch();
+        {   
             if (args.Last().EndsWith("\"")) //An extra quotation mark
             {
                 string str = args.Last();
