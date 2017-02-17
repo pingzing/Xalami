@@ -33,12 +33,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
+    <EmbeddedResource Include="Icons\futulogosmall.png" />
+    <EmbeddedResource Include="Icons\preview_image_android_ios_uwp_wp8.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Templates\" />
+    <Folder Include="Icons\" />
   </ItemGroup>
   <ItemGroup>	
 	<_CopyItems Include="$(SolutionDir)/Xalami.XamarinStudioAddin/Templates/*.*">

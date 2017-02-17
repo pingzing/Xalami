@@ -237,8 +237,9 @@ $projectNode
         <_Name>Xalami</_Name>
         <Category>other/net/xalami</Category>
         <LanguageName>C#</LanguageName>
-        <Icon>" + ICONKEY + @"</Icon>
-        <Icon32>" + PREVIEWIMAGEKEY + @"</Icon32>
+        <PreviewImage>Icons/" + PREVIEWIMAGEKEY + @"</PreviewImage>
+        <Icon>Icons/" + PREVIEWIMAGEKEY + @"</Icon>
+        <Icon32>res:Xalami.XamarinStudioAddin.Icons." + ICONKEY + @"</Icon32>
         <_Description>A template to kickstart your Xamarin Forms project. Produced with &lt;3 by Futurice.</_Description>
         <DefaultFilename>Xalami</DefaultFilename>
         <FileExtension>.csproj</FileExtension>

@@ -96,7 +96,7 @@ namespace Xalami.TemplateGenerator
             solutionXptXml = solutionXptXml.Replace("$androidFilesNode", androidFilesNode);
             solutionXptXml = solutionXptXml.Replace("$iosFilesNode", iosFilesNode);
             solutionXptXml = solutionXptXml.Replace(Constants.PREVIEWIMAGEKEY, Path.GetFileName(PreviewImagePath));
-            solutionXptXml = solutionXptXml.Replace(Constants.ICONKEY, Path.GetFileName(IconPath));
+            solutionXptXml = solutionXptXml.Replace(Constants.ICONKEY, Path.GetFileName(IconPath));            
 
             string xptXmlFileName = "Xalami.Solution.xpt.xml";
             string xptXmlPath = Path.Combine(tempFolder, xptXmlFileName);

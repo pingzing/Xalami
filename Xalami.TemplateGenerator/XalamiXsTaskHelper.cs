@@ -83,7 +83,7 @@ namespace Xalami.TemplateGenerator
             FileHelper.DirectoryCopy(projectFolder, tempFolder, true);
         }
         
-        private static void CopyEmbeddedFilesToOutput(string targetDir)
+        public static void CopyEmbeddedFilesToOutput(string targetDir)
         {
             string[] names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
 
