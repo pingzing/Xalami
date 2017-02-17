@@ -2,7 +2,7 @@
 using CommandLine.Text;
 
 namespace Xalami.TemplateGenerator
-{    
+{
     public class CommandLineArgs
     {
         private const string VsSetName = "vs";

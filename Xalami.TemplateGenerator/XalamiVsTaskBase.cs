@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Xml.Linq;
-using System.Collections;
-using System.Xml.XPath;
-using System.Xml;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.IO.Compression;
 using System.Web;
+using System.Xml.Linq;
 
 namespace Xalami.TemplateGenerator
-{   
+{
     public abstract class XalamiTaskBase
     {
         #region ---- Private Variables ----------------

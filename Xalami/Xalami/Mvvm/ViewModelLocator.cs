@@ -3,11 +3,6 @@ using Xalami.ViewModels;
 using Xalami.Views;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xalami.Services.DependencyInterfaces;
 
