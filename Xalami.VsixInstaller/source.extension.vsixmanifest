@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="Xalami.VsixInstaller.34c00a59-7701-4be9-9bc0-9dd4d36958fb" Version="0.1.0" Language="en-US" Publisher="Futurice" />
+    <Identity Id="Xalami.VsixInstaller.34c00a59-7701-4be9-9bc0-9dd4d36958fb" Version="1.0.0" Language="en-US" Publisher="Futurice" />
     <DisplayName>Xalami</DisplayName>
     <Description xml:space="preserve">A Visual Studio template to kickstart creation of a Xamarin Forms project. Produced with &lt;3 by Futurice.</Description>
     <MoreInfo>https://github.com/futurice/Xalami</MoreInfo>
