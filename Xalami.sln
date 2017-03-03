@@ -21,6 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.VsixInstaller", "Xal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xalami.XamarinStudioAddin", "Xalami.XamarinStudioAddin\Xalami.XamarinStudioAddin.csproj", "{9F5A3700-6031-4ABB-994C-591C1A39FDD2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DBCEB450-CD2A-4A35-BE90-99AC74D98D50}"
+	ProjectSection(SolutionItems) = preProject
+		addin-project.xml = addin-project.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
