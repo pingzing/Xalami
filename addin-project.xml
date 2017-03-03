@@ -2,7 +2,7 @@
 <AddinProject appVersion="6.1">
 	<Project platforms="Mac">
 		<AddinFile>Xalami.XamarinStudioAddin/bin/Release/Xalami.XamarinStudioAddin.dll</AddinFile>
-		<BuildFile>Xalami.XamarinStudioAddin.csproj</BuildFile>
+		<BuildFile>Xalami.XamarinStudioAddin/Xalami.XamarinStudioAddin.csproj</BuildFile>
 		<BuildConfiguration>Release</BuildConfiguration>
 	</Project>
 </AddinProject>
