@@ -19,11 +19,11 @@ Or...
 ### Windows
 ...just dive in and [download it from the Visual Studio Marketplace](https://marketplace.visualstudio.com/vsgallery/026321a8-871e-49de-b129-196c6dad34c9).
 
+You can also download it directly from inside the Visual Studio. Go to Tools -> Extension Manager -> Online, and search for Xalami. After you install it, when you go File -> New -> Project, Xalami will be in your list under Visual C# -> Cross-Platform.
+
 ### Mac OSX
 
 ...get it from [the Releases in the repo](https://github.com/futurice/Xalami/releases/download/v1.0/Xalami.XS.Addin.mpack).
-
-If you're using Visual Studio, you can download it directly from inside the IDE. Go to Tools -> Extension Manager -> Online, and search for Xalami. After you install it, when you go File -> New -> Project, Xalami will be in your list under Visual C# -> Cross-Platform.
 
 We're working on getting an addin uploaded to the Xamarin Studio/VS for Mac addin gallery!
 
