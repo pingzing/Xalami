@@ -19,13 +19,13 @@ namespace Xalami.TemplateGenerator
                 args[args.Length - 1] = str;
             }            
             CommandLineArgs opts = new CommandLineArgs();
-            if (CommandLine.Parser.Default.ParseArguments(args, opts))
+            if (CommandLine.Parser.Default.ParseArguments<CommandLineArgs>(args).Tag == CommandLine.ParserResultType.Parsed)
             {
                 if (opts.Target == VisualStudioTarget)
                 {
                     ValidateArgs(opts, TargetPlatform.VisualStudio);
-                    var visualStudioTemplateTask = new VsGroupTemplateTask(opts.UwpCsproj, opts.PclCsprojPath, opts.AndroidCsproj,
-                        opts.IosCsproj, opts.Wp8Csproj, opts.ZipName, opts.PreviewImagePath, opts.IconImagePath, opts.ProjectFriendlyName,
+                    var visualStudioTemplateTask = new VsGroupTemplateTask(opts.UwpCsproj, opts.NetStandardCsprojPath, opts.AndroidCsproj,
+                        opts.IosCsproj, opts.ZipName, opts.PreviewImagePath, opts.IconImagePath, opts.ProjectFriendlyName,
                         opts.TargetDir);
 
                     visualStudioTemplateTask.Execute();
@@ -33,7 +33,7 @@ namespace Xalami.TemplateGenerator
                 else if (opts.Target == XamarinStudioTarget)
                 {
                     ValidateArgs(opts, TargetPlatform.XamarinStudio);
-                    var xamarinTemplateTask = new XsSolutionTemplateTask(opts.PclCsprojPath, opts.AndroidCsproj, opts.IosCsproj,
+                    var xamarinTemplateTask = new XsSolutionTemplateTask(opts.NetStandardCsprojPath, opts.AndroidCsproj, opts.IosCsproj,
                         opts.PreviewImagePath, opts.IconImagePath, opts.ProjectFriendlyName, opts.TargetDir);
 
                     xamarinTemplateTask.Execute(); 
@@ -44,7 +44,7 @@ namespace Xalami.TemplateGenerator
         private static void ValidateArgs(CommandLineArgs opts, TargetPlatform target)
         {
             if (!ValidateInputFilePaths(
-                    opts.PclCsprojPath,
+                    opts.NetStandardCsprojPath,
                     opts.AndroidCsproj,
                     opts.IosCsproj, 
                     opts.PreviewImagePath,
@@ -61,7 +61,7 @@ namespace Xalami.TemplateGenerator
             }
 
             if (target == TargetPlatform.VisualStudio 
-                && !ValidateInputFilePaths(opts.UwpCsproj, opts.Wp8Csproj))
+                && !ValidateInputFilePaths(opts.UwpCsproj))
             {
                 return;
             }

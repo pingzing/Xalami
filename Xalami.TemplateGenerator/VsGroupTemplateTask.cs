@@ -39,15 +39,7 @@ namespace Xalami.TemplateGenerator
         /// <value>
         /// The csproj file.
         /// </value>        
-        public string iOSCsprojFile { get; set; }
-
-        /// <summary>
-        /// Gets or sets the WP8 csproj file.
-        /// </summary>
-        /// <value>
-        /// The csproj file.
-        /// </value>
-        public string Wp8CsprojFile { get; set; }
+        public string iOSCsprojFile { get; set; }        
 
         /// <summary>
         /// Gets or sets the name of the zip.
@@ -93,14 +85,13 @@ namespace Xalami.TemplateGenerator
         #endregion
 
         public VsGroupTemplateTask(string uwpCsprojFile, string pclCsprojFile, string androidCsprojFile, string iosCsprojFile,
-            string wp8CsprojFile, string zipName, string previewImagePath, string iconPath, string projectFriendlyName,
+            string zipName, string previewImagePath, string iconPath, string projectFriendlyName,
             string targetDir)
         {
             UwpCsprojFile = uwpCsprojFile;
             PclCsprojFile = pclCsprojFile;
             AndroidCsprojFile = androidCsprojFile;
-            iOSCsprojFile = iosCsprojFile;
-            Wp8CsprojFile = wp8CsprojFile;
+            iOSCsprojFile = iosCsprojFile;            
             ZipName = zipName;
             PreviewImagePath = previewImagePath;
             IconPath = iconPath;
@@ -117,10 +108,7 @@ namespace Xalami.TemplateGenerator
             }            
 
             bool uwpSuccess = new UwpVsTemplateTask().Run(UwpCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("UWP VSTemplate processed. Success: " + uwpSuccess);
-            
-            bool wp8Success = new Wp8VsTemplateTask().Run(Wp8CsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("WP8 VSTemplate processed. Success: " + wp8Success);
+            Console.WriteLine("UWP VSTemplate processed. Success: " + uwpSuccess);                       
 
             bool androidSuccess = new AndroidVsTemplateTask().Run(AndroidCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             Console.WriteLine("Android VSTemplate processed. Success: " + androidSuccess);
@@ -128,14 +116,14 @@ namespace Xalami.TemplateGenerator
             bool iosSuccess = new IosVsTemplateTask().Run(iOSCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             Console.WriteLine("Android VSTemplate processed. Success: " + iosSuccess);
 
-            bool pclSuccess = new PclVsTemplateTask().Run(PclCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("PCL VSTemplate process. Success: " + pclSuccess);
+            bool netstandardSuccess = new NetStandardVsTemplateTask().Run(PclCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
+            Console.WriteLine("PCL VSTemplate process. Success: " + netstandardSuccess);
 
             ProcessVSTemplate(tempFolder);
             CopyEmbeddedFilesToOutput(tempFolder);
             ZipFiles(tempFolder, ZipName, TargetDir);
 
-            return uwpSuccess && wp8Success && iosSuccess && androidSuccess && pclSuccess;
+            return uwpSuccess && iosSuccess && androidSuccess && netstandardSuccess;
         }
 
         private void ProcessVSTemplate(string tempFolder)

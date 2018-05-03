@@ -2,8 +2,8 @@
 {
     internal class Constants
     {
-        internal const string XAMARINFORMSVERSION = "\"2.3.3.180\"";        
-        internal const string MVVMLIGHTVERSION = "\"5.3.0\"";
+        internal const string XAMARINFORMSVERSION = "\"2.5.1.444934\"";        
+        internal const string MVVMLIGHTVERSION = "\"5.4.1\"";
 
         internal const string TEMPFOLDER = "Temp";
 
@@ -48,13 +48,13 @@ $projectNode
     <Assembly>Microsoft.VisualStudio.Universal.TemplateWizards, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
     <FullClassName>Microsoft.VisualStudio.Universal.TemplateWizards.PlatformVersion.Wizard</FullClassName>
   </WizardExtension>
-  <WizardExtension>
-    <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
-    <FullClassName>Xamarin.VisualStudio.TemplateWizards.EnsureRegistryWizard</FullClassName>
-  </WizardExtension>
+   <WizardExtension>
+    <Assembly>Microsoft.VisualStudio.TemplateEngine.Wizard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateEngine.Wizard.TemplateEngineWizard</FullClassName>
+</WizardExtension>
   <WizardData>
     <packages repository=""registry"" keyName=""NETCoreSDK"" isPreunzipped=""true"">
-      <package id = ""Microsoft.NETCore.UniversalWindowsPlatform"" version=""5.0.0"" skipAssemblyReferences=""false"" />
+      <package id = ""Microsoft.NETCore.UniversalWindowsPlatform"" version=""6.1.0"" skipAssemblyReferences=""false"" />
     </packages>    
     <EnsureRegistryWizard>
       <Key>_Config\Projects\{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A}</Key>
@@ -85,10 +85,10 @@ $projectNode
     <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
     <FullClassName>Xamarin.VisualStudio.TemplateWizards.ExtractRootProjectNameWizard</FullClassName>
   </WizardExtension>  
-  <WizardExtension>
-    <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
-    <FullClassName>Xamarin.VisualStudio.TemplateWizards.AndroidTargetFrameworkVersionWizard</FullClassName>
-  </WizardExtension>    
+   <WizardExtension>
+    <Assembly>Microsoft.VisualStudio.TemplateEngine.Wizard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateEngine.Wizard.TemplateEngineWizard</FullClassName>
+</WizardExtension>
 </VSTemplate>";
 
         internal const string IOSPLATFORMSUFFIX = "iOS";
@@ -113,53 +113,15 @@ $projectNode
     <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
     <FullClassName>Xamarin.VisualStudio.TemplateWizards.ExtractRootProjectNameWizard</FullClassName>
   </WizardExtension>
-  <WizardExtension>
-    <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
-    <FullClassName>Xamarin.VisualStudio.TemplateWizards.SanitizedAssemblyNameWizard</FullClassName>
-  </WizardExtension>   
-</VSTemplate>";
+   <WizardExtension>
+    <Assembly>Microsoft.VisualStudio.TemplateEngine.Wizard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateEngine.Wizard.TemplateEngineWizard</FullClassName>
+</WizardExtension>   
+</VSTemplate>";       
 
-        internal const string WP8PLATFORMSUFFIX = "WinPhone";
-        internal const string WP8TEMPLATENAME = "WinPhone.vstemplate";
-        internal const string WP8TEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
-  <TemplateData>
-    <Name>Xalami.WinPhone</Name>    
-    <Icon>__TemplateIcon.ico</Icon>
-    <ProjectType>CSharp</ProjectType>
-    <ProjectSubType>Xalami</ProjectSubType>
-    <SortOrder>0</SortOrder>        
-    <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>FormsApp.WinPhone</DefaultName>
-    <ProvideDefaultName>true</ProvideDefaultName>
-    <LocationField>Enabled</LocationField>    
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>    
-  </TemplateData>
-  <TemplateContent PreferedSolutionConfiguration=""Debug|iPhone"">
-$projectNode
-</TemplateContent>  
-  <WizardExtension>
-    <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
-    <FullClassName>Xamarin.VisualStudio.TemplateWizards.ExtractRootProjectNameWizard</FullClassName>
-  </WizardExtension> 
-  <WizardExtension>
-    <Assembly>Microsoft.VisualStudio.WinRT.TemplateWizards, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
-    <FullClassName>Microsoft.VisualStudio.WinRT.TemplateWizards.CreateProjectCertificate.Wizard</FullClassName>
-  </WizardExtension>
-  <WizardExtension>
-    <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
-    <FullClassName>Xamarin.VisualStudio.TemplateWizards.EnsureRegistryWizard</FullClassName>
-  </WizardExtension>
-  <WizardData>       
-    <EnsureRegistryWizard>
-      <Key>_Config\Projects\{76F1466A-8B6D-4E39-A767-685A06062A39}</Key>
-      <Backout>false</Backout>
-    </EnsureRegistryWizard>
-  </WizardData>  
-</VSTemplate>";
-
-        internal const string PCLPLATFORMSUFFIX = ""; //This variable intentionally left blank.
-        internal const string PCLVSTEMPLATENAME = "PCL.vstemplate";
-        internal const string PCLVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
+        internal const string NETSTANDARDPLATFORMSUFFIX = ""; //This variable intentionally left blank.
+        internal const string NETSTANDARDVSTEMPLATENAME = "NetStandard.vstemplate";
+        internal const string NETSTANDARVSTEMPLATETEXT = @"<VSTemplate Version=""3.0.0"" xmlns=""http://schemas.microsoft.com/developer/vstemplate/2005"" Type=""Project"">
   <TemplateData>
     <Name>Xalami</Name>
     <Icon>__TemplateIcon.ico</Icon>
@@ -174,9 +136,9 @@ $projectNode
 $projectNode
 </TemplateContent>   
   <WizardExtension>
-    <Assembly>Xamarin.VisualStudio.TemplateWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756</Assembly>
-    <FullClassName>Xamarin.VisualStudio.TemplateWizards.FormsWizard</FullClassName>
-  </WizardExtension>    
+    <Assembly>Microsoft.VisualStudio.TemplateEngine.Wizard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>Microsoft.VisualStudio.TemplateEngine.Wizard.TemplateEngineWizard</FullClassName>
+</WizardExtension>
 </VSTemplate>";
 
         internal const string GROUPTEMPLATENAME = "Xalami.vstemplate";
@@ -200,7 +162,7 @@ $projectNode
     <TemplateContent>  
         <ProjectCollection>  
             <ProjectTemplateLink ProjectName = ""$safeprojectname$"" CopyParameters=""true"">
-                PCL\" + PCLVSTEMPLATENAME + @"
+                NETSTANDARD\" + NETSTANDARDVSTEMPLATENAME + @"
             </ProjectTemplateLink>
             <ProjectTemplateLink ProjectName = ""$safeprojectname$.UWP"" CopyParameters=""true"">
                 UWP\" + UWPVSTEMPLATENAME + @"
@@ -210,10 +172,7 @@ $projectNode
             </ProjectTemplateLink>
             <ProjectTemplateLink ProjectName = ""$safeprojectname$.Android"" CopyParameters=""true"">
                 Android\" + ANDROIDVSTEMPLATENAME + @"
-            </ProjectTemplateLink>
-            <ProjectTemplateLink ProjectName = ""$safeprojectname$.WinPhone"" CopyParameters=""true"">
-                WinPhone\" + WP8TEMPLATENAME + @"
-            </ProjectTemplateLink>
+            </ProjectTemplateLink>            
         </ProjectCollection>  
     </TemplateContent>  
 </VSTemplate>";
@@ -221,10 +180,13 @@ $projectNode
 
         #region Xamarin Studio Template
         internal const string FILENODE = "$fileNode";
-        internal const string PCLFILEKEY = "$pclFilesNode";
+        internal const string NETSTANDARDFILEKEY = "$netstandardFilesNode";
         internal const string ANDROIDFILESKEY = "$androidFilesNode";
         internal const string IOSFILESKEY = "$iosFilesKey";
 
+        // TODO: Completely redo this to mesh with the new template.json format.
+        // See https://github.com/jimbobbennett/MvvmCross-Templates/blob/master/MvvmCrossNativeSinglePage/.template.config/template.json for an example,
+        // and https://github.com/dotnet/templating/wiki/Reference-for-template.json for the schema.
         internal const string XPTXMLTEXT = @"<?xml version=""1.0""?>
 <Template>
     <TemplateConfiguration>
@@ -247,9 +209,9 @@ $projectNode
             <References>
                 <Reference type = ""Package"" refto=""System""/>
             </References>            
-            $pclFilesNode            
+            $netstandardFilesNode            
             <Packages>
-                <Package Id=""Xamarin.Forms"" version="+ XAMARINFORMSVERSION +@"/>
+                <Package Id=""Xamarin.Forms"" version=" + XAMARINFORMSVERSION +@"/>
                 <Package Id=""MvvmLightLibs"" version=" + MVVMLIGHTVERSION + @"/>
             </Packages>
         </Project>

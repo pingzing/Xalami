@@ -2,7 +2,7 @@
 
 namespace Xalami.TemplateGenerator
 {
-    public class PclVsTemplateTask : XalamiTaskBase
+    public class NetStandardVsTemplateTask : XalamiTaskBase
     {
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
@@ -10,7 +10,7 @@ namespace Xalami.TemplateGenerator
             ProjectFriendlyName = projectFriendlyName;            
             PreviewImagePath = previewImagePath;
 
-            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "PCL");
+            tempFolder = Path.Combine(targetDir, Constants.TEMPFOLDER, "NETSTANDARD");
             if (Directory.Exists(tempFolder))
             {
                 Directory.Delete(tempFolder, true);
@@ -22,7 +22,7 @@ namespace Xalami.TemplateGenerator
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, Constants.PCLPLATFORMSUFFIX);            
+            OperateOnCsProj(tempFolder, CsprojFile, Constants.NETSTANDARDPLATFORMSUFFIX);            
 
             return true;
         }
@@ -32,9 +32,9 @@ namespace Xalami.TemplateGenerator
             string xml = FileHelper.ReadFile(CsprojFile);
             string projectName = Path.GetFileName(CsprojFile);
             string projXml = GetProjectNode(xml, projectName);
-            xml = Constants.PCLVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);            
+            xml = Constants.NETSTANDARVSTEMPLATETEXT.Replace(Constants.PROJECTNODE, projXml);            
 
-            string filePath = Path.Combine(tempFolder, Constants.PCLVSTEMPLATENAME);
+            string filePath = Path.Combine(tempFolder, Constants.NETSTANDARDVSTEMPLATENAME);
 
             FileHelper.WriteFile(filePath, xml);
         }
