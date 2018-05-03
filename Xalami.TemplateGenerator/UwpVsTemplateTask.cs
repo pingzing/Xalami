@@ -31,7 +31,7 @@ namespace Xalami.TemplateGenerator
             FileHelper.DeletePackagesConfig(tempFolder);
             //FileHelper.DeleteProjectDotJson(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, Constants.UWPPLATFORMSUFFIX, true);
+            OperateOnCsProj(tempFolder, Constants.UWPPLATFORMSUFFIX, true);
             OperateOnManifest(Path.Combine(tempFolder, "Package.appxmanifest"));
             CopyEmbeddedFilesToOutput(tempFolder);
             
