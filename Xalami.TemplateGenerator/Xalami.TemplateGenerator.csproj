@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <OutputType>Exe</OutputType>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>    
+    <TargetFrameworks Condition="$(OS) != 'Windows_NT'">netstandard2.0</TargetFrameworks>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts\</PackageOutputPath>
   </PropertyGroup>
 
   <!--TODO: We need to make the VSIX and XamarinStudioAddin projects do a dotnet publish on this project, instead of assuming it'll be available.
@@ -11,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.2.1" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.6.85" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.6.85" />
   </ItemGroup>
 
 

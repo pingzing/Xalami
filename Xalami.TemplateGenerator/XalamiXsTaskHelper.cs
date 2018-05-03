@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Web;
@@ -138,7 +139,7 @@ namespace Xalami.TemplateGenerator
 
                         // Need the UrlDecode here, because @ symbols are stored URL-encoded in csproj files, but 
                         // they need to be unencoded for the templates we generate.
-                        files.Add(new CsprojItem(HttpUtility.UrlDecode(itemString), dependentString, customToolString));
+                        files.Add(new CsprojItem(WebUtility.UrlDecode(itemString), dependentString, customToolString));
                     }
                 }
             }

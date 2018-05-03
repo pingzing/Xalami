@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Xalami.TemplateGenerator
 {
-    public class IosVsTemplateTask : XalamiTaskBase
+    public class IosVsTemplateTask : XalamiVsTaskBase
     {
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
@@ -23,7 +23,7 @@ namespace Xalami.TemplateGenerator
 
             ReplaceNamespace(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, Constants.IOSPLATFORMSUFFIX);
+            OperateOnCsProj(tempFolder, Constants.IOSPLATFORMSUFFIX);
             OperateOnPlist(Path.Combine(tempFolder, "Info.plist"));           
             
             return true;

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Xml.Linq;
 
 namespace Xalami.TemplateGenerator
 {
-    public abstract class XalamiTaskBase
+    public abstract class XalamiVsTaskBase
     {
         #region ---- Private Variables ----------------
 
@@ -38,7 +38,7 @@ namespace Xalami.TemplateGenerator
             string csprojXml = FileHelper.ReadFile(CsprojFile);
             string rootNamespace = GetExistingRootNamespace(csprojXml);
             var ext = new List<string> { ".cs", ".xaml" };
-            var files = Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories).Where(s => ext.Any(e => s.EndsWith(e)));
+            var files = Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories).Where(s => ext.Any(e => s.EndsWith(e, StringComparison.InvariantCulture)));
             foreach (var file in files)
             {
                 string text = FileHelper.ReadFile(file);
@@ -76,7 +76,7 @@ namespace Xalami.TemplateGenerator
             {
                 using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream(item))
                 {
-                    var targetFile = Path.Combine(targetDir, Path.GetFileName(item.Substring(item.LastIndexOf("EmbeddedFiles.") + 14)));
+                    var targetFile = Path.Combine(targetDir, Path.GetFileName(item.Substring(item.LastIndexOf("EmbeddedFiles.", StringComparison.InvariantCulture) + 14)));
 
                     using (var fileStream = File.Create(targetFile))
                     {
@@ -91,9 +91,8 @@ namespace Xalami.TemplateGenerator
         /// <summary>
         /// Operates the on cs proj.
         /// </summary>
-        /// <param name="tempFolder">The temporary folder.</param>
-        /// <param name="csprojFile">The csproj file.</param>
-        protected void OperateOnCsProj(string tempFolder, string csprojFile, string platformSuffix, bool isWindows = false)
+        /// <param name="tempFolder">The temporary folder.</param>        
+        protected void OperateOnCsProj(string tempFolder, string platformSuffix, bool isWindows = false)
         {
             string fileName = Path.GetFileName(CsprojFile);
             string targetPath = Path.Combine(tempFolder, fileName);
@@ -253,7 +252,7 @@ namespace Xalami.TemplateGenerator
         protected void GetItemFolder(List<string> projectItems)
         {
             topFolder = new ItemFolder();
-            string[] stringSeparator = new string[] { @"\" };
+            string[] stringSeparator = { @"\" };
 
             foreach (var item in projectItems)
             {
@@ -373,7 +372,7 @@ namespace Xalami.TemplateGenerator
                         && !itemString.Contains(",")
                         && item.Name.LocalName != "Reference")
                     {                        
-                        files.Add(HttpUtility.UrlDecode(itemString)); //need the decode here, because @ symbols are stored URL-encoded in csproj files. And those get used in iOS filenames!
+                        files.Add(WebUtility.UrlDecode(itemString)); //need the decode here, because @ symbols are stored URL-encoded in csproj files. And those get used in iOS filenames!
                     }
                 }
             }

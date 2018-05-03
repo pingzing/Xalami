@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Xalami.TemplateGenerator
 {
-    public class AndroidVsTemplateTask : XalamiTaskBase
+    public class AndroidVsTemplateTask : XalamiVsTaskBase
     {
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
@@ -23,7 +23,7 @@ namespace Xalami.TemplateGenerator
 
             ReplaceNamespace(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, Constants.ANDROIDPLATFORMSUFFIX);
+            OperateOnCsProj(tempFolder, Constants.ANDROIDPLATFORMSUFFIX);
             OperateOnManifest(Path.Combine(tempFolder, "Properties/AndroidManifest.xml"));            
             
             return true;

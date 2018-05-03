@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace Xalami.TemplateGenerator
 {
 
-    public class UwpVsTemplateTask : XalamiTaskBase
+    public class UwpVsTemplateTask : XalamiVsTaskBase
     {     
         /// <summary>
         /// Executes this instance.

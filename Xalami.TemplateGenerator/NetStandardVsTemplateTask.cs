@@ -2,7 +2,7 @@
 
 namespace Xalami.TemplateGenerator
 {
-    public class NetStandardVsTemplateTask : XalamiTaskBase
+    public class NetStandardVsTemplateTask : XalamiVsTaskBase
     {
         public override bool Run(string csprojPath, string targetDir, string projectFriendlyName, string previewImagePath)
         {
@@ -22,7 +22,7 @@ namespace Xalami.TemplateGenerator
             ReplaceNamespace(tempFolder);
             FileHelper.DeleteKey(tempFolder);
             ProcessVSTemplate(tempFolder);
-            OperateOnCsProj(tempFolder, CsprojFile, Constants.NETSTANDARDPLATFORMSUFFIX);            
+            OperateOnCsProj(tempFolder, Constants.NETSTANDARDPLATFORMSUFFIX);            
 
             return true;
         }

@@ -2,10 +2,11 @@
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Xalami.TemplateGenerator
 {
-    public class VsGroupTemplateTask
+    public class VsGroupTemplateTask : Microsoft.Build.Utilities.Task
     {
 
         #region ---- public properties  -------
@@ -82,25 +83,17 @@ namespace Xalami.TemplateGenerator
         /// </value>
         public string TargetDir { get; set; }
 
-        #endregion
+        #endregion        
 
-        public VsGroupTemplateTask(string uwpCsprojFile, string pclCsprojFile, string androidCsprojFile, string iosCsprojFile,
-            string zipName, string previewImagePath, string iconPath, string projectFriendlyName,
-            string targetDir)
+        public override bool Execute()
         {
-            UwpCsprojFile = uwpCsprojFile;
-            NetStandardCsprojFile = pclCsprojFile;
-            AndroidCsprojFile = androidCsprojFile;
-            iOSCsprojFile = iosCsprojFile;            
-            ZipName = zipName;
-            PreviewImagePath = previewImagePath;
-            IconPath = iconPath;
-            ProjectFriendlyName = projectFriendlyName;
-            TargetDir = targetDir;
-        }
+            bool allSet = VerifyAllPropertiesSet();
+            if (!allSet)
+            {
+                Log.LogError("Missing one or more essential properties. Aborting.");
+                return false;
+            }
 
-        public bool Execute()
-        {
             string tempFolder = Path.Combine(TargetDir, Constants.TEMPFOLDER);
             if (Directory.Exists(tempFolder))
             {
@@ -108,23 +101,23 @@ namespace Xalami.TemplateGenerator
             }            
 
             bool uwpSuccess = new UwpVsTemplateTask().Run(UwpCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("UWP VSTemplate processed. Success: " + uwpSuccess);                       
+            Log.LogMessage("UWP VSTemplate processed. Success: " + uwpSuccess);                       
 
             bool androidSuccess = new AndroidVsTemplateTask().Run(AndroidCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("Android VSTemplate processed. Success: " + androidSuccess);
+            Log.LogMessage("Android VSTemplate processed. Success: " + androidSuccess);
 
             bool iosSuccess = new IosVsTemplateTask().Run(iOSCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("Android VSTemplate processed. Success: " + iosSuccess);
+            Log.LogMessage("Android VSTemplate processed. Success: " + iosSuccess);
 
             bool netstandardSuccess = new NetStandardVsTemplateTask().Run(NetStandardCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("NetStandard VSTemplate process. Success: " + netstandardSuccess);
+            Log.LogMessage("NetStandard VSTemplate process. Success: " + netstandardSuccess);
 
             ProcessVSTemplate(tempFolder);
             CopyEmbeddedFilesToOutput(tempFolder);
             ZipFiles(tempFolder, ZipName, TargetDir);
 
             return uwpSuccess && iosSuccess && androidSuccess && netstandardSuccess;
-        }
+        }        
 
         private void ProcessVSTemplate(string tempFolder)
         {
@@ -177,6 +170,33 @@ namespace Xalami.TemplateGenerator
 
             //-- clean up the temporary folder
             Directory.Delete(tempFolder, true);
+        }        
+
+        private bool VerifyAllPropertiesSet()
+        {
+            bool allSet = true;
+            allSet = VerifyPropertySet(UwpCsprojFile, nameof(UwpCsprojFile));
+            allSet = VerifyPropertySet(NetStandardCsprojFile, nameof(NetStandardCsprojFile));
+            allSet = VerifyPropertySet(AndroidCsprojFile, nameof(AndroidCsprojFile));
+            allSet = VerifyPropertySet(iOSCsprojFile, nameof(iOSCsprojFile));
+            allSet = VerifyPropertySet(ZipName, nameof(ZipName));
+            allSet = VerifyPropertySet(PreviewImagePath, nameof(PreviewImagePath));
+            allSet = VerifyPropertySet(IconPath, nameof(IconPath));
+            allSet = VerifyPropertySet(ProjectFriendlyName, nameof(ProjectFriendlyName));
+            allSet = VerifyPropertySet(TargetDir, nameof(TargetDir));
+
+            return allSet;
+        }
+
+        private bool VerifyPropertySet(string propertyValue, string propertyName)
+        {
+            if (String.IsNullOrWhiteSpace(propertyValue))
+            {
+                Log.LogError($"Property: {propertyName} was null, or whitespace.");
+                return false;
+            }
+
+            return true;
         }
     }
 }
