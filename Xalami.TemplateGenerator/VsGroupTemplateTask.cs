@@ -18,12 +18,12 @@ namespace Xalami.TemplateGenerator
         public string UwpCsprojFile { get; set; }
 
         /// <summary>
-        /// Gets or sets the PCL csproj file.
+        /// Gets or sets the NetStandard csproj file.
         /// </summary>
         /// <value>
         /// The csproj file.
         /// </value>
-        public string PclCsprojFile { get; set; }
+        public string NetStandardCsprojFile { get; set; }
 
         /// <summary>
         /// Gets or sets the Android csproj file.
@@ -89,7 +89,7 @@ namespace Xalami.TemplateGenerator
             string targetDir)
         {
             UwpCsprojFile = uwpCsprojFile;
-            PclCsprojFile = pclCsprojFile;
+            NetStandardCsprojFile = pclCsprojFile;
             AndroidCsprojFile = androidCsprojFile;
             iOSCsprojFile = iosCsprojFile;            
             ZipName = zipName;
@@ -116,8 +116,8 @@ namespace Xalami.TemplateGenerator
             bool iosSuccess = new IosVsTemplateTask().Run(iOSCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
             Console.WriteLine("Android VSTemplate processed. Success: " + iosSuccess);
 
-            bool netstandardSuccess = new NetStandardVsTemplateTask().Run(PclCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
-            Console.WriteLine("PCL VSTemplate process. Success: " + netstandardSuccess);
+            bool netstandardSuccess = new NetStandardVsTemplateTask().Run(NetStandardCsprojFile, TargetDir, ProjectFriendlyName, PreviewImagePath);
+            Console.WriteLine("NetStandard VSTemplate process. Success: " + netstandardSuccess);
 
             ProcessVSTemplate(tempFolder);
             CopyEmbeddedFilesToOutput(tempFolder);

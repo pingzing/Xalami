@@ -6,12 +6,12 @@ namespace Xalami.TemplateGenerator
     public class XsSolutionTemplateTask
     { 
         /// <summary>
-        /// Gets or sets the PCL csproj file.
+        /// Gets or sets the NetStandard csproj file.
         /// </summary>
         /// <value>
         /// The csproj file.
         /// </value>        
-        public string PclCsprojFile { get; }
+        public string NetStandardCsprojFile { get; }
 
         /// <summary>
         /// Gets or sets the Android csproj file.
@@ -66,7 +66,7 @@ namespace Xalami.TemplateGenerator
         public XsSolutionTemplateTask(string pclCsprojFile, string androidCsProjFile, string iosCsprojFile, string previewImagePath,
             string iconPath, string projectFriendlyName, string targetDir)
         {
-            PclCsprojFile = pclCsprojFile;
+            NetStandardCsprojFile = pclCsprojFile;
             AndroidCsprojFile = androidCsProjFile;
             iOSCsprojFile = iosCsprojFile;
             PreviewImagePath = previewImagePath;
@@ -84,11 +84,11 @@ namespace Xalami.TemplateGenerator
                 Directory.Delete(tempFolder, true);
             }
 
-            string pclFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, "Xalami"), PclCsprojFile, "Xalami");
+            string netStandardFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, "Xalami"), NetStandardCsprojFile, "Xalami");
             string androidFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, Constants.ANDROIDPLATFORMSUFFIX), AndroidCsprojFile, Constants.ANDROIDPLATFORMSUFFIX);
             string iosFilesNode = XalamiXsTaskHelper.PrepareProjectFolder(Path.Combine(TargetDir, Constants.TEMPFOLDER, Constants.IOSPLATFORMSUFFIX), iOSCsprojFile, Constants.IOSPLATFORMSUFFIX);
 
-            string solutionXptXml = Constants.XPTXMLTEXT.Replace("$pclFilesNode", pclFilesNode);
+            string solutionXptXml = Constants.XPTXMLTEXT.Replace("$netstandardFilesNode", netStandardFilesNode);
             solutionXptXml = solutionXptXml.Replace("$androidFilesNode", androidFilesNode);
             solutionXptXml = solutionXptXml.Replace("$iosFilesNode", iosFilesNode);
             solutionXptXml = solutionXptXml.Replace(Constants.PREVIEWIMAGEKEY, Path.GetFileName(PreviewImagePath));

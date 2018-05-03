@@ -10,5 +10,9 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(SolutionDir)TemplateGeneratorTool\$(TargetFileName)" OverwriteReadOnlyFiles="True" />
     <Copy SourceFiles="$(ProjectDir)$(OutDir)\CommandLine.dll" DestinationFiles="$(SolutionDir)TemplateGeneratorTool\CommandLine.dll" OverwriteReadOnlyFiles="True" />
-  </Target>
+  </Target>   
+  
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.2.1" />
+  </ItemGroup>
 </Project>

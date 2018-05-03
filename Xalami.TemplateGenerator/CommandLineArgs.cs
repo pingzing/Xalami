@@ -12,7 +12,7 @@ namespace Xalami.TemplateGenerator
             Required = true)]
         public string Target { get; set; }
 
-        [Option('n', "netstandardCSproj", HelpText = "The path to the the Xalami PCL's .csproj file.", Required = true)]
+        [Option('n', "netstandardCSproj", HelpText = "The path to the the Xalami NetStandard .csproj file.", Required = true)]
         public string NetStandardCsprojPath { get; set; }
         
         [Option('a', "androidCsproj", HelpText = "The path to the Xalami Android project's .csproj file.", Required = true)]

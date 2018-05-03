@@ -117,7 +117,7 @@ namespace Xalami.TemplateGenerator
                 csprojText = Regex.Replace(csprojText, item.Pattern, item.Replacement);
             }
 
-            csprojText = AdjustPclReference(csprojText);            
+            csprojText = AdjustNetStandardReference(csprojText);            
 
             FileHelper.WriteFile(targetPath, csprojText);
         }        
@@ -141,11 +141,11 @@ namespace Xalami.TemplateGenerator
         }
 
         /// <summary>
-        /// Adjusts the PCL ProjectReference node to use template replace parameters, and remove the Project node that contains the GUID.
+        /// Adjusts the NetStandard ProjectReference node to use template replace parameters, and remove the Project node that contains the GUID.
         /// </summary>        
         /// <param name="csprojText">The text of the csproj to modify.</param>
         /// <returns></returns>
-        protected string AdjustPclReference(string csprojText)
+        protected string AdjustNetStandardReference(string csprojText)
         {            
             if (!csprojText.Contains("csproj"))
             {
