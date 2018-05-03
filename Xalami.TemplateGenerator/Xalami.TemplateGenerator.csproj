@@ -2,17 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <ApplicationIcon />
     <OutputType>Exe</OutputType>
-    <StartupObject />
-  </PropertyGroup>   
-  
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(SolutionDir)TemplateGeneratorTool\$(TargetFileName)" OverwriteReadOnlyFiles="True" />
-    <Copy SourceFiles="$(ProjectDir)$(OutDir)\CommandLine.dll" DestinationFiles="$(SolutionDir)TemplateGeneratorTool\CommandLine.dll" OverwriteReadOnlyFiles="True" />
-  </Target>   
-  
+  </PropertyGroup>
+
+  <!--TODO: We need to make the VSIX and XamarinStudioAddin projects do a dotnet publish on this project, instead of assuming it'll be available.
+  We might even be able to move back to a more MSBuild approach, now that it's actually cross-platform.-->
+
+
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.2.1" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>
