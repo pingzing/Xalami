@@ -21,7 +21,7 @@ namespace Xalami.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new Xalami.App());
+            LoadApplication(new Xalami.Core.App());
         }
     }
 }

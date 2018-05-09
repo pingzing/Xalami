@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Futurice",
+  "classifications": [ "Mobile", "Xamarin.Forms" ],
+  "description": "A template to kickstart your Xamarin Forms project. Produced with <3 by Futurice.",
+  "name": "Xalami",
+  "defaultName": "Xalami",
+  "identity": "Xalami",
+  "groupIdentity": "Xalami",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "shortName": "xalami",
+  "sourceName": "Xalami",
+  "guids": [
+    "62E6E1EE-FC58-4B8D-979C-77001E8B5994",
+    "FEEF7EDD-5179-4FD0-85AB-DF5DC112C5C6",
+    "91141199-A2C0-4CA8-B4C4-45648C294420",
+    "6FE54C99-8F69-4184-BA9B-797E8196471A"
+  ],
+  "primaryOutputs": [
+    {
+      "path": "Xalami.Core\\Xalami.Core.csproj"
+    },
+    {
+      "path": "Xalami.Droid\\Xalami.Droid.csproj"
+    },
+    {
+      "path": "Xalami.iOS\\Xalami.iOS.csproj"
+    },
+    {
+      "path": "Xalami.UWP\\Xalami.UWP.csproj"
+    }
+  ]
+}

@@ -30,7 +30,7 @@ namespace Xalami.UWP
         public App()
         {
             //Resource hackery for .resx files. See WindowsRuntimeResourceManager for details.
-            WindowsRuntimeResourceManager.PatchResourceManagerForResource(typeof(AppResources.Strings));
+            WindowsRuntimeResourceManager.PatchResourceManagerForResource(typeof(Core.AppResources.Strings));
 
             this.InitializeComponent();
             this.Suspending += OnSuspending;

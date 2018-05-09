@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Xalami</id>
+    <version>2.0</version>
+    <description>
+      A template to kickstart your Xamarin Forms project. Produced with &lt;3 by Futurice.
+    </description>
+    <authors>Futurice</authors>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <title>Xalami</title>
+    <summary>This package is used by dotnet new to create a starter kit for Xamarin Forms that target iOS, Android, and UWP.</summary>
+    <projectUrl>https://github.com/futurice/xalami</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/futurice/Xalami/master/RepoImages/xalami-logo.png</iconUrl>
+    <tags>Xalami template Xamarin Forms Xamarin.Forms iOS Android UWP</tags>
+  </metadata>
+  <files>
+    <file src=".\Xalami\**" target="content" exclude=".\**\packages\**;**\bin\**;**\obj\**;**\.vs\**;**\*.user;"/>
+</files>
+</package>
