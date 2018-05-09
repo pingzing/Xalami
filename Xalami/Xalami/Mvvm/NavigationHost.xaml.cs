@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace Xalami.Mvvm
+namespace Xalami.Core.Mvvm
 {
 
     //TODO: XMLDoc everywheeeere

@@ -8,8 +8,8 @@
     <ProjectGuid>{62E6E1EE-FC58-4B8D-979C-77001E8B5994}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xalami</RootNamespace>
-    <AssemblyName>Xalami</AssemblyName>
+    <RootNamespace>Xalami.Core</RootNamespace>
+    <AssemblyName>Xalami.Core</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
@@ -60,10 +60,6 @@
     <Compile Include="Services\DependencyInterfaces\ILocalizeService.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Styles\FixedStyleDescendants.xaml.cs">
-      <DependentUpon>FixedStyleDescendants.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Styles\FixedStyleKeys.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -113,12 +109,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <EmbeddedResource Include="Styles\FixedStyleDescendants.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mvvm\NavigationHost.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

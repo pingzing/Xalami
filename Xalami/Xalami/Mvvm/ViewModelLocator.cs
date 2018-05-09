@@ -1,12 +1,12 @@
-﻿using Xalami.Services;
-using Xalami.ViewModels;
-using Xalami.Views;
+﻿using Xalami.Core.Services;
+using Xalami.Core.ViewModels;
+using Xalami.Core.Views;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using Xamarin.Forms;
-using Xalami.Services.DependencyInterfaces;
+using Xalami.Core.Services.DependencyInterfaces;
 
-namespace Xalami.Mvvm
+namespace Xalami.Core.Mvvm
 {
     public class ViewModelLocator
     {

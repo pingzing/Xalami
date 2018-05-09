@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Xalami.ExtensionMethods
+namespace Xalami.Core.ExtensionMethods
 {
     public static class SynchronizationContextExtensions
     {

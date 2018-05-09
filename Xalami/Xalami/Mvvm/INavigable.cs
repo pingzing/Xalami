@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Xalami.Mvvm
+namespace Xalami.Core.Mvvm
 {
     public interface INavigable
     {

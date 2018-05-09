@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xalami.AppResources
+namespace Xalami.Core.AppResources
 {
     /// <summary>
     /// Helper class for splitting locales like

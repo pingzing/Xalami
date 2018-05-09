@@ -1,7 +1,7 @@
-﻿using Xalami.Mvvm;
-using Xalami.Services;
+﻿using Xalami.Core.Mvvm;
+using Xalami.Core.Services;
 
-namespace Xalami.ViewModels
+namespace Xalami.Core.ViewModels
 {
     public class MainViewModel : NavigableViewModelBase
     {

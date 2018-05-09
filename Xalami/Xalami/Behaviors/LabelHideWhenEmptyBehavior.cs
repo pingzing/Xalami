@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Xalami.Behaviors
+namespace Xalami.Core.Behaviors
 {
     /// <summary>
     /// A behavior that will automatically hide a label if its Text property is empty or whitespace.

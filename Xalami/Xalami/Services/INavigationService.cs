@@ -1,4 +1,4 @@
-﻿using Xalami.Mvvm;
+﻿using Xalami.Core.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Xalami.Services
+namespace Xalami.Core.Services
 {
 
     //todo: xml doooooc

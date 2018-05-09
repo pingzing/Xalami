@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Xalami.Services.DependencyInterfaces
+namespace Xalami.Core.Services.DependencyInterfaces
 {
     public interface ILocalizeService
     {

@@ -1,9 +1,9 @@
-﻿using Xalami.ExtensionMethods;
-using Xalami.Services;
+﻿using Xalami.Core.ExtensionMethods;
+using Xalami.Core.Services;
 using GalaSoft.MvvmLight;
 using System.Threading.Tasks;
 
-namespace Xalami.Mvvm
+namespace Xalami.Core.Mvvm
 {
     public class NavigableViewModelBase : ViewModelBase, INavigable
     {

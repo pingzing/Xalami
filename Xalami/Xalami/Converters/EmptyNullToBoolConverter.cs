@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Xalami.Converters
+namespace Xalami.Core.Converters
 {
     public class EmptyNullToBoolConverter : IValueConverter
     {

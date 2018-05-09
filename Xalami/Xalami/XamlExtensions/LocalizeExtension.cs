@@ -1,12 +1,12 @@
-﻿using Xalami.AppResources;
-using Xalami.Services.DependencyInterfaces;
+﻿using Xalami.Core.AppResources;
+using Xalami.Core.Services.DependencyInterfaces;
 using System;
 using System.Globalization;
 using System.Resources;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Xalami.XamlExtensions
+namespace Xalami.Core.XamlExtensions
 {
     [ContentProperty("Text")]
     public class LocalizeExtension : IMarkupExtension

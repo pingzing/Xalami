@@ -1,8 +1,8 @@
-﻿using Xalami.ViewModels;
+﻿using Xalami.Core.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using Xamarin.Forms;
 
-namespace Xalami.Views
+namespace Xalami.Core.Views
 {
     public partial class MainPage : ContentPage
     {

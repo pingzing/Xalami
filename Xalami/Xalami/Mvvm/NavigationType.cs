@@ -1,4 +1,4 @@
-﻿namespace Xalami.Mvvm
+﻿namespace Xalami.Core.Mvvm
 {
     public enum NavigationType
     {

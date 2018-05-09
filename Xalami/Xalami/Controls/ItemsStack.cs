@@ -6,7 +6,7 @@ using System.Collections.Specialized;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Xalami.Controls
+namespace Xalami.Core.Controls
 {
     // Adapted slightly from Nicolas Ventimiglia's ItemStack at https://gist.github.com/NVentimiglia/2723411428cdbb72fac6 . Reused under the MIT License.
     /// <summary>
