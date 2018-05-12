@@ -6,10 +6,10 @@
   <Import Project="$(TemplatePackPropsFilePath)"
           Condition=" '$(TemplatePackPropsFilePath)' != '' and Exists('$(TemplatePackPropsFilePath)') " />
 
-  <PropertyGroup Label="TemplatePackInfo">
-    <Authors>Your name here</Authors>
-    <Description>A description for your template pack</Description>
-    <Version>1.0.0</Version>
+  <PropertyGroup Label="Xalami">
+    <Authors>Futurice</Authors>
+    <Description>A Visual Studio template to kickstart creation of a Xamarin Forms project. Produced with &lt;3 by Futurice.</Description>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Label="PackageConfiguration">
@@ -23,7 +23,7 @@
     <ExcludeFromPackage Include="$(TemplateSourceRoot)**/obj/**/*" />
     <ExcludeFromPackage Include="$(TemplateSourceRoot)**/*.user" />
     <ExcludeFromPackage Include="$(TemplateSourceRoot)**/*.suo" />
-    <ExcludeFromPackage Include="$(TemplateSourceRoot)**/.vs/**/*" />
+    <ExcludeFromPackage Include="$(TemplateSourceRoot)**/.vs/**/*" />    
     <ExcludeFromPackage Include="$(TemplateSourceRoot)**/.git/**/*" />
     <ExcludeFromPackage Include="$(TemplateSourceRoot)**/packages/**/*" />
 
@@ -49,7 +49,7 @@
   <Target Name="GetNuGetPath" Outputs="@(NuGetPackOutput)">
     <Message Text="NuGetPackOutput: [@(NuGetPackOutput)]" Importance="high"/>
   </Target>
-  <Target Name="DebugInfo" BeforeTargets="Build;Pack">
+  <Target Name="DebugInfo" BeforeTargets="Build;Pack">    
     <Message Text="Inner:TemplateSourceRoot: [$(TemplateSourceRoot)]" Importance="high"/>
   </Target>
   <!-- created with SideWaffle -->

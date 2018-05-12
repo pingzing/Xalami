@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		addin-project.xml = addin-project.xml
 		Xalami\.template.config\template.json = Xalami\.template.config\template.json
-		template.Xalami.vstemplate = template.Xalami.vstemplate
+		Xalami\.template.config\template.Xalami.vstemplate = Xalami\.template.config\template.Xalami.vstemplate
 		Xalami.nuspec = Xalami.nuspec
 	EndProjectSection
 EndProject
