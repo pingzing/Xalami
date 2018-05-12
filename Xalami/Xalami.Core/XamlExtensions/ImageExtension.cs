@@ -25,7 +25,7 @@ namespace Xalami.XamlExtensions
                 return "";
             }
 
-            if (Device.OS == TargetPlatform.Windows || Device.OS == TargetPlatform.WinPhone)
+            if (Device.RuntimePlatform == Device.UWP)
             {
                 return System.IO.Path.Combine("Assets/", Path);
             }

@@ -17,7 +17,7 @@ namespace Xalami.Core.XamlExtensions
 
         public LocalizeExtension()
         {
-            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+            if (Device.RuntimePlatform != Device.UWP)
             {
                 _ci = DependencyService.Get<ILocalizeService>().GetCurrentCultureInfo();
             }

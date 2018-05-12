@@ -16,6 +16,8 @@ namespace Xalami.UWP.Localization
      * into our resources', generated .resx.cs files and replaces the ResourceManager in them with a
      * ResourceLoader via Reflection.
      * More details in this blog post: https://blogs.msdn.microsoft.com/philliphoff/2014/11/19/missingmanifestresourceexception-when-using-portable-class-libraries-within-winrt/
+     * 
+     * This may no longer be necessary in .NET Land--we'll have to investigate.
      */
 
     public class WindowsRuntimeResourceManager : ResourceManager
