@@ -11,6 +11,10 @@ Included in the project are such tasty goodies as:
 - An ItemsStack control
 - And more!
 
+## Platforms
+
+Xalami supports: iOS, Android and UWP.
+
 ## Getting Started with Xalami
 Check out the [Getting Started](https://github.com/futurice/Xalami/wiki/Getting-Started) page on the wiki!
 
@@ -41,13 +45,15 @@ Xalami is *lightweight* but *opinionated*. This means that we expect you to use 
 ### Building
 #### The Installer
 The installer is made up of three projects:
-- The `Xalami.TemplateGenerator` project which generates a small .exe which is responsible for converting the runnable project into something packageable into a .vsix or .mdpack IDE extension.
 - The `Xalami.VsixInstaller` project, which generates a .vsix installer for Visual Studio.
 - The `Xalami.XamarinStudioAddin` project which generates (or will, anyway) an .mdpack installer for Xamarin Studio.
 
-In order to create a .vsix or .mdpack, first the `Xalami.TemplateGenerator` project must be built:
-- `git clone ` the repository.
-- Right-click the `Xalami.TemplateGenerator` project and select `Build`. This will create a Xalami.TemplateGenerator.exe, which will be copied into the `TemplateGeneratorTool` under the repository's root directory.
+- In order to build the templates, a .nupkg must first be generated from the .nuspec file in the project root:
+
+```bash
+nuget pack Xalami.nuspec
+```
+
 - Then, simply right-click the project which builds the extension you're interested in and select `Build`!
 
 
