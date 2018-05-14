@@ -17,6 +17,7 @@ namespace Xalami.Core.XamlExtensions
 
         public LocalizeExtension()
         {
+            // UWP natively supports CurrentCultureInfo, and doesn't need a platform service to translate it into something .NET-like.
             if (Device.RuntimePlatform != Device.UWP)
             {
                 _ci = DependencyService.Get<ILocalizeService>().GetCurrentCultureInfo();

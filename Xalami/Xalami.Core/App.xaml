@@ -4,10 +4,12 @@
              x:Class="Xalami.Core.App" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              d1p1:Ignorable="d" 
-             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
-  <Application.Resources>
-    <ResourceDictionary>
-      
-    </ResourceDictionary>
-  </Application.Resources>
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             
+             xmlns:mvvm="clr-namespace:Xalami.Core.Mvvm">
+    <Application.Resources>
+        <ResourceDictionary>
+            <mvvm:ViewModelLocator x:Key="Locator"/>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

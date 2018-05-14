@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using GalaSoft.MvvmLight.Ioc;
 using UIKit;
+using Xalami.Core;
+using Xalami.Core.Services.DependencyInterfaces;
+using Xalami.iOS.ServiceImplementations;
 
 namespace Xalami.iOS
 {
@@ -23,9 +27,20 @@ namespace Xalami.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+
+            App coreApp = new App();
+
+            RegisterPlatformServices();
+
+            LoadApplication(coreApp);
 
             return base.FinishedLaunching(app, options);
+        }
+
+        // Register any platform-specific implementations of services here.
+        private void RegisterPlatformServices()
+        {
+            SimpleIoc.Default.Register<ILocalizeService, LocalizeService>();
         }
     }
 }

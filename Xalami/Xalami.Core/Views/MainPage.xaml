@@ -1,25 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Xalami.Core.Views"
              x:Class="Xalami.Core.Views.MainPage"
-             xmlns:ext="clr-namespace:Xalami.Core.XamlExtensions"
-             xmlns:bhvrs="clr-namespace:Xalami.Core.Behaviors">
+                          
+             xmlns:ext="clr-namespace:Xalami.Core.XamlExtensions"             
+             
+             BindingContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}">
 
-    <Grid>
+    <Grid Margin="10, 0, 10, 0">
         <StackLayout Orientation="Vertical"
                      VerticalOptions="Center"
                      HorizontalOptions="Center">
+            
             <Label Text="Welcome to the Xalami! Here's a localized string: "             
                    HorizontalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center"
                    LineBreakMode="WordWrap"
                    Style="{DynamicResource SubtitleStyle}"/>
+            
             <Label Text="{ext:LocalizeExtension AppTitle}"
                    HorizontalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center"
                    LineBreakMode="WordWrap"
                    Style="{DynamicResource SubtitleStyle}"/>
+            
+            <Entry Text="{Binding UserEnteredText, Mode=OneWayToSource}"
+                   Placeholder="Text entered here will be passed to the second page!"/>
+            <Button Text="Go to second page."
+                    Command="{Binding NavigateToSecondPageCommand}"/>
         </StackLayout>              
     </Grid>
 

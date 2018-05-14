@@ -93,7 +93,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Localization\WindowsRuntimeResourceManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -128,6 +127,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLightLibsStd10">
+      <Version>5.4.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>2.5.1.527436</Version>

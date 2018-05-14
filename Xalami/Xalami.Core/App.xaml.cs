@@ -13,22 +13,30 @@ namespace Xalami.Core
 {    
     public partial class App : Application
     {
-        public ViewModelLocator Locator;
+        private bool _initialized;
 
+        public ViewModelLocator Locator;
         public NavigationHost MainNavigationHost { get; set; }
 
         public App()
         {
+            if (_initialized)
+            {
+                return;
+            }
+
+            _initialized = true;
+
             InitializeComponent();
             MainNavigationHost = new NavigationHost();
-            Locator = new ViewModelLocator();
+            Locator = (ViewModelLocator)Current.Resources["Locator"];
 
-            MainPage = new MainPage();
+            MainPage = MainNavigationHost;
         }        
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
-            // Handle when your app starts
+            await MainNavigationHost.PushAsync(new MainPage());
         }
 
         protected override void OnSleep()

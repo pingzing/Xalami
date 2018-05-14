@@ -1,11 +1,10 @@
 ﻿using Foundation;
-using Xalami.AppResources;
 using Xalami.iOS.ServiceImplementations;
-using Xalami.Services.DependencyInterfaces;
 using System.Globalization;
 using System.Threading;
+using Xalami.Core.AppResources;
+using Xalami.Core.Services.DependencyInterfaces;
 
-[assembly: Xamarin.Forms.Dependency(typeof(LocalizeService))]
 namespace Xalami.iOS.ServiceImplementations
 {
     public class LocalizeService : ILocalizeService
@@ -38,7 +37,7 @@ namespace Xalami.iOS.ServiceImplementations
                     // fallback to first characters, in this case "en"
                     try
                     {
-                        var fallback = ToDotnetFallbackLanguage(new PlatformCulture(netLanguage));
+                        var fallback = ToDotNetFallback(new PlatformCulture(netLanguage));
                         _ci = new CultureInfo(fallback);
                     }
                     catch (CultureNotFoundException)
@@ -68,7 +67,7 @@ namespace Xalami.iOS.ServiceImplementations
             }
             return netLanguage;
         }
-        string ToDotnetFallbackLanguage(PlatformCulture platCulture)
+        string ToDotNetFallback(PlatformCulture platCulture)
         {
             var netLanguage = platCulture.LanguageCode; // use the first part of the identifier (two chars, usually);
             switch (platCulture.LanguageCode)

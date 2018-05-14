@@ -22,22 +22,22 @@ namespace Xalami.Core.Mvvm
         /// <summary>
         /// Fires when the ViewModel is navigated to via the NavigationService.
         /// If you don't want to mark your overrides as async, return a 
-        /// CompletedTask using the <see cref="LocalTaskExtensions.CompletedTask"/>.
+        /// <see cref="Task.CompletedTask"/>.
         /// </summary>
         /// <returns></returns>
         public virtual async Task Activated(NavigationType navType)
         {
-            await LocalTaskExtensions.CompletedTask;
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Fires when the ViewModel is navigated from via the NavigationService.        
         /// If you don't want to mark your overrides as async, return a 
-        /// CompletedTask using the <see cref="LocalTaskExtensions.CompletedTask"/>.
+        /// <see cref="Task.CompletedTask"/>.
         /// </summary>
         public virtual async Task Deactivated()
         {
-            await LocalTaskExtensions.CompletedTask;
+            await Task.CompletedTask;
         }
     }
 }
